@@ -1,0 +1,23 @@
+@import "@/utils/variables.scss";
+
+.navbar {
+  width: 100%;
+  height: auto;
+  padding: 12px 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+
+    li {
+      display: flex;
+      align-items: center;
+      height: auto;
+      font-size: 1.1rem;
+    }
+  }
+}
