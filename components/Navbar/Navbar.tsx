@@ -1,32 +1,129 @@
+"use client";
 import Image from "next/image";
 import classes from "./navbar.module.scss";
 import { FaMagnifyingGlass, FaPerson } from "react-icons/fa6";
 import { FaShoppingCart } from "react-icons/fa";
+import { Fragment, useRef, useState } from "react";
+import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+import Link from "next/link";
+import Sale from "./Sale/Sale";
 
 const Navbar = () => {
-  return (
-    <nav className={classes.navbar}>
-      <Image width={50} height={25} alt="H" src="/img/logoHE.svg" />
-      <ul>
-        <li>Strona Główna</li>
-        <li>Sklep</li>
-        <li>Promocje</li>
-        <li>O Nas</li>
-        <li>Kontakt</li>
-      </ul>
+  const hamburger = useRef<HTMLInputElement>(null);
+  const { scrollY } = useScroll();
+  const [hidden, setHidden] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [onTop, setOnTop] = useState(true);
 
-      <ul>
-        <li>
-          <FaMagnifyingGlass />
-        </li>
-        <li>
-          <FaPerson />
-        </li>
-        <li>
-          <FaShoppingCart />
-        </li>
-      </ul>
-    </nav>
+  useMotionValueEvent(scrollY, "change", (latest: number) => {
+    const previous = scrollY.getPrevious() as number;
+    if (latest > previous && latest > 150) {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
+    if (latest > 50) {
+      setOnTop(false);
+    } else {
+      setOnTop(true);
+    }
+  });
+
+  const handleLinkClick = () => {
+    setVisible(false);
+    if (hamburger.current) {
+      hamburger.current.checked = false;
+    }
+  };
+
+  return (
+    <motion.div
+      variants={{
+        visible: { y: 0 },
+        hidden: { y: "-rem" },
+      }}
+      animate={hidden ? "hidden" : "visible"}
+      transition={{ duration: 0.35, ease: "easeInOut" }}
+      className={classes.sale}
+    >
+      <Sale />
+      <motion.nav className={classes.navbar}>
+        <Image width={50} height={25} alt="H" src="/img/logoHE.svg" />
+
+        <ul className={classes.desktop}>
+          <li>
+            <Link href="/">Home</Link>
+          </li>
+          <li>
+            <Link href="/">Shop</Link>
+          </li>
+          <li>
+            <Link href="/">Sale</Link>
+          </li>
+          <li>
+            <Link href="/">About</Link>
+          </li>
+          <li>
+            <Link href="/">Contact</Link>
+          </li>
+        </ul>
+
+        <ul className={classes.desktop}>
+          <li>
+            <FaMagnifyingGlass />
+          </li>
+          <li>
+            <FaShoppingCart />
+          </li>
+        </ul>
+        <label>
+          <input
+            ref={hamburger}
+            type="checkbox"
+            id="check"
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            onClick={(e: any) => {
+              // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+              e.target.checked ? setVisible(true) : setVisible(false);
+            }}
+            className="hidden"
+          />
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>
+
+        <motion.ul
+          variants={{
+            hide: {
+              translateX: "100%",
+            },
+            show: {
+              translateX: 0,
+            },
+          }}
+          animate={visible ? "show" : "hide"}
+          transition={{ ease: "easeInOut", duration: 0.5 }}
+          className={classes.mobile}
+        >
+          <li onClick={handleLinkClick}>
+            <Link href="/">Home</Link>
+          </li>
+          <li onClick={handleLinkClick}>
+            <Link href="/">Shop</Link>
+          </li>
+          <li onClick={handleLinkClick}>
+            <Link href="/">Sale</Link>
+          </li>
+          <li onClick={handleLinkClick}>
+            <Link href="/">About</Link>
+          </li>
+          <li onClick={handleLinkClick}>
+            <Link href="/">Contact</Link>
+          </li>
+        </motion.ul>
+      </motion.nav>
+    </motion.div>
   );
 };
 

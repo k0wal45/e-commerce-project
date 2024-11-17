@@ -7,8 +7,41 @@ body {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  line-height: 1.5;
+  line-height: 1.3;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.hidden {
+  display: none;
+}
+
+.placeholder {
+  height: 100vh;
+}
+
+.basicbutton {
+  padding: 1rem 3rem;
+  background-color: white;
+  border: solid 2px white;
+  color: black;
+  border-radius: 1000rem;
+  height: fit-content;
+  font-weight: 600;
+  font-size: 1.2rem;
+  transition: all 0.1s ease-in-out;
+}
+
+.basicbutton:hover {
+  transform: scale(1.05);
+}
+
+.basicbutton:active {
+  transform: scale(0.98);
 }

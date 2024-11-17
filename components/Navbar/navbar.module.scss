@@ -1,23 +1,117 @@
 @import "@/utils/variables.scss";
 
-.navbar {
-  width: 100%;
-  height: auto;
-  padding: 12px 4rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  ul {
+.sale {
+  position: fixed;
+  z-index: 50;
+  .navbar {
+    width: 100vw;
+    height: auto;
+    padding: 12px 1rem;
     display: flex;
-    list-style: none;
-    gap: 2rem;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    position: relative;
+    a:hover {
+      text-decoration: underline;
+    }
 
-    li {
+    ul {
+      list-style: none;
+      gap: 2rem;
+
+      li {
+        display: flex;
+        align-items: center;
+        height: auto;
+        font-size: 1.1rem;
+      }
+    }
+
+    .desktop {
+      display: none;
+    }
+
+    .mobile {
+      height: 100vh;
       display: flex;
-      align-items: center;
-      height: auto;
-      font-size: 1.1rem;
+      align-items: end;
+      flex-direction: column;
+      position: absolute;
+      font-weight: 700;
+      top: 0;
+      right: 0;
+      z-index: 1;
+      padding: 1rem 1rem 0 2rem;
+      padding-top: 6rem;
+      background: linear-gradient(
+        270deg,
+        $primary 0%,
+        rgba(255, 255, 255, 0.2) 100%
+      );
+    }
+
+    // hamburger
+
+    label {
+      display: flex;
+      flex-direction: column;
+      width: 40px;
+      cursor: pointer;
+      z-index: 3;
+    }
+
+    label span {
+      background: #fff;
+      border-radius: 10px;
+      height: 3px;
+      margin: 3px 0;
+      transition: 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+    }
+
+    span:nth-of-type(1) {
+      display: block;
+      width: 50%;
+    }
+
+    span:nth-of-type(2) {
+      display: block;
+      width: 100%;
+    }
+
+    span:nth-of-type(3) {
+      display: block;
+      width: 75%;
+    }
+
+    input[type="checkbox"]:checked ~ span:nth-of-type(1) {
+      transform-origin: bottom;
+      transform: rotatez(45deg) translate(6px, 7px);
+      width: 100%;
+      background: #fff;
+    }
+
+    input[type="checkbox"]:checked ~ span:nth-of-type(2) {
+      transform-origin: top;
+      transform: rotatez(-45deg) translate(-1px, 0px);
+      background: #fff;
+    }
+
+    input[type="checkbox"]:checked ~ span:nth-of-type(3) {
+      width: 0;
+    }
+
+    @media (min-width: 768px) {
+      padding: 12px 4rem;
+
+      .desktop {
+        display: flex;
+      }
+
+      label,
+      label * {
+        display: none;
+      }
     }
   }
 }
