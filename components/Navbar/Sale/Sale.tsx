@@ -1,11 +1,17 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import styles from "./sale.module.scss";
+import classes from "./sale.module.scss";
+import { FaXmark } from "react-icons/fa6";
 
-const Sale = () => {
+// Sale.tsx
+type SaleProps = {
+  setAdOff: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const Sale: React.FC<SaleProps> = ({ setAdOff }) => {
   return (
-    <div className={styles["ribbon-wrapper"]}>
+    <div className={classes.ribbonWrapper}>
       <TranslateWrapper reverse>
         <LogoItemsBottom />
       </TranslateWrapper>
@@ -15,6 +21,11 @@ const Sale = () => {
       <TranslateWrapper reverse>
         <LogoItemsBottom />
       </TranslateWrapper>
+      <div className={classes.overlay}>
+        <button onClick={() => setAdOff(true)}>
+          <FaXmark />
+        </button>
+      </div>
     </div>
   );
 };
@@ -31,7 +42,7 @@ const TranslateWrapper = ({
       initial={{ translateX: reverse ? "-100%" : "0%" }}
       animate={{ translateX: reverse ? "0%" : "-100%" }}
       transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-      className={styles["translate-wrapper"]}
+      className={classes.translateWrapper}
     >
       {children}
     </motion.div>

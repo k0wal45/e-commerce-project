@@ -1,21 +1,124 @@
-html,
-body {
-  scroll-behavior: smooth;
-}
+/* inspired by Normalize.css */
 
-* {
-  box-sizing: border-box;
-  padding: 0;
+*,
+*::before,
+*::after {
   margin: 0;
-  line-height: 1.3;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-family: inherit;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-a {
+/* Use a more intuitive box model */
+html {
+  line-height: 1.5; /* Better readability */
+  text-size-adjust: 100%; /* Prevent resizing of text on mobile */
+}
+
+/* Remove list styles */
+ol,
+ul {
+  list-style: none;
+}
+
+/* Remove quotes from blockquote and q elements */
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote::before,
+blockquote::after,
+q::before,
+q::after {
+  content: "";
+}
+
+/* Reset table border collapse */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Make images and videos responsive by default */
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Reset form elements */
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  line-height: inherit;
   color: inherit;
+  margin: 0;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+/* Make buttons more accessible */
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+/* Reset headings to avoid browser-specific styles */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/* Reset links */
+a {
   text-decoration: none;
+  color: inherit;
+}
+
+/* Add basic focus styles */
+:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+/* Adjust preformatted text */
+pre {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+/* Reset SVG display */
+svg {
+  display: block;
+}
+
+/* Reset buttons and inputs appearance for cross-browser consistency */
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  appearance: button;
+}
+
+::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+/* Add scroll behavior */
+html {
+  scroll-behavior: smooth;
 }
 
 .hidden {

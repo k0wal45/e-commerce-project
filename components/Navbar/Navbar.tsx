@@ -1,9 +1,9 @@
 "use client";
 import Image from "next/image";
 import classes from "./navbar.module.scss";
-import { FaMagnifyingGlass, FaPerson } from "react-icons/fa6";
+import { FaMagnifyingGlass } from "react-icons/fa6";
 import { FaShoppingCart } from "react-icons/fa";
-import { Fragment, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import Link from "next/link";
 import Sale from "./Sale/Sale";
@@ -14,15 +14,25 @@ const Navbar = () => {
   const [hidden, setHidden] = useState(false);
   const [visible, setVisible] = useState(false);
   const [onTop, setOnTop] = useState(true);
+  const [adOff, setAdOff] = useState(false);
+
+  useEffect(() => {
+    if (adOff) {
+      setHidden(true);
+    }
+  }, [adOff]);
 
   useMotionValueEvent(scrollY, "change", (latest: number) => {
     const previous = scrollY.getPrevious() as number;
-    if (latest > previous && latest > 150) {
-      setHidden(true);
-    } else {
-      setHidden(false);
+    if (!adOff) {
+      if (latest > previous && latest > 150) {
+        setHidden(true);
+      } else {
+        setHidden(false);
+      }
     }
-    if (latest > 50) {
+
+    if (latest > 100) {
       setOnTop(false);
     } else {
       setOnTop(true);
@@ -40,15 +50,32 @@ const Navbar = () => {
     <motion.div
       variants={{
         visible: { y: 0 },
-        hidden: { y: "-rem" },
+        hidden: { y: "-1.7rem" },
       }}
       animate={hidden ? "hidden" : "visible"}
       transition={{ duration: 0.35, ease: "easeInOut" }}
       className={classes.sale}
     >
-      <Sale />
-      <motion.nav className={classes.navbar}>
-        <Image width={50} height={25} alt="H" src="/img/logoHE.svg" />
+      <Sale setAdOff={setAdOff} />
+      <motion.nav
+        variants={{
+          scrolled: { background: "rgba(255,255,255,1)", color: "#000" },
+          onTop: { background: "rgba(255,255,255,0)", color: "#fff" },
+        }}
+        animate={onTop ? "onTop" : "scrolled"}
+        transition={{ duration: 0.35, ease: "easeInOut" }}
+        className={classes.navbar}
+      >
+        <motion.div
+          variants={{
+            scrolled: { filter: "invert(100%)" },
+            onTop: { filter: "invert(0)" },
+          }}
+          animate={onTop ? "onTop" : "scrolled"}
+          transition={{ duration: 0.35, ease: "easeInOut" }}
+        >
+          <Image width={50} height={25} alt="H" src="/img/logoHE.svg" />
+        </motion.div>
 
         <ul className={classes.desktop}>
           <li>
