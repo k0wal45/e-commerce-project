@@ -12,7 +12,6 @@ const Navbar = () => {
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [onTop, setOnTop] = useState(true);
   const [adOff, setAdOff] = useState(false);
 
   useEffect(() => {
@@ -29,12 +28,6 @@ const Navbar = () => {
       } else {
         setHidden(false);
       }
-    }
-
-    if (latest > 100) {
-      setOnTop(false);
-    } else {
-      setOnTop(true);
     }
   });
 
