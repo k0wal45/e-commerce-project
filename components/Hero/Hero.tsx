@@ -24,6 +24,9 @@ const Hero = () => {
           Ongoing Sale
         </Link>
       </div>
+      <Link href="/" className={classes.sale}>
+        Get 20% OFF
+      </Link>
     </header>
   );
 };

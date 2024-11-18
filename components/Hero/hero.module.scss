@@ -56,6 +56,19 @@
     color: white;
   }
 
+  .sale {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    padding: 1.5rem;
+    border-radius: 0 0 1rem 1rem;
+    background-color: black;
+    color: white;
+    transform: rotate(90deg) translateY(-65%);
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+
   @media (max-width: 768px) {
     flex-direction: column;
 
@@ -72,6 +85,10 @@
       p {
         max-width: 100%;
       }
+    }
+
+    .sale {
+      font-size: 1rem;
     }
   }
 }
