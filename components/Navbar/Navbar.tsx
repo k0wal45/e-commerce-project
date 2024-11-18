@@ -1,8 +1,7 @@
 "use client";
 import Image from "next/image";
 import classes from "./navbar.module.scss";
-import { FaMagnifyingGlass } from "react-icons/fa6";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaHeart, FaMagnifyingGlass } from "react-icons/fa6";
 import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import Link from "next/link";
@@ -57,25 +56,10 @@ const Navbar = () => {
       className={classes.sale}
     >
       <Sale setAdOff={setAdOff} />
-      <motion.nav
-        variants={{
-          scrolled: { background: "rgba(255,255,255,1)", color: "#000" },
-          onTop: { background: "rgba(255,255,255,0)", color: "#fff" },
-        }}
-        animate={onTop ? "onTop" : "scrolled"}
-        transition={{ duration: 0.35, ease: "easeInOut" }}
-        className={classes.navbar}
-      >
-        <motion.div
-          variants={{
-            scrolled: { filter: "invert(100%)" },
-            onTop: { filter: "invert(0)" },
-          }}
-          animate={onTop ? "onTop" : "scrolled"}
-          transition={{ duration: 0.35, ease: "easeInOut" }}
-        >
+      <motion.nav className={classes.navbar}>
+        <div>
           <Image width={50} height={25} alt="H" src="/img/logoHE.svg" />
-        </motion.div>
+        </div>
 
         <ul className={classes.desktop}>
           <li>
@@ -100,7 +84,7 @@ const Navbar = () => {
             <FaMagnifyingGlass />
           </li>
           <li>
-            <FaShoppingCart />
+            <FaHeart />
           </li>
         </ul>
         <label>

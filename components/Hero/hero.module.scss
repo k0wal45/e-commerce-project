@@ -1,11 +1,14 @@
 .hero {
-  width: 100%;
-  height: 100vh;
-  min-height: 100vh;
+  width: calc(100% - 4rem);
+  height: calc(60vh - 7rem);
   overflow-x: hidden;
   position: relative;
   display: flex;
   justify-content: space-between;
+  margin: 2rem;
+  margin-top: 5rem;
+  border-radius: 2rem;
+  padding: 1rem;
 
   img {
     width: 100vw;
@@ -25,13 +28,12 @@
     justify-content: space-between;
     height: 100%;
     padding: 4rem;
-    padding-top: 8rem;
     max-width: 800px;
     color: white;
 
     h1 {
       font-weight: 400;
-      font-size: 4rem;
+      font-size: 5rem;
       line-height: 1;
     }
 
@@ -56,25 +58,13 @@
     color: white;
   }
 
-  .sale {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    padding: 1.5rem;
-    border-radius: 0 0 1rem 1rem;
-    background-color: black;
-    color: white;
-    transform: rotate(90deg) translateY(-65%);
-    font-size: 1.4rem;
-    font-weight: 600;
-  }
-
   @media (max-width: 768px) {
     flex-direction: column;
-
+    height: fit-content;
     .buttons {
       flex-direction: column;
       padding: 1rem;
+      align-items: start;
     }
 
     .subtitles {
@@ -85,10 +75,6 @@
       p {
         max-width: 100%;
       }
-    }
-
-    .sale {
-      font-size: 1rem;
     }
   }
 }

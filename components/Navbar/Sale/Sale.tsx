@@ -41,7 +41,7 @@ const TranslateWrapper = ({
     <motion.div
       initial={{ translateX: reverse ? "-100%" : "0%" }}
       animate={{ translateX: reverse ? "0%" : "-100%" }}
-      transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+      transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
       className={classes.translateWrapper}
     >
       {children}
@@ -62,9 +62,14 @@ const LogoItemsBottom = () => (
 export default Sale;
 
 const promotionTitles = [
-  "50% Off Sofas",
-  "Buy 1 Get 1 Free Chairs",
-  "Exclusive Deal: 30% Off Dining Tables",
-  "Clearance Sale: Up to 70% Off Wardrobes",
-  "Limited Offer: Free Shipping on Beds",
+  "Exclusive: 20% Off Listing Fees for Apartments",
+  "Limited Time: Free Home Valuation Service",
+  "Hot Deal: 10% Off Commission on Luxury Villas",
+  "Special Offer: List Your Rental for Free for 30 Days",
+  "Save Big: 15% Off Mortgage Assistance Services",
+  "Summer Sale: Reduced Prices on Waterfront Properties",
+  "Limited Offer: Discounted Rates for First-Time Sellers",
+  "Exclusive: Free Photography Package for New Listings",
+  "Hot Deal: Advertise Your Property with Premium Visibility at Half Price",
+  "Special Offer: Get a Free Real Estate Agent Consultation",
 ];
