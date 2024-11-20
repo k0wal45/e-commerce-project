@@ -1,6 +1,6 @@
 import Image from "next/image";
 import classes from "./card.module.scss";
-import { FaHouse, FaLocationDot } from "react-icons/fa6";
+import { FaHeart, FaHouse, FaLocationDot, FaPhone } from "react-icons/fa6";
 import { BiArea } from "react-icons/bi";
 
 const costString = (cost: number) => {
@@ -23,19 +23,32 @@ const Card = () => {
           <p>{"$" + costString(12345678)}</p>
         </span>
         <p>
-          <FaLocationDot />
-          <span>Somewehre</span>
-        </p>
-        <p>
-          <BiArea />
           <span>
-            25 m <sup>2</sup>
+            <FaLocationDot />
           </span>
+          Somewhere
         </p>
         <p>
-          <FaHouse />
-          <span>Big House</span>
+          <span>
+            <BiArea />
+          </span>
+          25 m<sup>2</sup>
         </p>
+        <p>
+          <span>
+            <FaHouse />
+          </span>
+          Big House
+        </p>
+
+        <div className={classes.buttons}>
+          <button>
+            <FaPhone />
+          </button>
+          <button>
+            <FaHeart />
+          </button>
+        </div>
       </div>
     </li>
   );

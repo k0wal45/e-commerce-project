@@ -1,0 +1,14 @@
+.offers {
+  margin: auto;
+  height: 80vh;
+  display: grid;
+  grid-template-columns: 6fr 5fr;
+  padding: 1rem;
+  width: 100%;
+  max-width: 1450px;
+  gap: 1rem;
+
+  div:first-child {
+    grid-row: span 2 / span 2;
+  }
+}

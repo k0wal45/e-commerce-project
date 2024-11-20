@@ -7,6 +7,9 @@ const FeaturedSection = () => {
       <h2>Home Office Essentials</h2>
       <ul>
         <Card />
+        <Card />
+        <Card />
+        <Card />
       </ul>
     </section>
   );
