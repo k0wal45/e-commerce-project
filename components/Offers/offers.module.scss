@@ -3,10 +3,14 @@
   height: 80vh;
   display: grid;
   grid-template-columns: 6fr 5fr;
+  grid-template-rows: 1fr 1fr;
   padding: 1rem;
   width: 100%;
-  max-width: 1450px;
   gap: 1rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 
   div:first-child {
     grid-row: span 2 / span 2;

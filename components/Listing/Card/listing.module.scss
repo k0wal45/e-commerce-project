@@ -1,0 +1,74 @@
+.categoryListingLink {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 300px;
+  max-width: 768px;
+  gap: 1rem;
+  border-radius: 1.5rem;
+  overflow: hidden;
+
+  @media (max-width: 765px) {
+    height: fit-content;
+  }
+
+  img {
+    width: 100%;
+    border-radius: 1.5rem;
+    object-fit: cover;
+    position: absolute;
+    z-index: -1;
+    filter: brightness(0.7);
+
+    @media (max-width: 765px) {
+      width: 100%;
+    }
+  }
+
+  .categoryListingDetails {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 2rem;
+    color: white;
+  }
+
+  .categoryListingLocation {
+    font-weight: 600;
+    font-size: 1.3rem;
+    opacity: 0.8;
+  }
+
+  .categoryListingName {
+    font-weight: 600;
+    font-size: 2rem;
+  }
+
+  .categoryListingPrice {
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: #00cc66;
+    display: flex;
+    align-items: center;
+  }
+
+  .categoryListingInfoDiv {
+    display: flex;
+    justify-content: space-between;
+
+    div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      font-size: 1.5rem;
+    }
+  }
+
+  .categoryListingInfoText {
+    font-weight: 500;
+  }
+}

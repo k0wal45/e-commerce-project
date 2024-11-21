@@ -1,0 +1,22 @@
+.latest {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+
+  @media (max-width: 765px) {
+    padding: 1rem;
+  }
+
+  h3 {
+    font-size: 3rem;
+    font-weight: 600;
+  }
+
+  > div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
