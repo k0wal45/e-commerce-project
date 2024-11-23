@@ -142,9 +142,9 @@ html {
 }
 
 .basicbutton:hover {
-  transform: scale(1.05);
+  filter: brightness(0.9);
 }
 
 .basicbutton:active {
-  transform: scale(0.98);
+  transform: scale(0.95);
 }

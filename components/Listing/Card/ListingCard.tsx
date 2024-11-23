@@ -1,20 +1,19 @@
 "use client";
-import { FaTrashAlt, FaEdit, FaBed, FaBath } from "react-icons/fa";
 import styles from "./listing.module.scss";
 import Image from "next/image";
 import Link from "next/link";
+import { BiArea } from "react-icons/bi";
 
 interface Listing {
   id: string;
-  type: string;
+  type: string; // Możesz zezwolić na dowolny ciąg
   name: string;
   location: string;
   imageUrls: string[];
   offer: boolean;
   discountedPrice?: number;
   regularPrice: number;
-  bedrooms: number;
-  bathrooms: number;
+  area: number;
 }
 
 function ListingItem({
@@ -53,22 +52,10 @@ function ListingItem({
           {listing.type === "rent" && " / Month"}
         </p>
         <div className={styles.categoryListingInfoDiv}>
-          <div>
-            <FaBed />
-            <p className={styles.categoryListingInfoText}>
-              {listing.bedrooms > 1
-                ? `${listing.bedrooms} Bedrooms`
-                : "1 Bedroom"}
-            </p>
-          </div>
-          <div>
-            <FaBath />
-            <p className={styles.categoryListingInfoText}>
-              {listing.bathrooms > 1
-                ? `${listing.bathrooms} Bathrooms`
-                : "1 Bathroom"}
-            </p>
-          </div>
+          <BiArea />
+          <p className={styles.categoryListingInfoText}>
+            {listing.area} m<sup>2</sup>
+          </p>
         </div>
       </div>
     </Link>

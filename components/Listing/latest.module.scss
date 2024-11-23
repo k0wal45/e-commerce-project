@@ -1,12 +1,10 @@
 .latest {
   display: flex;
   flex-direction: column;
+  width: 100%;
   gap: 2rem;
   padding: 2rem;
-
-  @media (max-width: 765px) {
-    padding: 1rem;
-  }
+  margin: auto;
 
   h3 {
     font-size: 3rem;
@@ -15,8 +13,17 @@
 
   > div {
     width: 100%;
-    display: flex;
-    flex-direction: column;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
+
+    @media (max-width: 1500px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 900px) {
+      grid-template-columns: 1fr;
+    }
   }
 }

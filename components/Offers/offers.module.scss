@@ -4,12 +4,13 @@
   display: grid;
   grid-template-columns: 6fr 5fr;
   grid-template-rows: 1fr 1fr;
-  padding: 1rem;
+  padding: 0 2rem;
   width: 100%;
   gap: 1rem;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
+    height: fit-content;
   }
 
   div:first-child {
