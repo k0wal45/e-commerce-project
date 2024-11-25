@@ -148,3 +148,15 @@ html {
 .basicbutton:active {
   transform: scale(0.95);
 }
+
+.textInTheMiddle {
+  width: 100%;
+  min-height: 100vh;
+  padding: 2rem;
+  padding-top: 6rem;
+  text-align: center;
+  display: grid;
+  place-items: center;
+  font-size: 3rem;
+  font-weight: 600;
+}

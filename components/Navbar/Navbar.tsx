@@ -50,25 +50,25 @@ const Navbar = () => {
     >
       <Sale setAdOff={setAdOff} />
       <motion.nav className={classes.navbar}>
-        <div>
+        <Link href="/">
           <Image width={50} height={25} alt="H" src="/img/logoHE.svg" />
-        </div>
+        </Link>
 
         <ul className={classes.desktop}>
           <li>
             <Link href="/">Home</Link>
           </li>
           <li>
-            <Link href="/">Shop</Link>
+            <Link href="/shop">Shop</Link>
           </li>
           <li>
-            <Link href="/">Sale</Link>
+            <Link href="/shop/sale">Sale</Link>
           </li>
           <li>
-            <Link href="/">About</Link>
+            <Link href="/about">About</Link>
           </li>
           <li>
-            <Link href="/">Contact</Link>
+            <Link href="/contact">Contact</Link>
           </li>
         </ul>
 
@@ -114,16 +114,16 @@ const Navbar = () => {
             <Link href="/">Home</Link>
           </li>
           <li onClick={handleLinkClick}>
-            <Link href="/">Shop</Link>
+            <Link href="/shop">Shop</Link>
           </li>
           <li onClick={handleLinkClick}>
-            <Link href="/">Sale</Link>
+            <Link href="/shop/sale">Sale</Link>
           </li>
           <li onClick={handleLinkClick}>
-            <Link href="/">About</Link>
+            <Link href="/about">About</Link>
           </li>
           <li onClick={handleLinkClick}>
-            <Link href="/">Contact</Link>
+            <Link href="/contact">Contact</Link>
           </li>
         </motion.ul>
       </motion.nav>

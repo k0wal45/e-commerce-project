@@ -8,10 +8,10 @@ const Footer = () => {
       <ul>
         <li>Service</li>
         <li>
-          <Link href="">Legal Notice</Link>
+          <Link href="/legal-notice">Legal Notice</Link>
         </li>
         <li>
-          <Link href="">Data Protection</Link>
+          <Link href="/data-protection">Data Protection</Link>
         </li>
       </ul>
 
@@ -33,20 +33,20 @@ const Footer = () => {
       <ul>
         <li>Connect</li>
         <li>
-          <Link href="">Legal Notice</Link>
+          <Link href="https://daniel-kowalski.com/">Instagram</Link>
         </li>
         <li>
-          <Link href="">Data Protection</Link>
+          <Link href="https://daniel-kowalski.com/">Facebook</Link>
         </li>
       </ul>
 
       <ul>
         <li>Inquiries</li>
         <li>
-          <Link href="">Legal Notice</Link>
+          <Link href="">press@housee.com</Link>
         </li>
         <li>
-          <Link href="">Data Protection</Link>
+          <Link href="/data-protection">sales@housee.pl</Link>
         </li>
       </ul>
     </footer>

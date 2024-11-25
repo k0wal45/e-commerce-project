@@ -27,7 +27,7 @@ function ListingItem({
 }) {
   return (
     <Link
-      href={`/category/${listing.type}/${id}`}
+      href={`/shop/item/${listing.type}/${id}`}
       className={styles.categoryListingLink}
     >
       <Image

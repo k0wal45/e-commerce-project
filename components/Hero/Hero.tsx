@@ -15,10 +15,10 @@ const Hero = () => {
         <p>Various of places to pick from. Find your new home now!</p>
       </div>
       <div className={classes.buttons}>
-        <Link href="/" className="basicbutton">
+        <Link href="/shop" className="basicbutton">
           Shop Now
         </Link>
-        <Link href="/" className={"basicbutton " + classes.button}>
+        <Link href="/shop/sale" className={"basicbutton " + classes.button}>
           Ongoing Sale
         </Link>
       </div>
