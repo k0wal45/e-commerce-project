@@ -18,10 +18,10 @@ const Footer = () => {
       <ul>
         <li>Ongoing sales</li>
         <li>
-          <Link href="">Legal Notice</Link>
+          <Link href="/shop/sale">Sale 1</Link>
         </li>
         <li>
-          <Link href="">Data Protection</Link>
+          <Link href="/shop/sale">Sale 2</Link>
         </li>
       </ul>
 
@@ -43,10 +43,10 @@ const Footer = () => {
       <ul>
         <li>Inquiries</li>
         <li>
-          <Link href="">press@housee.com</Link>
+          <Link href="https://www.lunarisweb.pl/">press@housee.com</Link>
         </li>
         <li>
-          <Link href="/data-protection">sales@housee.pl</Link>
+          <Link href="https://www.lunarisweb.pl/">sales@housee.pl</Link>
         </li>
       </ul>
     </footer>
