@@ -1,7 +1,7 @@
 "use client";
 import { Fragment, useRef, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+// import "react-toastify/dist/ReactToastify.css";
 import classes from "./form.module.scss";
 const Form = () => {
   const [formData, setFormData] = useState({
