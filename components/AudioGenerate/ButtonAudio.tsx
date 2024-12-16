@@ -5,14 +5,10 @@ const AudioButton = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [audioUrl, setAudioUrl] = useState("Hello havent been set");
 
-  const handlePlayAudio = async (description: string) => {
+  const handlePlayAudio = async (idOfListing: string) => {
     setIsLoading(true);
     try {
-      const request = await fetch("/api/generateAudio");
-
-      if (!request.ok) {
-        throw new Error("Failed to fetch audio");
-      }
+      const request = await fetch(`/api/generateAudio?id=${idOfListing}`);
 
       const data = await request.json();
 
@@ -24,8 +20,7 @@ const AudioButton = () => {
         throw new Error(data.error || "Unknown error");
       }
     } catch (error) {
-      console.error("Error generating audio:", error);
-      alert("Could not generate audio. Please try again later.");
+      console.log("Error generating audio:", error);
     } finally {
       setIsLoading(false);
     }
