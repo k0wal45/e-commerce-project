@@ -3,8 +3,7 @@ export interface Listing {
   type: string; // Możesz zezwolić na dowolny ciąg
   name: string;
   location: string;
-  imageUrls: string[];
-  offer: boolean;
+  imageUrls: string[] | File[];
   discountedPrice?: number;
   regularPrice: number;
   area: number;

@@ -1,0 +1,108 @@
+@import "@/utils/variables.scss";
+
+$fontColor: #242424;
+
+.form {
+  width: 100%;
+  max-width: 768px;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  border-radius: 2rem;
+  gap: 1rem;
+  background: $primary;
+  color: $fontColor;
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  label {
+    font-size: 1rem;
+    font-weight: 500;
+    color: $fontColor;
+  }
+  div {
+    width: 100%;
+  }
+
+  input,
+  textarea,
+  select {
+    padding: 0.5rem 0.3rem;
+    color: $fontColor;
+    font-size: 1.2rem;
+    border: none;
+    border-bottom: 2px solid $fontColor;
+    background: transparent;
+    width: 100%;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: lighten($fontColor, 30%);
+  }
+
+  input:is(:-webkit-autofill, :autofill) {
+    background: transparent !important;
+    color: $fontColor !important;
+  }
+
+  select {
+    padding-right: 1rem;
+    appearance: none;
+    border-bottom: 2px solid $fontColor;
+  }
+
+  input[type="checkbox"] {
+    width: fit-content;
+    margin-right: 0.5rem;
+  }
+
+  input[type="file"] {
+    padding: 0.5rem 0;
+    font-size: 1rem;
+    color: $fontColor;
+  }
+
+  button {
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: $primary;
+    background: $fontColor;
+    border: none;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+
+    &:hover {
+      background: darken($fontColor, 10%);
+    }
+  }
+
+  .form-select {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .file-upload {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-group {
+    width: 100%;
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-end;
+  }
+
+  .hidden {
+    display: none;
+  }
+}
