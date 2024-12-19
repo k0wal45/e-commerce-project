@@ -2,15 +2,9 @@
 import { useState } from "react";
 import classes from "./form.module.scss";
 import { Listing } from "@/utils/Types";
-import fs from "node:fs";
-
-type Filename = string;
-type ImageType = "png" | "jpg" | "jpeg" | "webp";
-type Base64String = `data:image/${ImageType};base64,${string}`;
 
 const AddListingForm = () => {
   const [formData, setFormData] = useState<Listing>({
-    id: "toSet",
     type: "",
     name: "",
     location: "",
@@ -19,6 +13,7 @@ const AddListingForm = () => {
     area: 0,
     imageUrls: [], // Tablica plików
   });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -30,36 +25,43 @@ const AddListingForm = () => {
     });
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      const files = Array.from(e.target.files); // Konwertuj FileList na tablicę
-      setFormData({ ...formData, imageUrls: files });
+      const files = Array.from(e.target.files); // Convert FileList to an array
+
+      // Filter only valid File objects
+      const validFiles = files.filter((file) => file instanceof File);
+
+      try {
+        // Convert valid files to Base64
+        const base64Images = await Promise.all(
+          validFiles.map((file) => convertToBase64(file))
+        );
+
+        // Update the form data with Base64 strings
+        setFormData({ ...formData, imageUrls: base64Images });
+      } catch (error) {
+        console.error("Error during file processing:", error);
+      }
     }
+  };
+
+  // Helper function to convert a file to Base64
+  const convertToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string); // Resolve with Base64 string
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(file); // Read file as Base64
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    formData.imageUrls.forEach((img) => {
-      const convertImageToBase64URL = (
-        filename: Filename,
-        imageType: ImageType = "png"
-      ): Base64String => {
-        try {
-          const buffer = fs.readFileSync(filename);
-          const base64String = Buffer.from(buffer).toString("base64");
-          // console.log(`base64String`, base64String.slice(0, 100));
-          return `data:image/${imageType};base64,${base64String}`;
-        } catch (error) {
-          throw new Error(`file ${filename} no exist, error: ${error}`);
-        }
-      };
-      // test cases
-      const ok = convertImageToBase64URL("./public/test.png");
-    });
-
+    setLoading(true);
+    // storing image handling
     try {
-      const request = await fetch("/api/getData/addListing", {
+      const request = await fetch("/api/getData/addListing/addImage", {
         method: "POST",
         body: JSON.stringify(formData),
       });
@@ -68,11 +70,40 @@ const AddListingForm = () => {
         throw new Error("Failed to submit form");
       }
 
-      alert("Listing added successfully!");
+      // Parse the JSON response
+      const responseData = await request.json();
+      console.log(responseData); // You can now access the response data
+
+      // Handle success (you can access responseData here)
+      if (responseData.success) {
+        alert("Listing added successfully!");
+      } else {
+        alert("Error adding listing: " + responseData.error);
+      }
     } catch (error) {
       console.error(error);
-      alert("Error submitting the listing. aaa");
+      alert("Error submitting the listing.");
     }
+
+    // storing data handling
+
+    // try {
+    //   const request = await fetch("/api/getData/addListing", {
+    //     method: "POST",
+    //     body: JSON.stringify(formData),
+    //   });
+
+    //   if (!request.ok) {
+    //     throw new Error("Failed to submit form");
+    //   }
+
+    //   alert("Listing added successfully!");
+    // } catch (error) {
+    //   console.error(error);
+    //   alert("Error submitting the listing.");
+    // }
+
+    setLoading(false);
   };
 
   return (
@@ -161,6 +192,7 @@ const AddListingForm = () => {
           required
         />
       </div>
+
       <div>
         <label htmlFor="imageUrls">Images</label>
         <input
@@ -174,7 +206,9 @@ const AddListingForm = () => {
         />
       </div>
 
-      <button type="submit">Add Listing</button>
+      <button type="submit">
+        {loading ? "Adding Listing..." : "Add Listing"}
+      </button>
     </form>
   );
 };

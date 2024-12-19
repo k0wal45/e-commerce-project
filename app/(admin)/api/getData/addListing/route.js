@@ -1,32 +1,39 @@
+import client from "@/lib/mongoClient";
+
 export async function POST(req) {
   try {
     const body = await req.json();
 
     console.log(body);
 
-    // const {
-    //   id,
-    //   type,
-    //   name,
-    //   location,
-    //   imageUrls,
-    //   discountedPrice,
-    //   regularPrice,
-    //   area,
-    // } = await req.json();
-
-    // console.log(`id: ${id}
-    //   type: ${type}
-    //   name: ${name}
-    //   location: ${location}
-    //   imageUrls: ${imageUrls}
-    //   offer: ${offer}
-    //   discountedPrice: ${discountedPrice}
-    //   regularPrice: ${regularPrice}
-    //   area: ${area}`);
+    const {
+      type,
+      name,
+      location,
+      imageUrls,
+      discountedPrice,
+      regularPrice,
+      area,
+    } = body;
 
     // Add your business logic here, such as generating audio
-    // For now, just returning a success response
+
+    const database = client.db("products");
+    const collection = database.collection("listings");
+
+    const dataToInsert = {
+      type: type,
+      name: name,
+      location: location,
+      imageUrls: imageUrls,
+      discountedPrice: discountedPrice,
+      regularPrice: regularPrice,
+      area: area,
+    };
+
+    const result = await collection.insertOne(dataToInsert);
+
+    console.log(result.insertedId);
 
     return new Response(
       JSON.stringify({
@@ -39,7 +46,7 @@ export async function POST(req) {
       }
     );
   } catch (error) {
-    console.error("Error adding listing bbb:", error);
+    console.error("Error adding listing:", error);
 
     return new Response(
       JSON.stringify({ success: false, error: error.message }),
@@ -48,5 +55,7 @@ export async function POST(req) {
         headers: { "Content-Type": "application/json" },
       }
     );
+  } finally {
+    await client.close();
   }
 }
