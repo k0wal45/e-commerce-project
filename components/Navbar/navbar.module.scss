@@ -66,7 +66,7 @@
     }
 
     label span {
-      background: #fff;
+      background: #000;
       border-radius: 10px;
       height: 3px;
       margin: 3px 0;
@@ -92,13 +92,13 @@
       transform-origin: bottom;
       transform: rotatez(45deg) translate(6px, 7px);
       width: 100%;
-      background: #fff;
+      background: #000;
     }
 
     input[type="checkbox"]:checked ~ span:nth-of-type(2) {
       transform-origin: top;
       transform: rotatez(-45deg) translate(-1px, 0px);
-      background: #fff;
+      background: #000;
     }
 
     input[type="checkbox"]:checked ~ span:nth-of-type(3) {

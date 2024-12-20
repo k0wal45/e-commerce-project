@@ -1,0 +1,97 @@
+@import "@/utils/variables.scss";
+
+.about {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: 4fr 2fr;
+  margin: 2rem;
+  gap: 2rem;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+    background: #ddd;
+    padding: 1rem;
+    border-radius: 1rem;
+    font-size: 1.3rem;
+    text-align: justify;
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 600;
+    }
+  }
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 1rem;
+  }
+
+  &:nth-child(odd) {
+    flex-direction: row-reverse;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+}
+@import "@/utils/variables.scss";
+
+.about {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: 2fr 4fr;
+  margin: 2rem;
+  gap: 2rem;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+    background: #ddd;
+    padding: 1rem;
+    border-radius: 1rem;
+    font-size: 1.3rem;
+    text-align: justify;
+    order: 1;
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 600;
+    }
+  }
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.about:nth-child(even) {
+  grid-template-columns: 4fr 2fr;
+
+  div {
+    order: -1;
+    @media (max-width: 768px) {
+      order: 1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}

@@ -33,7 +33,7 @@
 
     h1 {
       font-weight: 400;
-      font-size: 5rem;
+      font-size: 4.5rem;
       line-height: 1;
     }
 
@@ -58,7 +58,7 @@
     color: white;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1200px) {
     flex-direction: column;
     height: fit-content;
     .buttons {

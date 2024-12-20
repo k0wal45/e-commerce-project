@@ -7,7 +7,6 @@ export default function Home() {
   return (
     <main>
       <Hero />
-      {/* <FeaturedSection /> */}
       <OffersSection />
       <LatestListing />
       <ContactPanel />
