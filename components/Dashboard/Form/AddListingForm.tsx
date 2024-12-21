@@ -14,6 +14,7 @@ const AddListingForm = () => {
     imageUrls: [], // Tablica plików
   });
   const [loading, setLoading] = useState(false);
+  const [images, setImages] = useState<string[]>([]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -63,7 +64,7 @@ const AddListingForm = () => {
     try {
       const request = await fetch("/api/getData/addListing/addImage", {
         method: "POST",
-        body: JSON.stringify(formData),
+        body: JSON.stringify(formData.imageUrls),
       });
 
       if (!request.ok) {
@@ -72,11 +73,12 @@ const AddListingForm = () => {
 
       // Parse the JSON response
       const responseData = await request.json();
-      console.log(responseData); // You can now access the response data
 
       // Handle success (you can access responseData here)
       if (responseData.success) {
         alert("Listing added successfully!");
+        setImages(responseData.images);
+        console.log(responseData.images);
       } else {
         alert("Error adding listing: " + responseData.error);
       }
@@ -85,23 +87,34 @@ const AddListingForm = () => {
       alert("Error submitting the listing.");
     }
 
+    // creating data object to send to the api
+
+    const dataToSend = {
+      type: formData.type,
+      name: formData.name,
+      location: formData.location,
+      regularPrice: formData.regularPrice,
+      discountedPrice: formData.discountedPrice,
+      area: formData.area,
+      imageUrls: images,
+    };
+
     // storing data handling
+    try {
+      const request = await fetch("/api/getData/addListing", {
+        method: "POST",
+        body: JSON.stringify(dataToSend),
+      });
 
-    // try {
-    //   const request = await fetch("/api/getData/addListing", {
-    //     method: "POST",
-    //     body: JSON.stringify(formData),
-    //   });
+      if (!request.ok) {
+        throw new Error("Failed to submit form");
+      }
 
-    //   if (!request.ok) {
-    //     throw new Error("Failed to submit form");
-    //   }
-
-    //   alert("Listing added successfully!");
-    // } catch (error) {
-    //   console.error(error);
-    //   alert("Error submitting the listing.");
-    // }
+      alert("Listing added successfully!");
+    } catch (error) {
+      console.error(error);
+      alert("Error submitting the listing.");
+    }
 
     setLoading(false);
   };

@@ -3,9 +3,26 @@ import Image from "next/image";
 import React, { useState } from "react";
 
 const GetImageButton: React.FC = () => {
+  const [data, setData] = useState({});
+  const [imageKeys, setImageKeys] = useState<string[]>([]);
   const [images, setImages] = useState<string[]>([]);
 
   const fetchImages = async () => {
+    // getting data
+    try {
+      const response = await fetch(`/api/getData/getListing`);
+      const data = await response.json();
+      console.log(data);
+      if (data.success) {
+        setData(data);
+      } else {
+        console.error("Error fetching images:", data.error);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+
+    // getting images from data
     try {
       const imageKeys = [
         "uploads/1734775571513-0.jpeg",
@@ -18,11 +35,12 @@ const GetImageButton: React.FC = () => {
         `/api/getData/getListing/getImage?${queryParams}`
       );
       const data = await response.json();
-      if (data.success) {
-        setImages(data.images);
-      } else {
-        console.error("Error fetching images:", data.error);
-      }
+      console.log(data);
+      // if (data.success) {
+      //   setDa(data.images);
+      // } else {
+      //   console.error("Error fetching images:", data.error);
+      // }
     } catch (error) {
       console.error("Error:", error);
     }

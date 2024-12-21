@@ -3,8 +3,7 @@ import s3Client from "@/lib/s3";
 
 export async function POST(req) {
   try {
-    const formData = await req.json();
-    const imageUrls = formData.imageUrls;
+    const imageUrls = await req.json();
 
     // Validate imageUrls
     if (!Array.isArray(imageUrls) || imageUrls.length === 0) {
@@ -51,9 +50,7 @@ export async function POST(req) {
       };
 
       await s3Client.send(new PutObjectCommand(uploadParams));
-      uploadedImages.push(
-        `https://${process.env.AWS_BUCKET_NAME}.s3.amazonaws.com/${fileName}`
-      );
+      uploadedImages.push(fileName);
     }
 
     // Return the URLs of the uploaded images
