@@ -1,72 +1,71 @@
-import client from "@/lib/mongoClient";
-import s3 from "@/lib/s3"; // Zakładając, że masz konfigurację S3
-import multer from "multer";
-import multerS3 from "multer-s3";
-
-// const upload = multer({
-//   storage: multerS3({
-//     s3: s3,
-//     bucket: process.env.AWS_BUCKET_NAME,
-//     acl: "public-read", // Publiczny dostęp do pliku
-//     key: (req, file, cb) => {
-//       cb(null, `uploads/${Date.now()}_${file.originalname}`);
-//     },
-//   }),
-// });
+import { PutObjectCommand } from "@aws-sdk/client-s3";
+import s3Client from "@/lib/s3";
 
 export async function POST(req) {
   try {
     const formData = await req.json();
+    const imageUrls = formData.imageUrls;
 
-    console.log(formData);
+    // Validate imageUrls
+    if (!Array.isArray(imageUrls) || imageUrls.length === 0) {
+      throw new Error("Invalid input. Expected an array of Base64 strings.");
+    }
 
-    // if (!imageFile) {
-    //   return new Response(
-    //     JSON.stringify({ success: false, error: "No image provided" }),
-    //     { status: 400, headers: { "Content-Type": "application/json" } }
-    //   );
-    // }
+    const uploadedImages = [];
 
-    // Używamy multer do przesyłania obrazu do S3
-    // const uploadMiddleware = upload.single("image");
-    // await new Promise((resolve, reject) => {
-    //   uploadMiddleware(req, {}, (err) => {
-    //     if (err) reject(err);
-    //     resolve();
-    //   });
-    // });
-
-    // const imageUrl = req.file.location;
-
-    // const database = client.db("products");
-    // const collection = database.collection("listings");
-
-    // const result = await collection.insertOne(dataToInsert);
-
-    return new Response(
-      JSON.stringify({
-        success: true,
-        message: "Listing added successfully",
-        // listingId: result.insertedId,
-        // fileUrl: imageUrl,
-      }),
-      {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
+    for (const [index, base64Image] of imageUrls.entries()) {
+      if (
+        typeof base64Image !== "string" ||
+        !base64Image.startsWith("data:image/")
+      ) {
+        throw new Error(`Invalid Base64 image format at index ${index}.`);
       }
+
+      // Extract file metadata
+      const [meta, content] = base64Image.split(",");
+      if (!content) {
+        throw new Error(`Invalid Base64 image content at index ${index}.`);
+      }
+
+      const contentTypeMatch = meta.match(
+        /data:image\/([a-zA-Z0-9-.+]+);base64/
+      );
+      if (!contentTypeMatch) {
+        throw new Error(
+          `Invalid MIME type in Base64 string at index ${index}.`
+        );
+      }
+
+      const contentType = contentTypeMatch[1];
+      const fileName = `uploads/${Date.now()}-${index}.${contentType}`;
+
+      // Decode the Base64 string
+      const buffer = Buffer.from(content, "base64");
+
+      // Upload to S3
+      const uploadParams = {
+        Bucket: process.env.AWS_BUCKET_NAME,
+        Key: fileName,
+        Body: buffer,
+        ContentType: `image/${contentType}`,
+      };
+
+      await s3Client.send(new PutObjectCommand(uploadParams));
+      uploadedImages.push(
+        `https://${process.env.AWS_BUCKET_NAME}.s3.amazonaws.com/${fileName}`
+      );
+    }
+
+    // Return the URLs of the uploaded images
+    return new Response(
+      JSON.stringify({ success: true, images: uploadedImages }),
+      { status: 200, headers: { "Content-Type": "application/json" } }
     );
   } catch (error) {
-    console.error("Error adding listing:", error);
-
+    console.error("Error processing images:", error.message);
     return new Response(
       JSON.stringify({ success: false, error: error.message }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
-      }
+      { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }
-  // finally {
-  //   await client.close();
-  // }
 }
