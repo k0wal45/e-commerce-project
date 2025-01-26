@@ -63,7 +63,7 @@ $font: #141414;
     padding-top: 1rem;
     transform: translateY(10px);
 
-    p {
+    > p {
       color: $font;
       padding: 0.2rem 1rem;
       font-size: 1.2rem;
@@ -71,6 +71,16 @@ $font: #141414;
       gap: 1rem;
       align-items: center;
       justify-content: flex-start;
+      position: relative;
+      width: fit-content;
+
+      sup {
+        position: absolute;
+        top: 0;
+        right: -4px;
+        padding: 0.2rem 0.5rem;
+        font-size: 1rem;
+      }
     }
 
     .price {
