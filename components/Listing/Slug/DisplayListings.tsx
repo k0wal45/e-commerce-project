@@ -1,10 +1,13 @@
+import React from "react";
+import Filter from "./Filter/Filter";
 import Card from "./Card/Card";
-import classes from "./featured.module.scss";
+import classes from "./display.module.scss";
 
-const FeaturedSection = () => {
+const DisplayListings = () => {
   return (
     <section className={classes.featured}>
       <h2>Home Office Essentials</h2>
+      <Filter />
       <ul>
         <Card />
         <Card />
@@ -15,4 +18,4 @@ const FeaturedSection = () => {
   );
 };
 
-export default FeaturedSection;
+export default DisplayListings;

@@ -1,0 +1,24 @@
+@import "@/utils/variables.scss";
+
+.filterContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  select {
+    width: 200px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 20px;
+    cursor: pointer;
+    background: $cardColor;
+    appearance: none;
+
+    option {
+      background: $cardColor;
+      padding: 10rem;
+      border: none;
+    }
+  }
+}
