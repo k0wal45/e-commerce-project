@@ -3,16 +3,15 @@ import Filter from "./Filter/Filter";
 import Card from "./Card/Card";
 import classes from "./display.module.scss";
 
-const DisplayListings = () => {
+const DisplayListings = ({ data }) => {
   return (
     <section className={classes.featured}>
       <h2>Home Office Essentials</h2>
       <Filter />
       <ul>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {data.map((listing) => (
+          <Card data={listing} />
+        ))}
       </ul>
     </section>
   );

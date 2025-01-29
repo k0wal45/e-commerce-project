@@ -1,7 +1,7 @@
-import React from "react";
+import classes from "./page.module.scss";
 
 const page = () => {
-  return <div>item</div>;
+  return <main className={classes.page}></main>;
 };
 
 export default page;

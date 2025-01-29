@@ -36,11 +36,11 @@ const GetImageButton: React.FC = () => {
       );
       const data = await response.json();
       console.log(data);
-      // if (data.success) {
-      //   setDa(data.images);
-      // } else {
-      //   console.error("Error fetching images:", data.error);
-      // }
+      if (data.success) {
+        setData(data.images);
+      } else {
+        console.error("Error fetching images:", data.error);
+      }
     } catch (error) {
       console.error("Error:", error);
     }

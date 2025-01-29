@@ -2,14 +2,30 @@ import Image from "next/image";
 import classes from "./card.module.scss";
 import { FaHeart, FaHouse, FaLocationDot, FaPhone } from "react-icons/fa6";
 import { BiArea } from "react-icons/bi";
+import Link from "next/link";
 
 const costString = (cost: number) => {
   return cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
-const Card = () => {
+interface Listing {
+  id: string;
+  type: string; // Możesz zezwolić na dowolny ciąg
+  name: string;
+  location: string;
+  imageUrls: string[];
+  offer: boolean;
+  discountedPrice?: number;
+  regularPrice: number;
+  area: number;
+}
+
+const Card = ({ listing }: { listing: Listing }) => {
   return (
-    <li className={classes.card}>
+    <Link
+      href={`/shop/item/${listing.type}/${listing.id}`}
+      className={classes.card}
+    >
       <div className={classes.imageBox}>
         <Image
           width={700}
@@ -50,7 +66,7 @@ const Card = () => {
           </button>
         </div>
       </div>
-    </li>
+    </Link>
   );
 };
 
