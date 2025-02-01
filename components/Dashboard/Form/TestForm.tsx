@@ -1,98 +1,115 @@
 "use client";
+import { Listing } from "@/utils/Types";
 import { useState } from "react";
 
 const TestForm = () => {
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    price: 0,
-    currency: "USD",
+  const [images, setImages] = useState<string[]>([]);
+  const [formData, setFormData] = useState<Listing>({
+    title: "name",
+    description: "desc",
+    price: 1000000,
     category: "houses",
     location: {
-      address: "",
-      city: "",
-      state: "",
-      zipCode: "",
-      country: "",
-      coordinates: {
-        latitude: 0,
-        longitude: 0,
-      },
+      address: "add",
+      city: "cit",
+      state: "state",
+      zipCode: "123-123",
+      country: "Poland",
     },
-    images: [],
+    imageUrls: [],
     features: {
-      bedrooms: 0,
-      bathrooms: 0,
-      area: 0,
-      yearBuilt: 0,
-      parkingSpaces: 0,
-      hasPool: false,
+      bedrooms: 1,
+      bathrooms: 2,
+      area: 3,
+      parkingSpaces: 4,
+      hasPool: true,
       hasGarage: false,
       hasGarden: false,
     },
     seller: {
-      name: "",
-      email: "",
-      phone: "",
-      verified: false,
+      name: "name",
+      email: "ea@mail",
+      phone: "123",
     },
     status: "available",
     promotion: {
-      isActive: false,
-      discountType: "",
-      discountValue: 0,
-      startDate: "",
-      endDate: "",
+      isActive: true,
+      discountType: "fixed",
+      discountValue: 1200,
     },
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   });
 
   // Handles input changes
   const handleChange = (
     e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, type } = e.target;
+    const booleanValue =
+      type === "checkbox" && e.target instanceof HTMLInputElement
+        ? e.target.checked
+        : value;
 
-    if (type === "checkbox") {
-      setFormData((prev) => ({
-        ...prev,
-        features: { ...prev.features, [name]: checked },
-      }));
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-    }
+    setFormData({
+      ...formData,
+      [name]: booleanValue,
+    });
   };
 
-  // Handles nested object changes (e.g., location, features, seller)
   const handleNestedChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
     section: string
   ) => {
-    const { name, value } = e.target;
+    const { name, value, type } = e.target;
+    const booleanValue =
+      type === "checkbox" && e.target instanceof HTMLInputElement
+        ? e.target.checked
+        : value;
+
     setFormData((prev) => ({
       ...prev,
       [section]: {
-        ...prev[section as keyof typeof formData],
-        [name]: value,
+        ...(prev[section as keyof typeof formData] as object),
+        [name]: booleanValue,
       },
     }));
   };
 
-  // Handles image file uploads
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      const files = Array.from(e.target.files);
-      const imageUrls = files.map((file) => URL.createObjectURL(file));
-      setFormData((prev) => ({ ...prev, images: imageUrls }));
+      setLoading(true);
+      const files = Array.from(e.target.files); // Convert FileList to an array
+      // Filter only valid File objects
+      const validFiles = files.filter((file) => file instanceof File);
+
+      try {
+        // Convert valid files to Base64
+        const base64Images = await Promise.all(
+          validFiles.map((file) => convertToBase64(file))
+        );
+
+        // Update the form data with Base64 strings
+        setFormData({ ...formData, imageUrls: base64Images });
+      } catch (error) {
+        console.error("Error during file processing:", error);
+      }
     }
+    setLoading(false);
   };
 
-  // Form submission handler
+  // Helper function to convert a file to Base64
+  const convertToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string); // Resolve with Base64 string
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(file); // Read file as Base64
+    });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -113,26 +130,22 @@ const TestForm = () => {
 
       // Handle success (you can access responseData here)
       if (responseData.success) {
-        alert("Listing added successfully!");
         setImages(responseData.images);
-        console.log(responseData.images);
       } else {
         alert("Error adding listing: " + responseData.error);
+        setLoading(false);
+
+        return;
       }
     } catch (error) {
       console.error(error);
-      alert("Error submitting the listing.");
+      alert("Error submitting the images.");
+      setLoading(false);
+
+      return;
     }
-
-    // creating data object to send to the api
-
     const dataToSend = {
-      type: formData.type,
-      name: formData.name,
-      location: formData.location,
-      regularPrice: formData.regularPrice,
-      discountedPrice: formData.discountedPrice,
-      area: formData.area,
+      ...formData,
       imageUrls: images,
     };
 
@@ -198,19 +211,6 @@ const TestForm = () => {
         />
       </label>
       <label>
-        Currency:
-        <select
-          name="currency"
-          value={formData.currency}
-          onChange={handleChange}
-        >
-          <option value="USD">USD</option>
-          <option value="EUR">EUR</option>
-          <option value="PLN">PLN</option>
-        </select>
-      </label>
-
-      <label>
         Category:
         <select
           name="category"
@@ -250,8 +250,47 @@ const TestForm = () => {
           required
         />
       </label>
+      <label>
+        State:{" "}
+        <input
+          type="text"
+          name="state"
+          value={formData.location.state}
+          onChange={(e) => handleNestedChange(e, "location")}
+          required
+        />
+      </label>
+      <label>
+        Zip Code:{" "}
+        <input
+          type="text"
+          name="zipCode"
+          value={formData.location.zipCode}
+          onChange={(e) => handleNestedChange(e, "location")}
+          required
+        />
+      </label>
+      <label>
+        Country:{" "}
+        <input
+          type="text"
+          name="country"
+          value={formData.location.country}
+          onChange={(e) => handleNestedChange(e, "location")}
+          required
+        />
+      </label>
 
       <h3>Features</h3>
+      <label>
+        Area:{" "}
+        <input
+          type="number"
+          name="area"
+          value={formData.features.area}
+          onChange={(e) => handleNestedChange(e, "features")}
+        />
+      </label>
       <label>
         Bedrooms:{" "}
         <input
@@ -271,12 +310,21 @@ const TestForm = () => {
         />
       </label>
       <label>
+        Parking Spaces:{" "}
+        <input
+          type="number"
+          name="parkingSpaces"
+          value={formData.features.parkingSpaces}
+          onChange={(e) => handleNestedChange(e, "features")}
+        />
+      </label>
+      <label>
         Has Pool:{" "}
         <input
           type="checkbox"
           name="hasPool"
           checked={formData.features.hasPool}
-          onChange={handleChange}
+          onChange={(e) => handleNestedChange(e, "features")}
         />
       </label>
       <label>
@@ -285,7 +333,16 @@ const TestForm = () => {
           type="checkbox"
           name="hasGarage"
           checked={formData.features.hasGarage}
-          onChange={handleChange}
+          onChange={(e) => handleNestedChange(e, "features")}
+        />
+      </label>
+      <label>
+        Has Garden:{" "}
+        <input
+          type="checkbox"
+          name="hasGarden"
+          checked={formData.features.hasGarden}
+          onChange={(e) => handleNestedChange(e, "features")}
         />
       </label>
 
@@ -310,6 +367,16 @@ const TestForm = () => {
           required
         />
       </label>
+      <label>
+        Phone:{" "}
+        <input
+          type="number"
+          name="phone"
+          value={formData.seller.phone}
+          onChange={(e) => handleNestedChange(e, "seller")}
+          required
+        />
+      </label>
 
       <h3>Promotion</h3>
       <label>
@@ -318,7 +385,7 @@ const TestForm = () => {
           type="checkbox"
           name="isActive"
           checked={formData.promotion.isActive}
-          onChange={handleChange}
+          onChange={(e) => handleNestedChange(e, "promotion")}
         />
       </label>
       <label>
@@ -326,7 +393,7 @@ const TestForm = () => {
         <select
           name="discountType"
           value={formData.promotion.discountType}
-          onChange={handleChange}
+          onChange={(e) => handleNestedChange(e, "promotion")}
         >
           <option value="">None</option>
           <option value="percentage">Percentage</option>
@@ -339,7 +406,7 @@ const TestForm = () => {
           type="number"
           name="discountValue"
           value={formData.promotion.discountValue}
-          onChange={handleChange}
+          onChange={(e) => handleNestedChange(e, "promotion")}
         />
       </label>
 
@@ -351,7 +418,7 @@ const TestForm = () => {
         accept="image/*"
       />
 
-      <button type="submit">Submit Listing</button>
+      <button type="submit">{loading ? "Loading..." : "Submit"}</button>
     </form>
   );
 };

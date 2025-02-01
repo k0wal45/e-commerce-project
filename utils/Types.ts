@@ -1,22 +1,15 @@
-type Coordinates = {
-  latitude: number;
-  longitude: number;
-};
-
 type Location = {
   address: string;
   city: string;
   state: string;
   zipCode: string;
   country: string;
-  coordinates: Coordinates;
 };
 
 type Features = {
   bedrooms: number;
   bathrooms: number;
   area: number; // in square feet or meters
-  yearBuilt?: number; // optional
   parkingSpaces?: number; // optional
   hasPool?: boolean;
   hasGarage?: boolean;
@@ -24,27 +17,22 @@ type Features = {
 };
 
 type Seller = {
-  userId: string;
   name: string;
   email: string;
   phone?: string; // optional
-  verified: boolean;
 };
 
 type Promotion = {
   isActive: boolean;
-  discountType: "percentage" | "fixed"; // percentage or fixed amount
+  discountType: "percentage" | "fixed" | ""; // percentage or fixed or none amount
   discountValue: number;
-  startDate: string; // ISO date string
-  endDate: string; // ISO date string
 };
 
 export type Listing = {
-  _id: string;
+  _id?: string;
   title: string;
   description: string;
   price: number;
-  currency: string;
   category:
     | "apartments"
     | "studios"
@@ -56,13 +44,13 @@ export type Listing = {
     | "warehouses"
     | "garages";
   location: Location;
-  images: string[];
+  imageUrls: string[];
   features: Features;
   seller: Seller;
   status: "available" | "sold" | "pending";
   createdAt: string; // ISO date string
   updatedAt: string; // ISO date string
-  promotion?: Promotion; // optional for listings without a specific promotion
+  promotion: Promotion; // optional for listings without a specific promotion
 };
 
 /* Example Listing Data
@@ -71,7 +59,6 @@ const listing = {
   title: "Modern 3-Bedroom House with Pool",
   description: "Beautiful 3-bedroom house with a swimming pool, located in a quiet neighborhood.",
   price: 500000,
-  currency: "USD",
   category: "houses", // apartments, studios, houses, investments, rooms, plots, commercial_units, warehouses, garages
   location: {
     address: "123 Main Street",

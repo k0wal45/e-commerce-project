@@ -6,34 +6,12 @@ export async function POST(req) {
 
     console.log(body);
 
-    const {
-      type,
-      name,
-      location,
-      imageUrls,
-      discountedPrice,
-      regularPrice,
-      area,
-    } = body;
-
     // Add your business logic here, such as generating audio
 
     const database = client.db("products");
     const collection = database.collection("listings");
 
-    const dataToInsert = {
-      type: type,
-      name: name,
-      location: location,
-      imageUrls: imageUrls,
-      discountedPrice: discountedPrice,
-      regularPrice: regularPrice,
-      area: area,
-    };
-
-    const result = await collection.insertOne(dataToInsert);
-
-    console.log(result.insertedId);
+    await collection.insertOne(body);
 
     return new Response(
       JSON.stringify({
