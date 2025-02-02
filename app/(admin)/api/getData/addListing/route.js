@@ -1,6 +1,7 @@
 import client from "@/lib/mongoClient";
 
 export async function POST(req) {
+  await client.connect();
   try {
     const body = await req.json();
 

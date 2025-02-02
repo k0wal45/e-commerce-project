@@ -122,7 +122,7 @@ const TestForm = () => {
       });
 
       if (!request.ok) {
-        throw new Error("Failed to submit form");
+        throw new Error("Failed to submit image");
       }
 
       // Parse the JSON response
@@ -132,7 +132,7 @@ const TestForm = () => {
       if (responseData.success) {
         setImages(responseData.images);
       } else {
-        alert("Error adding listing: " + responseData.error);
+        alert("Error adding images: " + responseData.error);
         setLoading(false);
 
         return;
