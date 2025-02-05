@@ -37,14 +37,12 @@ export type Listing = {
     | "apartments"
     | "studios"
     | "houses"
-    | "investments"
-    | "rooms"
     | "plots"
     | "commercial_units"
     | "warehouses"
     | "garages";
   location: Location;
-  imageUrls: string[];
+  imageUrls: string[] | File[];
   features: Features;
   seller: Seller;
   status: "available" | "sold" | "pending";

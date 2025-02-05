@@ -4,39 +4,39 @@ import { useState } from "react";
 
 const TestForm = () => {
   const [loading, setLoading] = useState(false);
-  const [images, setImages] = useState<string[]>([]);
+  const [images, setImages] = useState<File[]>([]);
   const [formData, setFormData] = useState<Listing>({
     title: "name",
     description: "desc",
-    price: 1000000,
+    price: 10,
     category: "houses",
     location: {
-      address: "add",
+      address: "123",
       city: "cit",
-      state: "state",
-      zipCode: "123-123",
-      country: "Poland",
+      state: "chickago",
+      zipCode: "123456",
+      country: "USA",
     },
     imageUrls: [],
     features: {
       bedrooms: 1,
-      bathrooms: 2,
-      area: 3,
-      parkingSpaces: 4,
-      hasPool: true,
-      hasGarage: false,
+      bathrooms: 1,
+      area: 55,
+      parkingSpaces: 1,
+      hasPool: false,
+      hasGarage: true,
       hasGarden: false,
     },
     seller: {
       name: "name",
-      email: "ea@mail",
-      phone: "123",
+      email: "mail@mail.mail",
+      phone: "1234561",
     },
     status: "available",
     promotion: {
-      isActive: true,
-      discountType: "fixed",
-      discountValue: 1200,
+      isActive: false,
+      discountType: "",
+      discountValue: 0,
     },
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
@@ -79,84 +79,43 @@ const TestForm = () => {
     }));
   };
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      setLoading(true);
-      const files = Array.from(e.target.files); // Convert FileList to an array
-      // Filter only valid File objects
-      const validFiles = files.filter((file) => file instanceof File);
-
-      try {
-        // Convert valid files to Base64
-        const base64Images = await Promise.all(
-          validFiles.map((file) => convertToBase64(file))
-        );
-
-        // Update the form data with Base64 strings
-        setFormData({ ...formData, imageUrls: base64Images });
-      } catch (error) {
-        console.error("Error during file processing:", error);
-      }
+      const files = Array.from(e.target.files);
+      setImages(files);
     }
-    setLoading(false);
-  };
-
-  // Helper function to convert a file to Base64
-  const convertToBase64 = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result as string); // Resolve with Base64 string
-      reader.onerror = (error) => reject(error);
-      reader.readAsDataURL(file); // Read file as Base64
-    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    // storing image handling
+
+    const dataToSend = new FormData();
+
+    // Dodaj pliki do FormData
+
+    images.forEach((file) => {
+      dataToSend.append("images", file);
+    });
+
+    // Dodaj pozostałe dane formularza
+    dataToSend.append("title", formData.title);
+    dataToSend.append("description", formData.description);
+    dataToSend.append("price", formData.price.toString());
+    dataToSend.append("category", formData.category);
+    dataToSend.append("location", JSON.stringify(formData.location));
+    dataToSend.append("features", JSON.stringify(formData.features));
+    dataToSend.append("seller", JSON.stringify(formData.seller));
+    dataToSend.append("promotion", JSON.stringify(formData.promotion));
+
     try {
-      const request = await fetch("/api/getData/addListing/addImage", {
+      // Prześlij pliki i dane do API
+      const response = await fetch("/api/getData/addListing", {
         method: "POST",
-        body: JSON.stringify(formData.imageUrls),
+        body: dataToSend,
       });
 
-      if (!request.ok) {
-        throw new Error("Failed to submit image");
-      }
-
-      // Parse the JSON response
-      const responseData = await request.json();
-
-      // Handle success (you can access responseData here)
-      if (responseData.success) {
-        setImages(responseData.images);
-      } else {
-        alert("Error adding images: " + responseData.error);
-        setLoading(false);
-
-        return;
-      }
-    } catch (error) {
-      console.error(error);
-      alert("Error submitting the images.");
-      setLoading(false);
-
-      return;
-    }
-    const dataToSend = {
-      ...formData,
-      imageUrls: images,
-    };
-
-    // storing data handling
-    try {
-      const request = await fetch("/api/getData/addListing", {
-        method: "POST",
-        body: JSON.stringify(dataToSend),
-      });
-
-      if (!request.ok) {
+      if (!response.ok) {
         throw new Error("Failed to submit form");
       }
 
@@ -164,9 +123,9 @@ const TestForm = () => {
     } catch (error) {
       console.error(error);
       alert("Error submitting the listing.");
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
@@ -220,8 +179,6 @@ const TestForm = () => {
           <option value="houses">Houses</option>
           <option value="apartments">Apartments</option>
           <option value="studios">Studios</option>
-          <option value="investments">Investments</option>
-          <option value="rooms">Rooms</option>
           <option value="plots">Plots</option>
           <option value="commercial_units">Commercial Units</option>
           <option value="warehouses">Warehouses</option>
