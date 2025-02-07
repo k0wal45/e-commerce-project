@@ -1,34 +1,20 @@
 export async function GET(req) {
   try {
-    const {
-      id,
-      type,
-      name,
-      location,
-      imageUrls,
-      offer,
-      discountedPrice,
-      regularPrice,
-      area,
-    } = await req.json();
+    const searchParams = req.nextUrl.searchParams;
+    const id = searchParams.get("id");
 
-    console.log(`id: ${id}
-      type: ${type}
-      name: ${name}
-      location: ${location}
-      imageUrls: ${imageUrls}
-      offer: ${offer}
-      discountedPrice: ${discountedPrice}
-      regularPrice: ${regularPrice}
-      area: ${area}`);
+    const database = client.db("products");
+    const listings = database.collection("listings");
+    // Query to get a listing by '_id'
+    const query = { _id: new ObjectId(id) };
 
-    // Add your business logic here, such as generating audio
-    // For now, just returning a success response
+    // Execute query
+    const data = await listings.findOne(query);
 
     return new Response(
       JSON.stringify({
         success: true,
-        message: "Listing added succesfuly",
+        data: data,
       }),
       {
         status: 200,

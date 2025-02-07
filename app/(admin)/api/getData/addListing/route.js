@@ -29,18 +29,6 @@ export const POST = async (req) => {
     // Extract uploaded files
     const images = formData.getAll("images"); // Handles multiple files
 
-    const data = {
-      title,
-      description,
-      price,
-      category,
-      location,
-      features,
-      seller,
-      promotion,
-      images,
-    };
-
     // Przetwórz pliki za pomocą multer
 
     const uploadedImages = [];

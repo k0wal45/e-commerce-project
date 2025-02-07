@@ -1,60 +1,44 @@
 "use client";
+import { Listing } from "@/utils/Types";
 import styles from "./listing.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 import { BiArea } from "react-icons/bi";
 
-interface Listing {
-  id: string;
-  type: string; // Możesz zezwolić na dowolny ciąg
-  name: string;
-  location: string;
-  imageUrls: string[];
-  offer: boolean;
-  discountedPrice?: number;
-  regularPrice: number;
-  area: number;
-}
-
-function ListingItem({
-  listing,
-  id,
-}: {
-  listing: Listing;
-  id: string;
-  onEdit?: (id: string) => void;
-  onDelete?: (id: string, name: string) => void;
-}) {
+function ListingItem({ listing }: { listing: Listing }) {
   return (
     <Link
-      href={`/shop/item/${listing.type}/${id}`}
+      href={`/shop/item/${listing.category}?id=${listing._id}`}
       className={styles.categoryListingLink}
     >
       <Image
         width={600}
         height={400}
-        src={listing.imageUrls[0]}
-        alt={listing.name}
+        src={
+          typeof listing.images[0] === "string"
+            ? listing.images[0]
+            : URL.createObjectURL(listing.images[0])
+        }
+        alt={listing.title}
         className={styles.categoryListingImg}
+        loading="lazy"
       />
       <div className={styles.categoryListingDetails}>
-        <p className={styles.categoryListingLocation}>{listing.location}</p>
-        <p className={styles.categoryListingName}>{listing.name}</p>
+        <p className={styles.categoryListingLocation}>
+          {listing.location.state}
+        </p>
+        <p className={styles.categoryListingName}>{listing.title}</p>
         <p className={styles.categoryListingPrice}>
           $
-          {listing.offer && listing.discountedPrice
-            ? listing.discountedPrice
-                .toString()
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-            : listing.regularPrice
-                .toString()
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-          {listing.type === "rent" && " / Month"}
+          {listing.promotion.isActive
+            ? listing.promotion.discountType ===
+              "percentage".toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            : listing.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
         </p>
         <div className={styles.categoryListingInfoDiv}>
           <BiArea />
           <p className={styles.categoryListingInfoText}>
-            {listing.area} m<sup>2</sup>
+            {listing.features.area} m<sup>2</sup>
           </p>
         </div>
       </div>

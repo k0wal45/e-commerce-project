@@ -3,27 +3,16 @@ import classes from "./card.module.scss";
 import { FaHeart, FaHouse, FaLocationDot, FaPhone } from "react-icons/fa6";
 import { BiArea } from "react-icons/bi";
 import Link from "next/link";
+import { Listing } from "@/utils/Types";
 
 const costString = (cost: number) => {
   return cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
-interface Listing {
-  id: string;
-  type: string; // Możesz zezwolić na dowolny ciąg
-  name: string;
-  location: string;
-  imageUrls: string[];
-  offer: boolean;
-  discountedPrice?: number;
-  regularPrice: number;
-  area: number;
-}
-
 const Card = ({ listing }: { listing: Listing }) => {
   return (
     <Link
-      href={`/shop/item/${listing.type}/${listing.id}`}
+      href={`/shop/item/${listing.category}/${listing._id}`}
       className={classes.card}
     >
       <div className={classes.imageBox}>

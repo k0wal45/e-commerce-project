@@ -20,8 +20,8 @@ $fontColor: #242424;
   }
 
   label {
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 1.5rem;
+    font-weight: 600;
     color: $fontColor;
   }
   div {
@@ -34,10 +34,16 @@ $fontColor: #242424;
     padding: 0.5rem 0.3rem;
     color: $fontColor;
     font-size: 1.2rem;
+    font-weight: 500;
     border: none;
     border-bottom: 2px solid $fontColor;
     background: transparent;
     width: 100%;
+  }
+
+  textarea {
+    width: 100%;
+    height: 300px;
   }
 
   input::placeholder,

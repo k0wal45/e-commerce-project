@@ -19,7 +19,7 @@ type Features = {
 type Seller = {
   name: string;
   email: string;
-  phone?: string; // optional
+  phone?: string | number; // optional
 };
 
 type Promotion = {
@@ -42,12 +42,11 @@ export type Listing = {
     | "warehouses"
     | "garages";
   location: Location;
-  imageUrls: string[] | File[];
+  images: string[] | File[];
   features: Features;
   seller: Seller;
   status: "available" | "sold" | "pending";
-  createdAt: string; // ISO date string
-  updatedAt: string; // ISO date string
+  createdAt?: string; // ISO date string
   promotion: Promotion; // optional for listings without a specific promotion
 };
 

@@ -1,45 +1,45 @@
 "use client";
 import { Listing } from "@/utils/Types";
 import { useState } from "react";
+import classes from "./form.module.scss";
 
 const TestForm = () => {
   const [loading, setLoading] = useState(false);
   const [images, setImages] = useState<File[]>([]);
   const [formData, setFormData] = useState<Listing>({
-    title: "name",
-    description: "desc",
-    price: 10,
+    title: "",
+    description: "",
+    price: 0,
     category: "houses",
     location: {
-      address: "123",
-      city: "cit",
-      state: "chickago",
-      zipCode: "123456",
+      address: "",
+      city: "",
+      state: "",
+      zipCode: "",
       country: "USA",
     },
-    imageUrls: [],
+    images: [],
     features: {
-      bedrooms: 1,
-      bathrooms: 1,
-      area: 55,
-      parkingSpaces: 1,
-      hasPool: false,
-      hasGarage: true,
+      area: 0,
+      parkingSpaces: 0,
+      bathrooms: 0,
+      bedrooms: 0,
       hasGarden: false,
+      hasPool: false,
+      hasGarage: false,
     },
     seller: {
-      name: "name",
-      email: "mail@mail.mail",
-      phone: "1234561",
+      name: "",
+      email: "",
+      phone: "",
     },
-    status: "available",
     promotion: {
       isActive: false,
       discountType: "",
       discountValue: 0,
     },
+    status: "available",
     createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
   });
 
   // Handles input changes
@@ -107,6 +107,7 @@ const TestForm = () => {
     dataToSend.append("features", JSON.stringify(formData.features));
     dataToSend.append("seller", JSON.stringify(formData.seller));
     dataToSend.append("promotion", JSON.stringify(formData.promotion));
+    dataToSend.append("createdAt", JSON.stringify(formData.createdAt));
 
     try {
       // Prześlij pliki i dane do API
@@ -131,6 +132,7 @@ const TestForm = () => {
   return (
     <form
       onSubmit={handleSubmit}
+      className={classes.form}
       style={{
         margin: "2rem 0",
         border: "1px solid #ccc",
