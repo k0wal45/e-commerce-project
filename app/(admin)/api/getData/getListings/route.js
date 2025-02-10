@@ -5,6 +5,7 @@ export async function GET(req) {
     const searchParams = req.nextUrl.searchParams;
     const limit = searchParams.get("limit");
     // Get the database and collection on which to run the operation
+    await client.connect();
     const database = client.db("products");
     const listings = database.collection("listings");
     // Query to get the latest 6 listings sorted by '_id' (which includes creation timestamp)
@@ -15,7 +16,7 @@ export async function GET(req) {
     };
     // Execute query
     const data = await listings.find(query, options).toArray();
-
+    await client.close();
     return new Response(
       JSON.stringify({
         success: true,

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import ListingItem from "./Card/ListingCard";
 import classes from "./latest.module.scss";
 import { Listing } from "@/utils/Types";
+import Loader from "../Loader";
 
 const LatestListing = () => {
   const [listings, setListings] = useState<Listing[]>([]);
@@ -26,7 +27,15 @@ const LatestListing = () => {
       <h3>Check latest offers</h3>
       <div>
         {loading ? (
-          <div className="loading">Loading...</div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              padding: "2rem",
+            }}
+          >
+            <Loader />
+          </div>
         ) : (
           listings.map((item) => <ListingItem key={item._id} listing={item} />)
         )}

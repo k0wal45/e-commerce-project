@@ -1,16 +1,43 @@
+import client from "@/lib/mongoClient";
+import { ObjectId } from "mongodb";
+
 export async function GET(req) {
   try {
     const searchParams = req.nextUrl.searchParams;
-    const id = searchParams.get("id");
+    const id = searchParams.get("id"); // Extract the 'id' from the query parameters
 
-    const database = client.db("products");
-    const listings = database.collection("listings");
+    if (!id) {
+      return new Response(
+        JSON.stringify({ success: false, error: "No id provided" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+
+    await client.connect(); // Connect to the MongoDB client
+    const database = client.db("products"); // Select the 'products' database
+    const listings = database.collection("listings"); // Select the 'listings' collection
+
     // Query to get a listing by '_id'
     const query = { _id: new ObjectId(id) };
 
-    // Execute query
+    // Execute the query to find the listing
     const data = await listings.findOne(query);
+    await client.close(); // Close the database connection
 
+    if (!data) {
+      return new Response(
+        JSON.stringify({ success: false, error: "Listing not found" }),
+        {
+          status: 404,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+
+    // Return the response with the fetched data
     return new Response(
       JSON.stringify({
         success: true,
@@ -22,8 +49,9 @@ export async function GET(req) {
       }
     );
   } catch (error) {
-    console.error("Error adding listing:", error);
+    console.error("Error fetching listing:", error);
 
+    // Return the response with the error message
     return new Response(
       JSON.stringify({ success: false, error: error.message }),
       {

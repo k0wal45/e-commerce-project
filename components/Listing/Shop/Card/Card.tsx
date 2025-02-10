@@ -12,7 +12,7 @@ const costString = (cost: number) => {
 const Card = ({ listing }: { listing: Listing }) => {
   return (
     <Link
-      href={`/shop/item/${listing.category}/${listing._id}`}
+      href={`/shop/item/${listing.category}?id=${listing._id}`}
       className={classes.card}
     >
       <div className={classes.imageBox}>

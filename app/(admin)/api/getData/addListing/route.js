@@ -64,7 +64,7 @@ export const POST = async (req) => {
       promotion,
       images: uploadedImages,
     });
-
+    await client.close();
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Error processing images:", error.message);
