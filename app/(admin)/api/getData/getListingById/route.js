@@ -1,5 +1,5 @@
-import client from "@/lib/mongoClient";
-import { ObjectId } from "mongodb";
+import uri from "@/lib/mongoClient";
+import { MongoClient, ObjectId } from "mongodb";
 
 export async function GET(req) {
   try {
@@ -15,7 +15,7 @@ export async function GET(req) {
         }
       );
     }
-
+    const client = new MongoClient(uri, {});
     await client.connect(); // Connect to the MongoDB client
     const database = client.db("products"); // Select the 'products' database
     const listings = database.collection("listings"); // Select the 'listings' collection
@@ -36,7 +36,7 @@ export async function GET(req) {
         }
       );
     }
-
+    console.log(data);
     // Return the response with the fetched data
     return new Response(
       JSON.stringify({

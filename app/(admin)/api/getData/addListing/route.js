@@ -1,7 +1,8 @@
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import s3Client from "@/lib/s3";
-import client from "@/lib/mongoClient";
 import { NextResponse } from "next/server";
+import uri from "@/lib/mongoClient";
+import { MongoClient } from "mongodb";
 
 export const config = {
   api: {
@@ -50,6 +51,7 @@ export const POST = async (req) => {
       );
     }
     // Zapisz dane w bazie danych
+    const client = new MongoClient(uri, {});
     await client.connect();
     const database = client.db("products");
     const collection = database.collection("listings");

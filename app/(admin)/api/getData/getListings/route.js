@@ -1,18 +1,31 @@
-import client from "@/lib/mongoClient";
+import uri from "@/lib/mongoClient";
+import { MongoClient } from "mongodb";
 
 export async function GET(req) {
   try {
     const searchParams = req.nextUrl.searchParams;
-    const limit = searchParams.get("limit");
+    const limit =
+      searchParams.get("limit") === null || undefined || 0
+        ? 10
+        : searchParams.get("limit");
+    const page =
+      searchParams.get("page") === null || undefined || 0
+        ? 1
+        : searchParams.get("page");
+
     // Get the database and collection on which to run the operation
+    const client = new MongoClient(uri, {});
     await client.connect();
     const database = client.db("products");
     const listings = database.collection("listings");
+
+    const skip = (page - 1) * limit;
     // Query to get the latest 6 listings sorted by '_id' (which includes creation timestamp)
     const query = {};
     const options = {
-      sort: { _id: -1 }, // Sort in descending order by '_id' (which includes creation timestamp)
-      limit: parseInt(limit), // Limit the number of results to the specified limit
+      sort: { _id: -1 }, // Sort in descending order by '_id'
+      limit: parseInt(limit),
+      skip: parseInt(skip), // Skip documents based on the page number
     };
     // Execute query
     const data = await listings.find(query, options).toArray();

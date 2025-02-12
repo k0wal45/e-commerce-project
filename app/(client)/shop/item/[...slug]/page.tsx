@@ -2,12 +2,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import classes from "./page.module.scss";
-
-interface Listing {
-  id: number;
-  title: string;
-  description: string;
-}
+import { Listing } from "@/utils/Types";
 
 const Page = () => {
   const [listing, setListing] = useState<Listing | null>(null);
@@ -39,7 +34,7 @@ const Page = () => {
 
   return (
     <article className={classes.page}>
-      <div key={listing.id} className={classes.listing}>
+      <div key={listing._id} className={classes.listing}>
         <h2>{listing.title}</h2>
         <p>{listing.description}</p>
       </div>

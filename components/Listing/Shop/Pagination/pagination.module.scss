@@ -1,0 +1,38 @@
+@import "@/utils/variables.scss";
+
+.pagination {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 20px;
+  font-size: 1.2rem;
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background-color: transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.5rem;
+    transition: all 0.3s;
+
+    &:hover {
+      background-color: $cardColor;
+    }
+
+    &:active {
+      background-color: $cardColor;
+      filter: brightness(0.8);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+      background-color: $cardColor; // Add a background color for disabled state
+      color: #666; // Add a text color for disabled state
+    }
+  }
+}

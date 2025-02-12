@@ -20,30 +20,30 @@ const Card = ({ listing }: { listing: Listing }) => {
           width={700}
           height={700}
           alt=""
-          src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          src={typeof listing.images[0] === "string" ? listing.images[0] : ""}
         />
       </div>
       <div className={classes.content}>
         <span className={classes.price}>
-          <p>{"$" + costString(12345678)}</p>
+          <p>{"$" + costString(listing.price)}</p>
         </span>
         <p>
           <span>
             <FaLocationDot />
           </span>
-          Somewhere
+          {listing.location.city}, {listing.location.state}
         </p>
         <p>
           <span>
             <BiArea />
           </span>
-          25 m<sup>2</sup>
+          {listing.features.area} m<sup>2</sup>
         </p>
         <p>
           <span>
             <FaHouse />
           </span>
-          Big House
+          {listing.category}
         </p>
 
         <div className={classes.buttons}>

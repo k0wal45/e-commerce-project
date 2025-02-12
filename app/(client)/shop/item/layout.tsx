@@ -9,7 +9,7 @@ const layout = ({
   return (
     <main style={{ marginTop: "6rem" }}>
       {children}
-      <LatestListing />
+      {/* <LatestListing /> */}
     </main>
   );
 };
