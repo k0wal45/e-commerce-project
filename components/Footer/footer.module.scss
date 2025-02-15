@@ -4,8 +4,8 @@
   width: calc(100% - 4rem);
   padding: 2rem 4rem;
   background: black;
-  margin: 2rem;
-  border-radius: 1.5rem;
+  margin: $marginAround;
+  border-radius: $borderRadius;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: 1fr;

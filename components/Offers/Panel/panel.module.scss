@@ -6,7 +6,7 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  border-radius: 2rem;
+  border-radius: $borderRadius;
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;

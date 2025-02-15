@@ -3,6 +3,18 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import classes from "./page.module.scss";
 import { Listing } from "@/utils/Types";
+import Images from "@/components/Listing/Slug/Images/Images";
+import { FaAngleLeft, FaHeart, FaShare } from "react-icons/fa6";
+const copyUrlToClipboard = () => {
+  navigator.clipboard
+    .writeText(window.location.href)
+    .then(() => {
+      alert("URL copied to clipboard!");
+    })
+    .catch((err) => {
+      console.error("Failed to copy: ", err);
+    });
+};
 
 const Page = () => {
   const [listing, setListing] = useState<Listing | null>(null);
@@ -34,10 +46,27 @@ const Page = () => {
 
   return (
     <article className={classes.page}>
-      <div key={listing._id} className={classes.listing}>
-        <h2>{listing.title}</h2>
-        <p>{listing.description}</p>
+      {/* navigation */}
+      <div className={classes.navigation}>
+        <div>
+          <div onClick={() => history.back()}>
+            <FaAngleLeft style={{ fontSize: "1.6rem" }} />
+            Back
+          </div>
+        </div>
+
+        <div>
+          <div onClick={copyUrlToClipboard}>
+            <FaShare style={{ fontSize: "1.6rem" }} />
+            Share
+          </div>
+          <div onClick={() => alert("Succesfuly saved")}>
+            <FaHeart style={{ fontSize: "1.6rem" }} />
+            Save
+          </div>
+        </div>
       </div>
+      <Images images={listing.images} />
     </article>
   );
 };

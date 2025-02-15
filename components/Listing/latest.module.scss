@@ -1,12 +1,12 @@
+@import "@/utils/variables.scss";
+
 .latest {
   display: flex;
   flex-direction: column;
   width: 100%;
   height: auto;
   gap: 2rem;
-  padding: 2rem;
-  margin: auto;
-  margin-bottom: 0;
+  padding: $marginAround;
 
   h3 {
     font-size: 3rem;

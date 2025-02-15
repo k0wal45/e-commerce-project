@@ -1,4 +1,4 @@
-import React from "react";
+import classes from "./layout.module.scss";
 import LatestListing from "@/components/Listing/LatestListing";
 
 const layout = ({
@@ -7,7 +7,7 @@ const layout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <main style={{ marginTop: "6rem" }}>
+    <main className={classes.layout}>
       {children}
       {/* <LatestListing /> */}
     </main>

@@ -1,2 +1,50 @@
+@import "@/utils/variables.scss";
+
 .page {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  .navigation {
+    width: 100%;
+    padding: 1rem 3rem;
+    border-radius: $borderRadius;
+    background: $cardColor;
+    display: flex;
+    justify-content: space-between;
+
+    div {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    > div {
+      > div {
+        transition: all 0.4s;
+        cursor: pointer;
+        gap: 10px;
+      }
+
+      :hover {
+        transform: scale(1.1);
+      }
+
+      :active {
+        transform: scale(0.95);
+      }
+
+      @media (max-width: 768px) {
+        p {
+          display: none;
+        }
+      }
+    }
+  }
 }

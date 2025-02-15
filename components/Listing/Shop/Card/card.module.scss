@@ -15,7 +15,7 @@ $font: #141414;
     position: relative;
     width: 100%;
     height: 250px;
-    border-radius: 15px;
+    border-radius: $borderRadius;
     overflow: hidden;
 
     img {

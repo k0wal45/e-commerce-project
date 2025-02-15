@@ -3,7 +3,7 @@
 .panel {
   width: calc(100% - 4rem);
   min-height: 70vh;
-  margin: 2rem;
+  margin: $marginAround;
   margin-top: 0;
   position: relative;
   display: flex;
@@ -11,7 +11,7 @@
   justify-content: flex-end;
   padding: 4rem;
   gap: 1rem;
-  border-radius: 1.5rem;
+  border-radius: $borderRadius;
   overflow: hidden;
   color: white;
 

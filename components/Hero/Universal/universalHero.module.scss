@@ -1,12 +1,14 @@
+@import "@/utils/variables.scss";
+
 .hero {
-  width: calc(100% - 4rem);
+  width: calc(100% - $marginAround * 2);
   overflow-x: hidden;
   position: relative;
   display: flex;
   justify-content: center;
-  margin: 2rem;
+  margin: $marginAround;
   margin-top: 5rem;
-  border-radius: 2rem;
+  border-radius: $borderRadius;
   padding: 5rem 1rem;
   color: white;
 
