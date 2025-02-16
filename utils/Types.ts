@@ -7,6 +7,7 @@ type Location = {
 };
 
 type Features = {
+  rooms: number;
   bedrooms: number;
   bathrooms: number;
   area: number; // in square feet or meters
