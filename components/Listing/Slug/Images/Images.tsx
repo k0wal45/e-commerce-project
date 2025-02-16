@@ -1,12 +1,12 @@
 "use client";
 import Image from "next/image";
 import classes from "./images.module.scss";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
-import { Fragment, useState } from "react";
+import ImageSlideShow from "./ImageSlideShow/ImageSlideShow";
+import { useState } from "react";
 
-function copyAndTrimArray(arr) {
+function copyAndTrimArray(arr: string[] | File[]) {
   // Create a copy of the array
-  let newArr = [...arr];
+  const newArr = [...arr];
 
   // Remove all elements after the 5th item
   newArr.length = Math.min(newArr.length, 5);
@@ -16,35 +16,39 @@ function copyAndTrimArray(arr) {
 
 const Images = ({ images }: { images: string[] | File[] }) => {
   const [currentImage, setCurrentImage] = useState<number>(0);
-
-  const imagesToDisplay = copyAndTrimArray(images);
+  const [showSlideShow, setShowSlideShow] = useState<boolean>(false);
+  const imagesToDisplay = copyAndTrimArray(images).filter(
+    (image) => typeof image === "string"
+  ) as string[];
 
   return (
-    <Fragment>
-      <div className={classes.container}>
-        {
-          //display only 5 images from whole array
-          imagesToDisplay.map((image, i) => (
-            <Image key={i} width={800} height={700} src={image} alt="product" />
-          ))
-        }
-      </div>
-      {/* pagination */}
-      <div className={classes.pagination}>
-        <button
-          onClick={() => setCurrentImage(currentImage - 1)}
-          disabled={currentImage === 0}
-        >
-          <FaArrowLeft />
-        </button>
-        <button
-          onClick={() => setCurrentImage(currentImage + 1)}
-          disabled={currentImage === images.length - 1}
-        >
-          <FaArrowRight />
-        </button>
-      </div>
-    </Fragment>
+    <div className={classes.container}>
+      {
+        //display only 5 images from whole array
+        imagesToDisplay.map((image, i) => (
+          <Image
+            key={i}
+            width={800}
+            height={700}
+            src={image}
+            alt="product"
+            onClick={() => {
+              setCurrentImage(i);
+              setShowSlideShow(true);
+            }}
+          />
+        ))
+      }
+      {
+        <ImageSlideShow
+          images={images}
+          show={showSlideShow}
+          toggle={setShowSlideShow}
+          currentImage={currentImage}
+          setCurrentImage={setCurrentImage}
+        />
+      }
+    </div>
   );
 };
 

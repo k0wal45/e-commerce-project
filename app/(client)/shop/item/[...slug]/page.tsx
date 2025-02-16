@@ -48,22 +48,20 @@ const Page = () => {
     <article className={classes.page}>
       {/* navigation */}
       <div className={classes.navigation}>
-        <div>
-          <div onClick={() => history.back()}>
-            <FaAngleLeft style={{ fontSize: "1.6rem" }} />
-            Back
-          </div>
-        </div>
+        <button onClick={() => history.back()}>
+          <FaAngleLeft style={{ fontSize: "1.6rem" }} />
+          Back
+        </button>
 
         <div>
-          <div onClick={copyUrlToClipboard}>
+          <button onClick={copyUrlToClipboard}>
             <FaShare style={{ fontSize: "1.6rem" }} />
             Share
-          </div>
-          <div onClick={() => alert("Succesfuly saved")}>
+          </button>
+          <button onClick={() => alert("Succesfuly saved")}>
             <FaHeart style={{ fontSize: "1.6rem" }} />
             Save
-          </div>
+          </button>
         </div>
       </div>
       <Images images={listing.images} />

@@ -1,0 +1,87 @@
+@import "@/utils/variables.scss";
+
+.slideShow {
+  z-index: 50;
+  position: fixed;
+  top: 10%;
+  left: 0;
+  width: 100%;
+  height: 80%;
+  background: $cardColor;
+  padding: 2rem;
+  padding-bottom: 1rem;
+  flex-direction: column;
+  gap: 2rem;
+
+  .Image {
+    margin: auto;
+    width: 70vw;
+    max-height: 40rem;
+    object-fit: contain;
+  }
+
+  .allImages {
+    display: flex;
+    gap: 1rem;
+    max-height: 10rem;
+
+    img {
+      border-radius: 0.3rem;
+      width: 10rem;
+      max-height: 7rem;
+    }
+  }
+
+  .closeButton {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    transition: all 0.3s;
+    &:hover {
+      color: #666;
+    }
+
+    &:active {
+      transform: scale(0.8);
+    }
+  }
+}
+
+.pagination {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  gap: 1rem;
+  padding: 1rem;
+
+  button {
+    padding: 1rem;
+    background-color: #222;
+    border-radius: 99999px;
+    color: #fff;
+    width: fit-content;
+    height: fit-content;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.3; // Add a background color for disabled state
+      background: #666; // Add a text color for disabled state
+    }
+  }
+}

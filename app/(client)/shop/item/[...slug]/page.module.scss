@@ -16,28 +16,31 @@
     display: flex;
     justify-content: space-between;
 
-    div {
+    div,
+    button {
       display: flex;
-      gap: 2rem;
       align-items: center;
       justify-content: center;
       font-size: 1.1rem;
       font-weight: 700;
     }
 
-    > div {
-      > div {
-        transition: all 0.4s;
-        cursor: pointer;
-        gap: 10px;
+    div {
+      gap: 2rem;
+    }
+
+    button {
+      gap: 10px;
+      transition: all 0.4s;
+      cursor: pointer;
+      gap: 10px;
+
+      &:hover {
+        opacity: 0.5;
       }
 
-      :hover {
-        transform: scale(1.1);
-      }
-
-      :active {
-        transform: scale(0.95);
+      &:active {
+        transform: scale(0.8);
       }
 
       @media (max-width: 768px) {
