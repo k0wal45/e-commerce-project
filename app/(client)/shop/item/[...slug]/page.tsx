@@ -104,7 +104,80 @@ const Page = () => {
       </div>
 
       <div className={classes.seller}>
-        <div className={classes.container}></div>
+        <div className={classes.container}>
+          <h4>Seller Info</h4>
+          {listing.seller.name ? (
+            <div>
+              <p>Name: </p>
+              <p>{listing.seller.name}</p>
+            </div>
+          ) : (
+            ""
+          )}
+          {listing.seller.phone ? (
+            <div>
+              <p>Phone: </p>
+              <p>
+                {typeof listing.seller.phone === "string"
+                  ? listing.seller.phone.startsWith("+")
+                    ? listing.seller.phone
+                    : "+" +
+                      listing.seller.phone.replace(
+                        /(\d{3})(\d{3})(\d{4})/,
+                        "($1) $2-$3"
+                      )
+                  : listing.seller.phone
+                      .toString()
+                      .replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3")}
+              </p>
+            </div>
+          ) : (
+            ""
+          )}
+          {listing.seller.email ? (
+            <div>
+              <p>E-mail: </p>
+              <p>{listing.seller.email}</p>
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
+        <div className={classes.container}>
+          <form action="/api/contactSeller" method="POST">
+            <div>
+              <label htmlFor="name">Name:</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Name"
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="phone">Phone:</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="Phone Number"
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="email">Email:</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Email Address"
+                required
+              />
+            </div>
+            <button type="submit">Send</button>
+          </form>
+        </div>
       </div>
     </article>
   );
