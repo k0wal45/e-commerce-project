@@ -6,6 +6,7 @@ import { Listing } from "@/utils/Types";
 import Images from "@/components/Listing/Slug/Images/Images";
 import { FaAngleLeft, FaHeart, FaLocationDot, FaShare } from "react-icons/fa6";
 import Features from "@/components/Listing/Slug/Features/Features";
+import SimpleContactForm from "@/components/Listing/Slug/Form/Form";
 const copyUrlToClipboard = () => {
   navigator.clipboard
     .writeText(window.location.href)
@@ -144,39 +145,7 @@ const Page = () => {
           )}
         </div>
         <div className={classes.container}>
-          <form action="/api/contactSeller" method="POST">
-            <div>
-              <label htmlFor="name">Name:</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder="Name"
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="phone">Phone:</label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                placeholder="Phone Number"
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="email">Email:</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Email Address"
-                required
-              />
-            </div>
-            <button type="submit">Send</button>
-          </form>
+          <SimpleContactForm />
         </div>
       </div>
     </article>

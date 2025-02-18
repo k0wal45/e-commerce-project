@@ -4,7 +4,7 @@ import classes from "./features.module.scss";
 const Features = ({ features }: { features: Features }) => {
   return (
     <div className={classes.features}>
-      <h2>Mieszkanie na sprzedaż</h2>
+      <h2>Features</h2>
       <div className={classes.container}>
         {Object.entries(features).map(
           ([key, value]) =>
