@@ -1,4 +1,4 @@
-type Location = {
+export type Location = {
   address: string;
   city: string;
   state: string;
@@ -6,24 +6,24 @@ type Location = {
   country: string;
 };
 
-type Features = {
-  rooms: number;
-  bedrooms: number;
-  bathrooms: number;
-  area: number; // in square feet or meters
-  parkingSpaces?: number; // optional
+export type Features = {
+  rooms?: number;
+  bedrooms?: number;
+  bathrooms?: number;
+  area?: number; // in square meters
+  parkingSpaces?: number;
   hasPool?: boolean;
   hasGarage?: boolean;
   hasGarden?: boolean;
 };
 
-type Seller = {
+export type Seller = {
   name: string;
   email: string;
   phone?: string | number; // optional
 };
 
-type Promotion = {
+export type Promotion = {
   isActive: boolean;
   discountType: "percentage" | "fixed" | ""; // percentage or fixed or none amount
   discountValue: number;

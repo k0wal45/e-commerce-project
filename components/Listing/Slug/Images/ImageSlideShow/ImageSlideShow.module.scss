@@ -12,6 +12,7 @@
   padding-bottom: 1rem;
   flex-direction: column;
   gap: 2rem;
+  box-shadow: #222 0 10px 1rem;
 
   .Image {
     margin: auto;
@@ -23,12 +24,23 @@
   .allImages {
     display: flex;
     gap: 1rem;
-    max-height: 10rem;
+    max-height: 7rem;
+    min-height: 5rem;
+    overflow-x: scroll;
 
-    img {
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+
+    > img {
       border-radius: 0.3rem;
-      width: 10rem;
-      max-height: 7rem;
+      min-width: 4rem;
+      max-width: 11rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      z-index: 10;
     }
   }
 
@@ -59,6 +71,11 @@
   transform: translateY(-50%);
   gap: 1rem;
   padding: 1rem;
+
+  @media (max-width: 768px) {
+    top: auto;
+    bottom: 4rem;
+  }
 
   button {
     padding: 1rem;

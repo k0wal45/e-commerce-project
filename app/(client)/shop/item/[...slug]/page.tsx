@@ -5,6 +5,7 @@ import classes from "./page.module.scss";
 import { Listing } from "@/utils/Types";
 import Images from "@/components/Listing/Slug/Images/Images";
 import { FaAngleLeft, FaHeart, FaLocationDot, FaShare } from "react-icons/fa6";
+import Features from "@/components/Listing/Slug/Features/Features";
 const copyUrlToClipboard = () => {
   navigator.clipboard
     .writeText(window.location.href)
@@ -32,7 +33,6 @@ const Page = () => {
         const response = await fetch("/api/getData/getListingById?id=" + id);
         const data = await response.json();
         setListing(data.data);
-        console.log(data.data);
         setLoading(false);
       }
     };
@@ -77,7 +77,9 @@ const Page = () => {
           </p>
           <span>
             {putSymbolEveryThreeDigit(
-              Math.round(listing.price / listing.features.area),
+              listing.features.area
+                ? Math.round(listing.price / listing.features.area)
+                : 0,
               " "
             )}{" "}
             $/m
@@ -93,6 +95,16 @@ const Page = () => {
             </b>
           </p>
         </div>
+      </div>
+      <Features features={listing.features} />
+
+      <div className={classes.mainInfo}>
+        <h3>Description</h3>
+        <p>{listing.description}</p>
+      </div>
+
+      <div className={classes.seller}>
+        <div className={classes.container}></div>
       </div>
     </article>
   );

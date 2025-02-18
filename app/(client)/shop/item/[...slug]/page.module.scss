@@ -63,6 +63,15 @@
       font-size: 1.3rem;
     }
 
+    h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+    p {
+      font-size: 1.1rem;
+    }
+
     .container {
       display: flex;
       gap: 1rem;
@@ -71,6 +80,10 @@
       .price {
         font-size: 3rem;
         font-weight: 700;
+      }
+
+      @media (max-width: 768px) {
+        flex-direction: column;
       }
 
       span {
@@ -85,6 +98,24 @@
       display: flex;
       align-items: center;
       gap: 1rem;
+    }
+  }
+
+  .seller {
+    display: flex;
+    gap: 1rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 2rem;
+      border-radius: $borderRadius;
+      background-color: $cardColor;
     }
   }
 }

@@ -11,6 +11,20 @@
     grid-row: span 2;
   }
 
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1rem;
+
+    :first-child {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    > img:nth-of-type(n + 3) {
+      display: none;
+    }
+  }
   img {
     object-fit: cover;
     width: 100%;

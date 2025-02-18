@@ -62,6 +62,7 @@ const ImageSlideShow = ({
             style={{
               border: index === currentImage ? "solid 2px #333" : "none",
             }}
+            onClick={() => setCurrentImage(index)}
           />
         ))}
       </div>

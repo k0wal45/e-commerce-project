@@ -1,0 +1,28 @@
+@import "@/utils/variables.scss";
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  background-color: $cardColor;
+  border-radius: $borderRadius;
+
+  h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .feature {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 2px;
+      border-bottom: solid 1px #999;
+    }
+  }
+}
