@@ -27,30 +27,65 @@ const Card = ({ listing }: { listing: Listing }) => {
         <span className={classes.price}>
           <p>{"$" + costString(listing.price)}</p>
         </span>
-        <p>
+        <p className={classes.detailedInfo}>
+          {listing.title}
+          <p className={classes.lessImportant}>
+            {listing.location.address}, {listing.location.city},{" "}
+            {listing.location.state}
+          </p>
+        </p>
+        <p className={classes.mobileInfo}>
           <span>
             <FaLocationDot />
           </span>
           {listing.location.city}, {listing.location.state}
         </p>
-        <p>
+        <p className={classes.mobileInfo}>
           <span>
             <BiArea />
           </span>
-          {listing.features.area} m<sup>2</sup>
+          {listing.features.area} m²
         </p>
         <p>
+          {listing.features.rooms ? listing.features.rooms + " rooms | " : ""}
+          {listing.features.area ? listing.features.area + " m² | " : ""}
+          {listing.features.area && listing.price
+            ? Math.floor(listing.price / listing.features.area)
+                .toFixed(2)
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " $/m²"
+            : ""}
+        </p>
+        <p className={classes.mobileInfo}>
           <span>
             <FaHouse />
           </span>
-          {listing.category}
+          {listing.category.charAt(0).toUpperCase() + listing.category.slice(1)}
         </p>
 
         <div className={classes.buttons}>
-          <button>
+          <button
+            onClick={() =>
+              alert(
+                typeof listing.seller.phone === "string"
+                  ? listing.seller.phone.startsWith("+")
+                    ? listing.seller.phone
+                    : "+" +
+                      listing.seller.phone.replace(
+                        /(\d{3})(\d{3})(\d{4})/,
+                        "($1) $2-$3"
+                      )
+                  : listing.seller.phone
+                  ? listing.seller.phone
+                      .toString()
+                      .replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3")
+                  : ""
+              )
+            }
+          >
             <FaPhone />
           </button>
-          <button>
+          <button onClick={(e) => e.preventDefault()}>
             <FaHeart />
           </button>
         </div>

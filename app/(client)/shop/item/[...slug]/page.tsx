@@ -104,7 +104,7 @@ const Page = () => {
         <p>{listing.description}</p>
       </div>
 
-      <div className={classes.seller}>
+      <div className={classes.seller} id="seller">
         <div className={classes.container}>
           <h4>Seller Info</h4>
           {listing.seller.name ? (
