@@ -75,7 +75,7 @@
     .container {
       display: flex;
       gap: 1rem;
-      align-items: end;
+      align-items: flex-end;
 
       .price {
         font-size: 3rem;

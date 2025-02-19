@@ -22,14 +22,18 @@ const SimpleContactForm = () => {
     setLoading(true);
 
     const dataToSend = {
-      name: formData.name,
-      email: formData.email,
-      phoneNumber: formData.phone,
+      status: "new",
+      page: "contact",
+      data: {
+        name: formData.name,
+        email: formData.email,
+        phoneNumber: formData.phone,
+      },
     };
 
     try {
       // Prześlij pliki i dane do API
-      const response = await fetch("/api/formHandler", {
+      const response = await fetch("/api/formHandler/clientFormSubmition", {
         method: "POST",
         body: JSON.stringify(dataToSend),
       });
@@ -37,7 +41,6 @@ const SimpleContactForm = () => {
       if (!response.ok) {
         throw new Error("Failed to submit form");
       }
-
       alert("Message sent succesfuly");
       setFormData({
         name: "",
