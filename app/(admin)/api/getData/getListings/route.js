@@ -29,6 +29,7 @@ export async function GET(req) {
     };
     // Execute query
     const data = await listings.find(query, options).toArray();
+
     await client.close();
     return new Response(
       JSON.stringify({

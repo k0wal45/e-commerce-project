@@ -1,3 +1,5 @@
+@import "@/utils/variables.scss";
+
 .categoryListingLink {
   display: flex;
   justify-content: space-between;
@@ -51,9 +53,13 @@
   .categoryListingPrice {
     font-weight: 600;
     font-size: 1.4rem;
-    color: #00cc66;
+    color: #000;
     display: flex;
     align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    background-color: $primary;
+    width: fit-content;
   }
 
   .categoryListingInfoDiv {

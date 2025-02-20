@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 
 const SimpleContactForm = () => {
   const [loading, setLoading] = useState(false);
@@ -41,7 +42,19 @@ const SimpleContactForm = () => {
       if (!response.ok) {
         throw new Error("Failed to submit form");
       }
-      alert("Message sent succesfuly");
+      toast.success(
+        "Cos poszło nie tak, Skontaktuj się mailowo: lunarisweb.pl@gmail.com",
+        {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        }
+      );
       setFormData({
         name: "",
         email: "",
@@ -49,7 +62,19 @@ const SimpleContactForm = () => {
       });
     } catch (error) {
       console.error(error);
-      alert("Error submitting the form.");
+      toast.error(
+        "Cos poszło nie tak, Skontaktuj się mailowo: lunarisweb.pl@gmail.com",
+        {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        }
+      );
     } finally {
       setLoading(false);
     }
@@ -94,6 +119,7 @@ const SimpleContactForm = () => {
         />
       </div>
       <button type="submit">{loading ? "Sending..." : "Send"}</button>
+      <ToastContainer />
     </form>
   );
 };

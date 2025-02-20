@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "../../globals.scss";
 import { Figtree } from "next/font/google";
+import Navigation from "@/components/Dashboard/Navigation/Navigation";
+import classes from "./layout.module.scss";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -16,7 +18,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={font.className}>{children}</body>
+      <body className={font.className + " " + classes.layout}>
+        <Navigation />
+        <main>{children}</main>
+      </body>
     </html>
   );
 }

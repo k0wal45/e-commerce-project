@@ -7,11 +7,21 @@ import Images from "@/components/Listing/Slug/Images/Images";
 import { FaAngleLeft, FaHeart, FaLocationDot, FaShare } from "react-icons/fa6";
 import Features from "@/components/Listing/Slug/Features/Features";
 import SimpleContactForm from "@/components/Listing/Slug/Form/Form";
+import { toast, ToastContainer } from "react-toastify";
 const copyUrlToClipboard = () => {
   navigator.clipboard
     .writeText(window.location.href)
     .then(() => {
-      alert("URL copied to clipboard!");
+      toast.success("Messages sent succesfuly", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     })
     .catch((err) => {
       console.error("Failed to copy: ", err);
@@ -98,12 +108,10 @@ const Page = () => {
         </div>
       </div>
       <Features features={listing.features} />
-
       <div className={classes.mainInfo}>
         <h3>Description</h3>
         <p>{listing.description}</p>
       </div>
-
       <div className={classes.seller} id="seller">
         <div className={classes.container}>
           <h4>Seller Info</h4>
@@ -148,6 +156,7 @@ const Page = () => {
           <SimpleContactForm />
         </div>
       </div>
+      <ToastContainer />
     </article>
   );
 };

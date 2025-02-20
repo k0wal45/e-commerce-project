@@ -1,0 +1,14 @@
+@import "@/utils/variables.scss";
+
+.layout {
+  display: flex;
+  background-color: $cardColor;
+  padding: 1rem;
+
+  main {
+    border-radius: $borderRadius;
+    background: #fff;
+    padding: 1rem;
+    width: 100%;
+  }
+}

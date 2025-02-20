@@ -30,25 +30,22 @@ const Form = () => {
 
     if (e.target.validate.checked) {
       console.log("validate");
-      toast.error(
-        "Cos poszło nie tak, Skontaktuj się mailowo: lunarisweb.pl@gmail.com",
-        {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        }
-      );
+      toast.error("Something went wrong, please contact us via email", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
       return;
     }
 
     if (!e.target.accpet.checked) {
       toast.error(
-        "Pamiętaj aby wyrazić zgodę na przetwarzanie danych na dole formularza",
+        "Remember to accept the terms and conditions to send the form",
         {
           position: "top-right",
           autoClose: 5000,
@@ -69,7 +66,7 @@ const Form = () => {
 
     // Sprawdzanie pola "name"
     if (name.trim() === "") {
-      toast.error("Nieprawidłowo wpisane imię", {
+      toast.error("Wrong name", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -84,7 +81,7 @@ const Form = () => {
 
     // Sprawdzanie pola "email"
     if (email.trim() === "") {
-      toast.error("Nieprawidłowy adres e-mail", {
+      toast.error("Wrong e-mail address", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -96,7 +93,7 @@ const Form = () => {
       });
       return;
     } else if (!emailRegex.test(email)) {
-      toast.error("Nieprawidłowy adres e-mail", {
+      toast.error("Wrong e-mail address", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -111,7 +108,7 @@ const Form = () => {
 
     // Sprawdzanie pola "phone"
     if (phone.trim() === "") {
-      toast.error("Nieprawidłowy numer telefonu", {
+      toast.error("Wrong phone number", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -123,7 +120,7 @@ const Form = () => {
       });
       return;
     } else if (!phoneRegex.test(phone)) {
-      toast.error("Nieprawidłowy numer telefonu", {
+      toast.error("Wrong phone number", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -138,19 +135,16 @@ const Form = () => {
 
     // Sprawdzanie pola "message"
     if (message.trim() === "") {
-      toast.error(
-        "Cos poszło nie tak, Skontaktuj się mailowo: lunarisweb.pl@gmail.com",
-        {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        }
-      );
+      toast.error("Something went wrong, please contact us via email", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
       return;
     }
 
@@ -161,7 +155,7 @@ const Form = () => {
       message: "",
     });
 
-    toast.success("Sukces", {
+    toast.success("Messages sent succesfuly", {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,

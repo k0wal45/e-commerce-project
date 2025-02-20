@@ -29,11 +29,7 @@ function ListingItem({ listing }: { listing: Listing }) {
         </p>
         <p className={styles.categoryListingName}>{listing.title}</p>
         <p className={styles.categoryListingPrice}>
-          $
-          {listing.promotion.isActive
-            ? listing.promotion.discountType ===
-              "percentage".toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-            : listing.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+          ${listing.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
         </p>
         <div className={styles.categoryListingInfoDiv}>
           <BiArea />
