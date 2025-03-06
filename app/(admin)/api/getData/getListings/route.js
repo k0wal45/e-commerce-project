@@ -6,7 +6,7 @@ export async function GET(req) {
     const searchParams = req.nextUrl.searchParams;
     const limit =
       searchParams.get("limit") === null || undefined || 0
-        ? 10
+        ? undefined
         : searchParams.get("limit");
     const page =
       searchParams.get("page") === null || undefined || 0
@@ -24,9 +24,10 @@ export async function GET(req) {
     const query = {};
     const options = {
       sort: { _id: -1 }, // Sort in descending order by '_id'
-      limit: parseInt(limit),
-      skip: parseInt(skip), // Skip documents based on the page number
+      ...(limit && { limit: parseInt(limit) }),
+      ...(skip && { skip: parseInt(skip) }), // Skip documents based on the page number
     };
+
     // Execute query
     const data = await listings.find(query, options).toArray();
 

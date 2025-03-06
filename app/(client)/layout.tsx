@@ -3,6 +3,7 @@ import "../globals.scss";
 import { Figtree } from "next/font/google";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
+import TrackVisit from "@/components/TrackVisit";
 
 export const metadata: Metadata = {
   title: "House Marketplace",
@@ -22,6 +23,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Footer />
+        <TrackVisit />
       </body>
     </html>
   );

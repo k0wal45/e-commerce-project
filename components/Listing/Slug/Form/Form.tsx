@@ -42,19 +42,16 @@ const SimpleContactForm = () => {
       if (!response.ok) {
         throw new Error("Failed to submit form");
       }
-      toast.success(
-        "Cos poszło nie tak, Skontaktuj się mailowo: lunarisweb.pl@gmail.com",
-        {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        }
-      );
+      toast.success("Message sent successfully, we will contact you soon!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
       setFormData({
         name: "",
         email: "",
@@ -62,19 +59,16 @@ const SimpleContactForm = () => {
       });
     } catch (error) {
       console.error(error);
-      toast.error(
-        "Cos poszło nie tak, Skontaktuj się mailowo: lunarisweb.pl@gmail.com",
-        {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        }
-      );
+      toast.error("Something went wrong, please contact us via email:", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     } finally {
       setLoading(false);
     }

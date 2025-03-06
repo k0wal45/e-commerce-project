@@ -1,7 +1,7 @@
 "use client";
 import { Fragment, useRef, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
+import "react-toastify/dist/ReactToastify.css";
 import classes from "./form.module.scss";
 const Form = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +10,7 @@ const Form = () => {
     phone: "",
     message: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const { name, email, phone, message } = formData;
 
@@ -25,8 +26,9 @@ const Form = () => {
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
+    setLoading(true);
 
     if (e.target.validate.checked) {
       console.log("validate");
@@ -40,6 +42,7 @@ const Form = () => {
         progress: undefined,
         theme: "colored",
       });
+      setLoading(false);
       return;
     }
 
@@ -57,6 +60,7 @@ const Form = () => {
           theme: "colored",
         }
       );
+      setLoading(false);
       return;
     }
 
@@ -76,6 +80,7 @@ const Form = () => {
         progress: undefined,
         theme: "colored",
       });
+      setLoading(false);
       return;
     }
 
@@ -91,6 +96,7 @@ const Form = () => {
         progress: undefined,
         theme: "colored",
       });
+      setLoading(false);
       return;
     } else if (!emailRegex.test(email)) {
       toast.error("Wrong e-mail address", {
@@ -103,6 +109,7 @@ const Form = () => {
         progress: undefined,
         theme: "colored",
       });
+      setLoading(false);
       return;
     }
 
@@ -118,6 +125,7 @@ const Form = () => {
         progress: undefined,
         theme: "colored",
       });
+      setLoading(false);
       return;
     } else if (!phoneRegex.test(phone)) {
       toast.error("Wrong phone number", {
@@ -130,6 +138,7 @@ const Form = () => {
         progress: undefined,
         theme: "colored",
       });
+      setLoading(false);
       return;
     }
 
@@ -145,15 +154,52 @@ const Form = () => {
         progress: undefined,
         theme: "colored",
       });
+      setLoading(false);
       return;
     }
 
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      message: "",
-    });
+    // Wysyłanie formularza
+    try {
+      // Prześlij pliki i dane do API
+      const response = await fetch("/api/formHandler/clientFormSubmition", {
+        method: "POST",
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit form");
+      }
+      toast.success("Message sent successfully, we will contact you soon!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } finally {
+      setLoading(false);
+    }
 
     toast.success("Messages sent succesfuly", {
       position: "top-right",
@@ -229,7 +275,7 @@ const Form = () => {
         </div>
 
         <button type="submit" className="basicbutton">
-          Prześlij
+          {loading ? "Sending..." : "Send"}
         </button>
 
         <ToastContainer />
