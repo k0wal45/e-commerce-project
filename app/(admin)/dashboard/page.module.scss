@@ -4,9 +4,64 @@
   display: flex;
   flex-direction: column;
   padding: 1rem 2rem;
+  gap: 1rem;
+
+  @media (max-width: 768px) {
+    padding: 0;
+  }
 
   h1 {
     font-size: 2rem;
     font-weight: 600;
+  }
+
+  .container {
+    padding: 1rem;
+    border-radius: $borderRadius;
+    background-color: $cardColor;
+
+    h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+  }
+
+  .upperStats {
+    display: flex;
+    gap: 1rem;
+
+    .ActiveListings {
+      display: flex;
+      flex-direction: column;
+
+      p {
+        font-size: 2rem;
+        font-weight: 700;
+        color: $primaryDarken;
+      }
+    }
+
+    .newListings {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+
+  .chart {
+    height: 500px;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    @media (max-width: 768px) {
+      height: auto;
+      width: 100%;
+    }
+
+    canvas {
+      padding-bottom: 3rem;
+    }
   }
 }

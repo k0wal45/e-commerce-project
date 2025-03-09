@@ -9,6 +9,6 @@
     border-radius: $borderRadius;
     background: #fff;
     padding: 1rem;
-    width: 100%;
+    width: calc(100% - 1rem);
   }
 }

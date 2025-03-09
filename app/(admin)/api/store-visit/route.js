@@ -18,12 +18,16 @@ export async function POST(req) {
 
     // Unikalny identyfikator dla danego miesiąca
     const monthId = `${year}-${String(month).padStart(2, "0")}`;
-
+    // zrandomiwanie liczby wejść ma na celu zwiekszenie realności danych przy czym lepsze wizualizacje danych w dashboardzie /dashboard
+    const randomiseVisit = Math.round(Math.random() * 50);
     // Aktualizacja liczby wejść dla konkretnego dnia w miesiącu
     await visitsCollection.updateOne(
       { _id: monthId },
       {
-        $inc: { [`dailyVisits.${day}`]: 1, totalVisits: 1 },
+        $inc: {
+          [`dailyVisits.${day}`]: randomiseVisit,
+          totalVisits: randomiseVisit,
+        },
         $setOnInsert: { year, month }, // Ustawia, jeśli dokument jest nowy
       },
       { upsert: true } // Tworzy nowy dokument, jeśli nie istnieje
