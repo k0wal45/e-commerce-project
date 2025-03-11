@@ -160,10 +160,15 @@ const Form = () => {
 
     // Wysyłanie formularza
     try {
+      const dataToSend = {
+        status: "new",
+        page: "contact",
+        data: formData,
+      };
       // Prześlij pliki i dane do API
       const response = await fetch("/api/formHandler/clientFormSubmition", {
         method: "POST",
-        body: JSON.stringify(formData),
+        body: JSON.stringify(dataToSend),
       });
 
       if (!response.ok) {
@@ -200,17 +205,6 @@ const Form = () => {
     } finally {
       setLoading(false);
     }
-
-    toast.success("Messages sent succesfuly", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "colored",
-    });
   };
 
   return (

@@ -4,12 +4,12 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
-    const { status, page, data } = await req.json();
+    const data = await req.json();
     const client = new MongoClient(uri, {});
     await client.connect();
     const database = client.db("websiteMessages");
     const collection = database.collection("clientSideMessages");
-    await collection.insertOne({ status, page, data });
+    await collection.insertOne(data);
     await client.close();
     return NextResponse.json({ success: true });
   } catch (error) {

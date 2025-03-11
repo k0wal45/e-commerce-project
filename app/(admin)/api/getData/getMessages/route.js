@@ -12,8 +12,8 @@ export async function GET(req) {
     // Get the database and collection on which to run the operation
     const client = new MongoClient(uri, {});
     await client.connect();
-    const database = client.db("analytics");
-    const listings = database.collection("visits");
+    const database = client.db("websiteMessages");
+    const listings = database.collection("clientSideMessages");
 
     // Query to get the latest 6 listings sorted by '_id' (which includes creation timestamp)
     const query = {};

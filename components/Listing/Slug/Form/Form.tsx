@@ -1,6 +1,8 @@
 "use client";
+import { useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SimpleContactForm = () => {
   const [loading, setLoading] = useState(false);
@@ -9,6 +11,9 @@ const SimpleContactForm = () => {
     email: "",
     phone: "",
   });
+
+  const searchParams = useSearchParams();
+  const listingId = searchParams.get("id");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -24,7 +29,7 @@ const SimpleContactForm = () => {
 
     const dataToSend = {
       status: "new",
-      page: "contact",
+      page: "singleListing, id=" + listingId,
       data: {
         name: formData.name,
         email: formData.email,

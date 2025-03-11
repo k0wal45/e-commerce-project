@@ -5,7 +5,6 @@ import { useEffect } from "react";
 export default function TrackVisit() {
   useEffect(() => {
     const fetchVisit = async () => {
-      console.log("Tracking visit...");
       try {
         // const lastVisit = document.cookie
         //   .split("; ")

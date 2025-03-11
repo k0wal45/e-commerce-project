@@ -10,6 +10,7 @@ import {
   Tooltip,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import { User } from "@/utils/Types";
 
 ChartJS.register(
   CategoryScale,
@@ -19,14 +20,6 @@ ChartJS.register(
   Title,
   Tooltip
 );
-
-type User = {
-  _id: string;
-  dailyVisits: number[];
-  month: number;
-  totalVisits: number;
-  year: number;
-};
 
 export const UsersChart = () => {
   const [usersData, setUsersData] = useState<User[]>([]);
@@ -38,7 +31,7 @@ export const UsersChart = () => {
       setLoading(true);
       const response = await fetch("/api/getData/getUsersStats?limit=7");
       const data = await response.json();
-      setUsersData(data.data);
+      setUsersData(data.data.reverse());
       setLoading(false);
     };
 
@@ -60,7 +53,7 @@ export const UsersChart = () => {
     ],
   };
 
-  return <Line width={200} height={200} data={data} />;
+  return <Line width={800} height={600} data={data} />;
 };
 
 export default UsersChart;
