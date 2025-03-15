@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import classes from "./page.module.scss";
 import { Listing, User } from "@/utils/Types";
 import UsersChart from "@/components/Dashboard/Chart/UsersChart";
+import TestForm from "@/components/Dashboard/Form/TestForm";
 
 const Page = () => {
   const [listings, setListings] = useState<Listing[]>([]);
@@ -20,16 +21,15 @@ const Page = () => {
       setListings(data.data);
       // analitics data
       const visitorsResponse = await fetch(
-        "/api/getData/getUsersStats?limit=1"
+        "/api/admin/getData/getUsersStats?limit=1"
       );
       const visitorsData = await visitorsResponse.json();
       setVisitors(visitorsData.data);
       // messages
-      const messagesResponse = await fetch("/api/getData/getMessages");
+      const messagesResponse = await fetch("/api/admin/getData/getMessages");
       const messagesData = await messagesResponse.json();
       setMessages(messagesData.data);
       setLoading(false);
-      console.log(listings);
     };
 
     fetchData();
@@ -76,6 +76,8 @@ const Page = () => {
         <h2>Monthly Visitors</h2>
         <UsersChart />
       </div>
+
+      <TestForm />
     </section>
   );
 };

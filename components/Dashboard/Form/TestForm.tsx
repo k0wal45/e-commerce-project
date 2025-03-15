@@ -111,7 +111,7 @@ const TestForm = () => {
 
     try {
       // Prześlij pliki i dane do API
-      const response = await fetch("/api/addListing", {
+      const response = await fetch("/api/admin/addListing", {
         method: "POST",
         body: dataToSend,
       });

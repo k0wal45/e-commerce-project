@@ -29,7 +29,7 @@ export const UsersChart = () => {
     // Fetch data from API
     const fetchData = async () => {
       setLoading(true);
-      const response = await fetch("/api/getData/getUsersStats?limit=7");
+      const response = await fetch("/api/admin/getData/getUsersStats?limit=7");
       const data = await response.json();
       setUsersData(data.data.reverse());
       setLoading(false);

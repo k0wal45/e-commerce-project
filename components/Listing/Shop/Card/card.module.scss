@@ -161,28 +161,6 @@ $font: #141414;
           color: $font;
         }
       }
-
-      .price::before {
-        content: "";
-        position: absolute;
-        width: 25px;
-        height: 25px;
-        background: transparent;
-        border-radius: 50%;
-        box-shadow: -10px -10px 0 $background;
-      }
-
-      .price::after {
-        content: "";
-        position: absolute;
-        bottom: 1px;
-        right: -25px;
-        width: 25px;
-        height: 25px;
-        background: transparent;
-        border-radius: 50%;
-        box-shadow: -10px 10px 0 $cardColor;
-      }
     }
 
     .buttons {
@@ -214,8 +192,7 @@ $font: #141414;
       }
 
       button:hover {
-        background-color: $font;
-        color: $cardColor;
+        background-color: darken($cardColor, 5%);
       }
     }
 
