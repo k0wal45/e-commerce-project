@@ -9,11 +9,11 @@ export const options = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const user = { id: 1, name: "Admin" };
+        const user = { id: 1, name: "Admin", password: "admin", role: "admin" };
 
         if (
-          credentials.username === "admin" &&
-          credentials.password === "admin"
+          credentials?.username === user.name &&
+          credentials?.password === user.password
         ) {
           return user;
         } else {
@@ -22,4 +22,19 @@ export const options = {
       },
     }),
   ],
+  callback: {
+    async jwt({token, user}) {
+      if (user) {
+        token.role = user.role
+        return token
+      }
+    },
+      async session({session, token}) {
+        if (session.user) {
+          session.user.role = token.role
+          return session
+        }
+      }
+    }
+  }
 };
