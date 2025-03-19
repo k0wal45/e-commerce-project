@@ -4,7 +4,6 @@ import { Figtree } from "next/font/google";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import TrackVisit from "@/components/TrackVisit";
-import SessionWrapper from "@/components/auth/SessionWrapper";
 
 export const metadata: Metadata = {
   title: "House Marketplace",
@@ -19,15 +18,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <SessionWrapper>
-      <html lang="en">
-        <body className={font.className}>
-          <Navbar />
-          {children}
-          <Footer />
-          <TrackVisit />
-        </body>
-      </html>
-    </SessionWrapper>
+    <html lang="en">
+      <body className={font.className}>
+        <Navbar />
+        {children}
+        <Footer />
+        <TrackVisit />
+      </body>
+    </html>
   );
 }

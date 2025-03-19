@@ -1,20 +1,44 @@
 "use client";
-import { useSession, signIn, signOut } from "next-auth/react";
 
-export default function Component() {
-  const { data: session } = useSession();
-  if (session) {
-    return (
-      <>
-        Signed in as {session.user.email} <br />
-        <button onClick={() => signOut()}>Sign out</button>
-      </>
-    );
-  }
+import { useState } from "react";
+
+export default function AuthComponent() {
+  const [data, setData] = useState<string | null>(null);
+
+  const login = async () => {
+    try {
+      const response = await fetch("/api/auth/generateToken", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: "admin@admin.pl",
+          user: "admin",
+          password: "admin",
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const responseBody = await response.json(); // Parse the response body as JSON
+      console.log(responseBody);
+    } catch (error) {
+      console.error("Error during login:", error);
+    }
+  };
+
   return (
-    <>
-      Not signed in <br />
-      <button onClick={() => signIn()}>Sign in</button>
-    </>
+    <div>
+      <button onClick={login}>login</button>
+      {data && (
+        <div>
+          <h1>Token</h1>
+          <p>{data}</p>
+        </div>
+      )}
+    </div>
   );
 }
