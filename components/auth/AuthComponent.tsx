@@ -25,6 +25,8 @@ export default function AuthComponent() {
 
       const responseBody = await response.json(); // Parse the response body as JSON
       console.log(responseBody);
+      localStorage.setItem("token", responseBody.token);
+      setData(responseBody.token);
     } catch (error) {
       console.error("Error during login:", error);
     }
