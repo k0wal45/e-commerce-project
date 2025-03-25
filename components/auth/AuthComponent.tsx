@@ -24,6 +24,11 @@ export default function AuthComponent() {
       }
 
       const responseBody = await response.json(); // Parse the response body as JSON
+
+      if (!responseBody.token) {
+        localStorage.removeItem("token");
+        throw new Error("Token not found in response body");
+      }
       console.log(responseBody);
       localStorage.setItem("token", responseBody.token);
       setData(responseBody.token);

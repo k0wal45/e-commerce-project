@@ -16,9 +16,11 @@ const AuthCheck = () => {
         }),
       });
 
+      console.log("Response:", await response.json());
+
       const hashPassword = async (password: string) => {
-        const saltRounds = 10; // Recommended is 10-12 for good security
-        return await bcrypt.hash(password, saltRounds);
+        const salt = process.env.HASH_SALT || 10;
+        return bcrypt.hash(password, salt);
       };
 
       // Example usage

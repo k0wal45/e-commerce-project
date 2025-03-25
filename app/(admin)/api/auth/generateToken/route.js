@@ -9,7 +9,11 @@ export async function POST(req) {
     const { email, password, user } = body;
 
     // Validate the credentials (this is just an example, replace with your logic)
-    if (email === "admin@admin.pl" && password === "admin") {
+    if (
+      email === "admin@admin.com" &&
+      password ===
+        "$2b$10$iGgD.eGo1lKXpJeJs4mPx.xaO.hExYLbYcuY8551.OlI5teVJRYua"
+    ) {
       // Generate a JWT
       const token = jwt.sign({ email, user }, SECRET_KEY, { expiresIn: "1h" });
 
