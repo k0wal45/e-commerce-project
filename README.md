@@ -1,59 +1,25 @@
-E-Commerce Project Documentation
-Introduction
-The E-Commerce Project is a comprehensive web application designed to provide users with a seamless online shopping experience. Leveraging modern web technologies, the platform enables users to browse products, add items to their shopping cart, and complete purchases securely.​
+# E-Commerce Project Documentation
 
-Technologies Used and Their Purposes
+## Introduction
+
+The E-Commerce Project is a comprehensive web application designed to provide users with a seamless online shopping experience. Leveraging modern web technologies, the platform enables users to browse products, add items to their shopping cart, and complete purchases securely.&#8203;:contentReference[oaicite:0]{index=0}
+
+## Technologies Used and Their Purposes
+
 The project utilizes the following technologies:
 
-Next.js: A React-based framework that facilitates server-side rendering and static site generation, enhancing performance and SEO.​
+- **Next.js**: :contentReference[oaicite:1]{index=1}&#8203;:contentReference[oaicite:2]{index=2}
 
-React: A JavaScript library for building user interfaces, allowing for the creation of reusable and dynamic components.​
+- **React**: :contentReference[oaicite:3]{index=3}&#8203;:contentReference[oaicite:4]{index=4}
 
-TypeScript: A superset of JavaScript that introduces static typing, improving code quality and maintainability.​
+- **TypeScript**: :contentReference[oaicite:5]{index=5}&#8203;:contentReference[oaicite:6]{index=6}
 
-ESLint: A tool for identifying and fixing linting issues, ensuring code consistency and quality.​
-YouTube
+- **ESLint**: :contentReference[oaicite:7]{index=7}&#8203;:contentReference[oaicite:8]{index=8}
 
-JWT (JSON Web Token): A standard for securely transmitting information between parties as a JSON object, used for user authentication and authorization.​
+- **JWT (JSON Web Token)**: :contentReference[oaicite:9]{index=9}&#8203;:contentReference[oaicite:10]{index=10}
 
-Middleware: Functions that execute during the request-response cycle, used for tasks such as authentication, logging, and request modification.​
+- **Middleware**: :contentReference[oaicite:11]{index=11}&#8203;:contentReference[oaicite:12]{index=12}
 
-Project Structure
-The project's directory structure is organized as follows:
-
-app/: Contains the main application components and pages.​
-
-about/: Hosts the About page of the application.​
-
-dashboard/: Includes the dashboard interfaces:​
-
-admin/: Admin panel for managing the application.
-
-client/: Client dashboard for user-specific functionalities.
-
-layout.tsx: Defines the overall layout of the application.​
-
-page.tsx: The main landing page of the application.​
-
-components/: Contains reusable React components such as the header, footer, and product cards.​
-
-lib/: Includes utility functions and modules, notably auth.ts for authentication-related operations.​
-
-public/: Stores static assets like images and fonts.​
-
-utils/: Houses helper functions used across the application.​
-
-middleware.ts: Defines middleware functions for handling tasks like authentication and request processing.​
-Next.js by Vercel - The React Framework
-
-Security Features
-The application incorporates several security measures:
-
-JWT-Based API Security: Utilizes JSON Web Tokens to authenticate users and protect API routes, ensuring that only authorized users can access certain endpoints.​
-
-Middleware for Request Handling: Implements middleware functions to intercept and process incoming requests, performing tasks such as verifying JWTs and enforcing access controls.​
-
-These mechanisms work together to provide a secure environment for users and protect sensitive data within the application.
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
