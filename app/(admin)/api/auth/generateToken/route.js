@@ -8,7 +8,7 @@ const SECRET_KEY = process.env.JWT_SECRET; // Replace with a secure secret key
 export async function POST(req) {
   try {
     const body = await req.json(); // Parse the request body as JSON
-    const { email, password, username } = body;
+    const { email, password } = body;
 
     const client = new MongoClient(uri, {});
     await client.connect(); // Connect to the MongoDB client
@@ -17,15 +17,12 @@ export async function POST(req) {
 
     // Query to check username or email from the decoded token
     const query = {
-      username: username,
       email: email,
       password: password,
     };
 
     // Execute the query to find the user
     const data = await listings.findOne(query);
-
-    console.log(data, body);
     await client.close(); // Close the database connection
 
     // Validate the credentials (this is just an example, replace with your logic)

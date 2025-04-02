@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import classes from "./page.module.scss";
-import { Listing, User } from "@/utils/Types";
+import { DashBoardUser, Listing, User } from "@/utils/Types";
 import UsersChart from "@/components/Dashboard/Chart/UsersChart";
 import TestForm from "@/components/Dashboard/Form/TestForm";
 
@@ -9,6 +9,7 @@ const Page = () => {
   const [listings, setListings] = useState<Listing[]>([]);
   const [visitors, setVisitors] = useState<User[]>([]);
   const [messages, setMessages] = useState([]);
+  const [user, setUser] = useState<DashBoardUser>();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -29,6 +30,10 @@ const Page = () => {
       const messagesResponse = await fetch("/api/admin/getData/getMessages");
       const messagesData = await messagesResponse.json();
       setMessages(messagesData.data);
+      // user
+      const userResponse = await fetch("/api/auth/userData");
+      const userData = await userResponse.json();
+      setUser(userData.data);
       setLoading(false);
     };
 
@@ -38,7 +43,9 @@ const Page = () => {
 
   return (
     <section className={classes.page}>
-      <h1>House Marketplace Dashboard</h1>
+      <h1>
+        House marketplace dashboard{user ? `, Hello ${user.username}` : ""}
+      </h1>
 
       <div className={classes.upperStats}>
         <div className={`${classes.container} ${classes.ActiveListings}`}>

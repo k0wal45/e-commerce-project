@@ -58,3 +58,11 @@ export type User = {
   totalVisits: number;
   year: number;
 };
+
+export type DashBoardUser = {
+  _id: string;
+  username: string;
+  email: string;
+  password: string;
+  role: "admin" | "editor";
+};

@@ -2,14 +2,13 @@ import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import uri from "@/lib/mongoClient";
 import { MongoClient } from "mongodb";
+import { cookies } from "next/headers";
 
-export async function GET(req) {
+export async function GET() {
   try {
-    const body = await req.json(); // Parse the request body as JSON
+    const token = cookies().get("token"); // Get the token from the cookies
 
-    // console.log(body);
-
-    const decode = jwt.verify(body.token, process.env.JWT_SECRET);
+    const decode = jwt.verify(token.value, process.env.JWT_SECRET);
     const date = new Date(decode.exp * 1000);
     // if token expired
     if (!date || date < new Date()) {
@@ -21,20 +20,28 @@ export async function GET(req) {
     const database = client.db("users"); // Select the 'users' database
     const listings = database.collection("users"); // Select the 'users' collection
     const query = {
-      username: decode.username,
       email: decode.email,
       password: decode.password,
     };
     // Execute the query to find the user
-    const data = await listings.findOne(query, { projection: { password: 0 } });
+    const data = await listings.findOne(query);
     await client.close(); // Close the database connection
 
+    console.log("Decoded token:", decode);
+    console.log("Data from database:", data);
     if (data === null) {
       return NextResponse.json({ success: false });
     }
 
     if (data.email === decode.email && data.password === decode.password) {
-      return NextResponse.json({ success: true });
+      return NextResponse.json({
+        success: true,
+        data: {
+          username: data.username,
+          email: data.email,
+          role: data.role,
+        },
+      });
     }
 
     return NextResponse.json({ success: false, error: "Invalid credentials" });

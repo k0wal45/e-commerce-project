@@ -4,7 +4,7 @@ import React from "react";
 const AuthCheck = () => {
   const check = async () => {
     try {
-      const response = await fetch("/api/auth/checkToken");
+      const response = await fetch("/api/auth/userData");
 
       console.log("Response:", await response.json());
       if (!response.ok) {
