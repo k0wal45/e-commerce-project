@@ -2,23 +2,25 @@
 
 ## Introduction
 
-The E-Commerce Project is a comprehensive web application designed to provide users with a seamless online shopping experience. Leveraging modern web technologies, the platform enables users to browse products, add items to their shopping cart, and complete purchases securely.&#8203;:contentReference[oaicite:0]{index=0}
+The E-Commerce Project is a comprehensive web application designed to provide users with a seamless online shopping experience. Leveraging modern web technologies, the platform enables users to browse products, add items to their shopping cart, and complete purchases securely.
 
 ## Technologies Used and Their Purposes
 
 The project utilizes the following technologies:
 
-- **Next.js**: :contentReference[oaicite:1]{index=1}&#8203;:contentReference[oaicite:2]{index=2}
+- **Next.js**: A React-based framework that facilitates server-side rendering and static site generation, enhancing performance and SEO.
 
-- **React**: :contentReference[oaicite:3]{index=3}&#8203;:contentReference[oaicite:4]{index=4}
+- **React**: A JavaScript library for building user interfaces, allowing for the creation of reusable and dynamic components.
 
-- **TypeScript**: :contentReference[oaicite:5]{index=5}&#8203;:contentReference[oaicite:6]{index=6}
+- **TypeScript**: A superset of JavaScript that introduces static typing, improving code quality and maintainability.
 
-- **ESLint**: :contentReference[oaicite:7]{index=7}&#8203;:contentReference[oaicite:8]{index=8}
+- **JWT (JSON Web Token)**: A standard for securely transmitting information between parties as a JSON object, used for user authentication and authorization.
 
-- **JWT (JSON Web Token)**: :contentReference[oaicite:9]{index=9}&#8203;:contentReference[oaicite:10]{index=10}
+- **Middleware**: Functions that execute during the request-response cycle, used for tasks such as authentication, logging, and request modification.
 
-- **Middleware**: :contentReference[oaicite:11]{index=11}&#8203;:contentReference[oaicite:12]{index=12}
+- **MongoDb**: A NoSQL database that stores data in flexible, JSON-like documents, allowing for dynamic schemas and scalability.
+
+- **Amazon S3 (Simple Storage Service)**: A scalable object storage service from AWS, designed for storing and retrieving any amount of data at any time.
 
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
