@@ -13,9 +13,10 @@ export default function AuthComponent() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: "admin@admin.pl",
-          user: "admin",
-          password: "admin",
+          email: "admin@admin.com",
+          username: "admin",
+          password:
+            "$2b$10$iGgD.eGo1lKXpJeJs4mPx.xaO.hExYLbYcuY8551.OlI5teVJRYua",
         }),
       });
 

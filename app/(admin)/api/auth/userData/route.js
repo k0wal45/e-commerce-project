@@ -3,48 +3,41 @@ import jwt from "jsonwebtoken";
 import uri from "@/lib/mongoClient";
 import { MongoClient } from "mongodb";
 
-export async function POST(req) {
+export async function GET(req) {
   try {
     const body = await req.json(); // Parse the request body as JSON
 
-    console.log(body);
+    // console.log(body);
 
     const decode = jwt.verify(body.token, process.env.JWT_SECRET);
-    console.log(decode);
     const date = new Date(decode.exp * 1000);
-    console.log("expires - " + date);
-    console.log(new Date());
-
     // if token expired
     if (!date || date < new Date()) {
       return NextResponse.json({ success: false, error: "Token expired" });
     }
-
+    // if token not expired
     const client = new MongoClient(uri, {});
     await client.connect(); // Connect to the MongoDB client
     const database = client.db("users"); // Select the 'users' database
     const listings = database.collection("users"); // Select the 'users' collection
-
-    // Query to check username or email from the decoded token
     const query = {
-      $or: [
-        { username: decode.username },
-        { email: decode.email },
-        { password: decode.password },
-      ],
+      username: decode.username,
+      email: decode.email,
+      password: decode.password,
     };
-
     // Execute the query to find the user
-    const data = await listings.findOne(query);
-
-    console.log(data);
+    const data = await listings.findOne(query, { projection: { password: 0 } });
     await client.close(); // Close the database connection
 
     if (data === null) {
       return NextResponse.json({ success: false });
     }
 
-    return NextResponse.json({ success: true });
+    if (data.email === decode.email && data.password === decode.password) {
+      return NextResponse.json({ success: true });
+    }
+
+    return NextResponse.json({ success: false, error: "Invalid credentials" });
   } catch (error) {
     console.error("Error generating token:", error);
 
