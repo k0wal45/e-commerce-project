@@ -28,7 +28,7 @@ In this application we have for now 2 roles, amdin and editer. Admin has acces t
 
 ## Admin:
 - **e-mail**: admin@admin.com
-  **password**: adminpassword
+- **password**: adminpassword
 
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
