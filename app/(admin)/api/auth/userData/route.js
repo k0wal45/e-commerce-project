@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import uri from "@/lib/mongoClient";
 import { MongoClient } from "mongodb";
 import { cookies } from "next/headers";
+import bcrypt from "bcryptjs";
 
 export async function GET() {
   try {
@@ -21,19 +22,18 @@ export async function GET() {
     const listings = database.collection("users"); // Select the 'users' collection
     const query = {
       email: decode.email,
-      password: decode.password,
     };
     // Execute the query to find the user
     const data = await listings.findOne(query);
     await client.close(); // Close the database connection
 
-    console.log("Decoded token:", decode);
-    console.log("Data from database:", data);
     if (data === null) {
-      return NextResponse.json({ success: false });
+      return NextResponse.json({ success: false, error: "User not found" });
     }
 
-    if (data.email === decode.email && data.password === decode.password) {
+    const isMatch = await bcrypt.compare(decode.password, data.password);
+
+    if (data.email === decode.email && isMatch) {
       return NextResponse.json({
         success: true,
         data: {

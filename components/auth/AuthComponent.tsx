@@ -7,6 +7,8 @@ export default function AuthComponent() {
 
   const login = async () => {
     try {
+      const password = "adminpassword"; // Replace with the password you want to hash
+
       const response = await fetch("/api/auth/generateToken", {
         method: "POST",
         headers: {
@@ -15,8 +17,7 @@ export default function AuthComponent() {
         body: JSON.stringify({
           email: "admin@admin.com",
           username: "admin",
-          password:
-            "$2b$10$iGgD.eGo1lKXpJeJs4mPx.xaO.hExYLbYcuY8551.OlI5teVJRYua",
+          password: password,
         }),
       });
 
