@@ -1,20 +1,18 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    username: "",
+    email: "",
     password: "",
     check: false,
   });
 
+  const router = useRouter();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
-    if (formData.check) {
-      alert("You bot");
-      return false;
-    }
 
     try {
     } catch (error) {
@@ -26,15 +24,69 @@ const Login = () => {
     }));
   };
 
+  const handleSubtmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (formData.check) {
+      alert("You bot");
+      return false;
+    }
+    if (formData.email === "" || formData.password === "") {
+      alert("Please fill all fields");
+      return false;
+    }
+
+    try {
+      const { email, password } = formData;
+
+      console.log("Email:", email, "Password:", password);
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!emailRegex.test(email)) {
+        alert("Invalid email format");
+        return false;
+      }
+
+      const response = await fetch("/api/auth/generateToken", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+
+      if (data.error) {
+        alert(data.error);
+        return false;
+      }
+
+      if (data.success) {
+        alert("Login successful");
+
+        router.push("/");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
-    <form action="">
+    <form onSubmit={handleSubtmit}>
       <div>
-        <label htmlFor="username">Username</label>
+        <label htmlFor="email">E-mail</label>
         <input
-          type="text"
-          id="username"
-          name="username"
-          value={formData.username}
+          type="email"
+          id="email"
+          name="email"
+          value={formData.email}
           onChange={handleChange}
           required
         />
@@ -55,7 +107,7 @@ const Login = () => {
           type="checkbox"
           id="check"
           name="check"
-          value={formData.check}
+          value={String(formData.check)}
           onChange={handleChange}
         />
       </div>

@@ -26,9 +26,14 @@ export async function POST(req) {
     const data = await listings.findOne(query);
     await client.close(); // Close the database connection
 
-    const isMatch = await bcrypt.compare(password, data.password);
+    if (data === null) {
+      return NextResponse.json({
+        success: false,
+        error: "Invalid credentials",
+      });
+    }
 
-    console.log("isMatch", isMatch);
+    const isMatch = await bcrypt.compare(password, data.password);
 
     if (!isMatch) {
       return NextResponse.json({
