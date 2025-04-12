@@ -71,7 +71,7 @@ const Login = () => {
       if (data.success) {
         alert("Login successful");
 
-        router.push("/");
+        router.push("/dashboard");
       }
     } catch (error) {
       console.error("Error:", error);

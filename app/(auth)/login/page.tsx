@@ -1,15 +1,15 @@
 import AuthCheck from "@/components/auth/AuthCheck";
-import AuthComponent from "@/components/auth/AuthComponent";
 import Login from "@/components/auth/Login";
 import React from "react";
 import classes from "./login.module.scss";
+import CheckMiddleware from "@/components/auth/CheckMiddleware";
 
 const page = () => {
   return (
     <div className={classes.page}>
       <Login />
-      <AuthComponent />
       <AuthCheck />
+      <CheckMiddleware />
     </div>
   );
 };

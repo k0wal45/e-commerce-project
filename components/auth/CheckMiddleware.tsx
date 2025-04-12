@@ -1,10 +1,10 @@
 "use client";
 import React from "react";
 
-const AuthCheck = () => {
+const CheckMiddleware = () => {
   const check = async () => {
     try {
-      const response = await fetch("/api/auth/isValid");
+      const response = await fetch("/api/test");
 
       console.log("Response:", await response.json());
       if (!response.ok) {
@@ -16,10 +16,10 @@ const AuthCheck = () => {
   };
 
   return (
-    <div>
-      <button onClick={check}>Check</button>
+    <div style={{ padding: "1rem", backgroundColor: "lightblue" }}>
+      <button onClick={check}>Check test route</button>
     </div>
   );
 };
 
-export default AuthCheck;
+export default CheckMiddleware;

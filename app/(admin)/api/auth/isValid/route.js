@@ -2,12 +2,16 @@ import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import uri from "@/lib/mongoClient";
 import { MongoClient } from "mongodb";
-import { cookies } from "next/headers";
 import bcrypt from "bcryptjs";
 
-export async function GET() {
+export async function POST(req) {
   try {
-    const token = cookies().get("token"); // Get the token from the cookies
+    const body = await req.json(); // Parse the request body
+    const { token } = body; // Extract the token from the request body
+
+    if (!token) {
+      return NextResponse.json({ success: false, error: "Token not found" });
+    }
 
     const decode = jwt.verify(token.value, process.env.JWT_SECRET);
     const date = new Date(decode.exp * 1000);

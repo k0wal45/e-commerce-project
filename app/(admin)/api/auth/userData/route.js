@@ -9,6 +9,10 @@ export async function GET() {
   try {
     const token = cookies().get("token"); // Get the token from the cookies
 
+    if (!token) {
+      return NextResponse.json({ success: false, error: "Token not found" });
+    }
+
     const decode = jwt.verify(token.value, process.env.JWT_SECRET);
     const date = new Date(decode.exp * 1000);
     // if token expired
