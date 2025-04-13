@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 import uri from "@/lib/mongoClient";
 import bcrypt from "bcryptjs";
 
@@ -26,6 +26,8 @@ export async function POST(req) {
     const data = await listings.findOne(query);
     await client.close(); // Close the database connection
 
+    console.log(new ObjectId(data._id));
+
     if (data === null) {
       return NextResponse.json({
         success: false,
@@ -45,9 +47,13 @@ export async function POST(req) {
     // Validate the credentials (this is just an example, replace with your logic)
     if (data.email === email && isMatch) {
       // Generate a JWT
-      const token = jwt.sign({ email, password }, SECRET_KEY, {
-        expiresIn: "1h",
-      });
+      const token = jwt.sign(
+        { role: data.role, id: new ObjectId(data._id) },
+        SECRET_KEY,
+        {
+          expiresIn: "1h",
+        }
+      );
 
       const response = NextResponse.json({ success: true });
 
