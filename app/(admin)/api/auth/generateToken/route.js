@@ -59,7 +59,7 @@ export async function POST(req) {
 
       // Set JWT in HTTP-only cookie
       response.cookies.set("token", token, {
-        httpOnly: true, // Prevents client-side access
+        httpOnly: false, // Allow client-side access
         maxAge: 3600, // 1 hour expiry
         path: "/",
       });

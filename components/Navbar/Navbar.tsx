@@ -6,6 +6,9 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import Link from "next/link";
 import Sale from "./Sale/Sale";
+import { IoIosStats } from "react-icons/io";
+import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
 
 const Navbar = () => {
   const hamburger = useRef<HTMLInputElement>(null);
@@ -13,11 +16,13 @@ const Navbar = () => {
   const [hidden, setHidden] = useState(false);
   const [visible, setVisible] = useState(false);
   const [adOff, setAdOff] = useState(false);
+  const [token, setToken] = useState<boolean>(false);
 
   useEffect(() => {
     if (adOff) {
       setHidden(true);
     }
+    checkToken();
   }, [adOff]);
 
   useMotionValueEvent(scrollY, "change", (latest: number) => {
@@ -35,6 +40,24 @@ const Navbar = () => {
     setVisible(false);
     if (hamburger.current) {
       hamburger.current.checked = false;
+    }
+  };
+
+  const checkToken = async () => {
+    const token = Cookies.get("token");
+    if (token) {
+      const decoded = jwtDecode(token);
+      console.log(decoded); // Shows userId, role, etc.
+    }
+
+    if (token) {
+      setToken(true);
+      return;
+    }
+
+    if (!token) {
+      setToken(false);
+      return;
     }
   };
 
@@ -79,6 +102,13 @@ const Navbar = () => {
           <li>
             <FaHeart />
           </li>
+          {token && (
+            <li>
+              <Link href="/dashboard">
+                <IoIosStats />
+              </Link>
+            </li>
+          )}
         </ul>
         <label>
           <input

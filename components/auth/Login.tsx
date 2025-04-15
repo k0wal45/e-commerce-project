@@ -70,7 +70,7 @@ const Login = () => {
       if (data.success) {
         alert("Login successful");
 
-        // router.push("/dashboard");
+        router.push("/dashboard");
       }
     } catch (error) {
       console.error("Error:", error);
