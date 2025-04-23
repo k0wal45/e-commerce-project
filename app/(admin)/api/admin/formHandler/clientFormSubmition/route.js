@@ -1,8 +1,17 @@
 import uri from "@/lib/mongoClient";
 import { MongoClient } from "mongodb";
 import { NextResponse } from "next/server";
+import { checkValidToken } from "@/lib/checkValidToken";
 
 export async function POST(req) {
+  const isValid = checkValidToken(req);
+  if (!isValid) {
+    return NextResponse.json({
+      success: false,
+      body: "Invalid token",
+    });
+  }
+  // If the token is valid, proceed with the request
   try {
     const data = await req.json();
     const client = new MongoClient(uri, {});

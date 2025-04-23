@@ -5,6 +5,8 @@ import { DashBoardUser, Listing, User } from "@/utils/Types";
 import UsersChart from "@/components/Dashboard/Chart/UsersChart";
 import TestForm from "@/components/Dashboard/Form/TestForm";
 
+const CACHE_EXPIRATION_TIME = 1000 * 60 * 5; // 5 minutes
+
 const Page = () => {
   const [listings, setListings] = useState<Listing[]>([]);
   const [visitors, setVisitors] = useState<User[]>([]);
@@ -12,33 +14,53 @@ const Page = () => {
   const [user, setUser] = useState<DashBoardUser>();
   const [loading, setLoading] = useState(true);
 
+  const fetchWithCache = async (key: string, url: string) => {
+    const cachedData = localStorage.getItem(key);
+    if (cachedData) {
+      const { data, timestamp } = JSON.parse(cachedData);
+      if (Date.now() - timestamp < CACHE_EXPIRATION_TIME) {
+        return data;
+      }
+    }
+
+    const response = await fetch(url);
+    const data = await response.json();
+    localStorage.setItem(
+      key,
+      JSON.stringify({ data: data.data, timestamp: Date.now() })
+    );
+    return data.data;
+  };
+
   useEffect(() => {
-    // Fetch data from API
     const fetchData = async () => {
       setLoading(true);
-      // listings
-      const response = await fetch("/api/getData/getListings");
-      const data = await response.json();
-      setListings(data.data);
-      // analitics data
-      const visitorsResponse = await fetch(
+
+      const listingsData = await fetchWithCache(
+        "listings",
+        "/api/getData/getListings"
+      );
+      setListings(listingsData);
+
+      const visitorsData = await fetchWithCache(
+        "visitors",
         "/api/admin/getData/getUsersStats?limit=1"
       );
-      const visitorsData = await visitorsResponse.json();
-      setVisitors(visitorsData.data);
-      // messages
-      const messagesResponse = await fetch("/api/admin/getData/getMessages");
-      const messagesData = await messagesResponse.json();
-      setMessages(messagesData.data);
-      // user
-      const userResponse = await fetch("/api/auth/userData");
-      const userData = await userResponse.json();
-      setUser(userData.data);
+      setVisitors(visitorsData);
+
+      const messagesData = await fetchWithCache(
+        "messages",
+        "/api/admin/getData/getMessages"
+      );
+      setMessages(messagesData);
+
+      const userData = await fetchWithCache("user", "/api/auth/userData");
+      setUser(userData);
+
       setLoading(false);
     };
 
     fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -71,7 +93,7 @@ const Page = () => {
         </div>
         <div className={`${classes.container} ${classes.ActiveListings}`}>
           <h2>Visitors this month:</h2>
-          {loading ? <p>Loading...</p> : <p>{visitors[0].totalVisits}</p>}
+          {loading ? <p>Loading...</p> : <p>{visitors[0]?.totalVisits || 0}</p>}
         </div>
         <div className={`${classes.container} ${classes.ActiveListings}`}>
           <h2>New Messages:</h2>

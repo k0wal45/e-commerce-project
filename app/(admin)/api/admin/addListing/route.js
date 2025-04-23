@@ -3,6 +3,7 @@ import s3Client from "@/lib/s3";
 import { NextResponse } from "next/server";
 import uri from "@/lib/mongoClient";
 import { MongoClient } from "mongodb";
+import { checkValidToken } from "@/lib/checkValidToken";
 
 export const config = {
   api: {
@@ -10,10 +11,15 @@ export const config = {
   },
 };
 
-// Konfiguracja multer do przetwarzania plików
-// const upload = multer({ storage: multer.memoryStorage() });
-
 export const POST = async (req) => {
+  const isValid = checkValidToken(req);
+  if (!isValid) {
+    return NextResponse.json({
+      success: false,
+      body: "Invalid token",
+    });
+  }
+  // If the token is valid, proceed with the request
   try {
     const formData = await req.formData();
 

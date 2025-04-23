@@ -1,10 +1,9 @@
 "use client";
 import Image from "next/image";
 import classes from "./navigation.module.scss";
-import { FaAngleLeft, FaList } from "react-icons/fa6";
+import { FaAngleLeft, FaHouse, FaList } from "react-icons/fa6";
 import Link from "next/link";
 import { RiMegaphoneFill } from "react-icons/ri";
-import { IoIosStats } from "react-icons/io";
 import { MdMessage } from "react-icons/md";
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -47,6 +46,12 @@ const Navigation = () => {
         transition={{ duration: 0.3 }}
       >
         <li>
+          <Link href="/dashboard">
+            <FaHouse />
+            <p>Main Menu</p>
+          </Link>
+        </li>
+        <li>
           <Link href="/dashboard/listings">
             <FaList />
             <p>Listings</p>
@@ -62,12 +67,6 @@ const Navigation = () => {
           <Link href="/dashboard/promotions">
             <RiMegaphoneFill />
             <p>Promotions</p>
-          </Link>
-        </li>
-        <li>
-          <Link href="/dashboard/sales">
-            <IoIosStats />
-            <p>Sales stats</p>
           </Link>
         </li>
       </motion.ul>

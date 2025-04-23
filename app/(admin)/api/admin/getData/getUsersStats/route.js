@@ -1,7 +1,16 @@
 import uri from "@/lib/mongoClient";
 import { MongoClient } from "mongodb";
+import { checkValidToken } from "@/lib/checkValidToken";
 
 export async function GET(req) {
+  const isValid = checkValidToken(req);
+  if (!isValid) {
+    return NextResponse.json({
+      success: false,
+      body: "Invalid token",
+    });
+  }
+  // If the token is valid, proceed with the request
   try {
     const searchParams = req.nextUrl.searchParams;
     const limit =
