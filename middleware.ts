@@ -16,13 +16,17 @@ export async function middleware(request: NextRequest) {
   try {
     // Verify the token
     const valid = await jwtVerify(token, secret);
-    console.log("Token is valid:", valid);
+
+    if (!valid) {
+      throw new Error("Token verification failed");
+    }
 
     // Clone the request and add the Authorization header
     const response = NextResponse.next();
     response.headers.set("Authorization", `Bearer ${token}`);
     return response;
   } catch {
+    console.log("Token verification failed, redirecting to login.");
     return NextResponse.redirect(new URL("/login", request.url));
   }
 }
