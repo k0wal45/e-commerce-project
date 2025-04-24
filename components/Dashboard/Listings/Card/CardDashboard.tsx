@@ -1,49 +1,23 @@
 import Image from "next/image";
 import classes from "./card.module.scss";
-import { FaHeart, FaHouse, FaLocationDot, FaPhone } from "react-icons/fa6";
+import {
+  FaHeart,
+  FaHouse,
+  FaLocationDot,
+  FaPen,
+  FaPhone,
+} from "react-icons/fa6";
 import { BiArea } from "react-icons/bi";
 import Link from "next/link";
 import { Listing } from "@/utils/Types";
-import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 const costString = (cost: number) => {
   return cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
-const Card = ({ listing }: { listing: Listing }) => {
-  const [favorite, setFavorite] = useState<boolean>(false);
-
-  useEffect(() => {
-    const favorites = localStorage.getItem("favorites");
-
-    if (favorites) {
-      const favoritesArray = JSON.parse(favorites);
-      setFavorite(favoritesArray.includes(listing._id));
-    }
-  }, [listing._id]);
-
-  const handleFavorite = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-
-    const favortites = localStorage.getItem("favorites");
-
-    if (favortites) {
-      const favoritesArray = JSON.parse(favortites);
-
-      if (favoritesArray.includes(listing._id)) {
-        favoritesArray.splice(favoritesArray.indexOf(listing._id), 1);
-        localStorage.setItem("favorites", JSON.stringify(favoritesArray));
-        setFavorite(false);
-      } else {
-        favoritesArray.push(listing._id);
-        localStorage.setItem("favorites", JSON.stringify(favoritesArray));
-        setFavorite(true);
-      }
-    } else {
-      localStorage.setItem("favorites", JSON.stringify([listing._id]));
-      setFavorite(true);
-    }
-  };
+const CardDashbaord = ({ listing }: { listing: Listing }) => {
+  const path = usePathname();
   return (
     <Link
       href={`/shop/item/${listing.category}?id=${listing._id}`}
@@ -119,17 +93,20 @@ const Card = ({ listing }: { listing: Listing }) => {
           >
             <FaPhone />
           </button>
-          <button onClick={handleFavorite}>
-            <FaHeart
-              style={{
-                color: favorite ? "#ff5555" : "black",
-              }}
-            />
+          <button onClick={(e) => e.preventDefault()}>
+            <FaHeart />
           </button>
+          {path === "/dashboard/listings" ? (
+            <button onClick={(e) => e.preventDefault()}>
+              <FaPen />
+            </button>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </Link>
   );
 };
 
-export default Card;
+export default CardDashbaord;

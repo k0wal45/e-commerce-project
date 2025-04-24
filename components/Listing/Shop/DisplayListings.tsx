@@ -6,6 +6,7 @@ import { Listing } from "@/utils/Types";
 import Loader from "@/components/Loader";
 import Card from "./Card/Card";
 import Pagination from "./Pagination/Pagination";
+import fetchWithCache from "@/lib/fetchWithCache";
 
 const DisplayListings = () => {
   const [listings, setListing] = useState<Listing[] | null>(null);
@@ -23,12 +24,12 @@ const DisplayListings = () => {
       page: string | null | number
     ) => {
       if (limit && page) {
-        const response = await fetch(
+        const data = await fetchWithCache(
+          "listings-limit-" + limit + "page-" + page,
           "/api/getData/getListings?limit=" + limit + "&page=" + page
         );
-        const data = await response.json();
-        setListing(data.data);
-        console.log(data.data);
+
+        setListing(data);
         setLoading(false);
       }
     };

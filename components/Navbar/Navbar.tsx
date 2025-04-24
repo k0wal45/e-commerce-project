@@ -101,6 +101,13 @@ const Navbar = () => {
           </li>
           <li>
             <FaHeart />
+            {localStorage.getItem("favorites") !== null ? (
+              <span className={classes.favorites}>
+                {JSON.parse(localStorage.getItem("favorites")!).length}
+              </span>
+            ) : (
+              ""
+            )}
           </li>
           {token && (
             <li>
