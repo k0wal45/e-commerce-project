@@ -100,14 +100,14 @@ const Navbar = () => {
             <FaMagnifyingGlass />
           </li>
           <li>
-            <FaHeart />
-            {localStorage.getItem("favorites") ? (
-              <span className={classes.favorites}>
-                {JSON.parse(localStorage.getItem("favorites")!).length}
-              </span>
-            ) : (
-              ""
-            )}
+            <Link href="/favorites">
+              <FaHeart />
+              {localStorage.getItem("favorites") ? (
+                <span className={classes.favorites}></span>
+              ) : (
+                ""
+              )}
+            </Link>
           </li>
           {token && (
             <li>
