@@ -35,6 +35,7 @@ const putSymbolEveryThreeDigit = (number: number, symbol: string) => {
 const Page = () => {
   const [listing, setListing] = useState<Listing | null>(null);
   const [loading, setLoading] = useState(true);
+  const [favorite, setFavorite] = useState(false);
   const searchParams = useSearchParams(); // Get the query parameters
   const id = searchParams.get("id"); // Get the id from the query string
 
@@ -49,7 +50,43 @@ const Page = () => {
     };
 
     fetchData(id);
+
+    const checkStorage = () => {
+      const localFav = localStorage.getItem("favorites");
+      if (localFav) {
+        const parsedFav = JSON.parse(localFav);
+        if (parsedFav.includes(id)) {
+          setFavorite(true);
+        } else {
+          setFavorite(false);
+        }
+      } else {
+        setFavorite(false);
+      }
+    };
+    checkStorage();
   }, [id]);
+
+  const addToFavorites = async () => {
+    const favorites = localStorage.getItem("favorites");
+
+    if (favorites) {
+      const favoritesArray = JSON.parse(favorites);
+
+      if (favoritesArray.includes(id)) {
+        favoritesArray.splice(favoritesArray.indexOf(id), 1);
+        localStorage.setItem("favorites", JSON.stringify(favoritesArray));
+        setFavorite(false);
+      } else {
+        favoritesArray.push(id);
+        localStorage.setItem("favorites", JSON.stringify(favoritesArray));
+        setFavorite(true);
+      }
+    } else {
+      localStorage.setItem("favorites", JSON.stringify([id]));
+      setFavorite(true);
+    }
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -73,7 +110,12 @@ const Page = () => {
             <FaShare style={{ fontSize: "1.6rem" }} />
             <p>Share</p>
           </button>
-          <button onClick={() => alert("Succesfuly saved")}>
+          <button
+            onClick={addToFavorites}
+            style={{
+              color: favorite ? "#ff5555" : "black",
+            }}
+          >
             <FaHeart style={{ fontSize: "1.6rem" }} />
             <p>Save</p>
           </button>

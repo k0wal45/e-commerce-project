@@ -17,12 +17,27 @@ const Navbar = () => {
   const [visible, setVisible] = useState(false);
   const [adOff, setAdOff] = useState(false);
   const [token, setToken] = useState<boolean>(false);
+  const [favorites, setFavorites] = useState(false);
 
   useEffect(() => {
     if (adOff) {
       setHidden(true);
     }
+    const checkStorage = () => {
+      const localFav = localStorage.getItem("favorites");
+      if (localFav) {
+        const parsedFav = JSON.parse(localFav);
+        if (parsedFav.length > 0) {
+          setFavorites(true);
+        } else {
+          setFavorites(false);
+        }
+      } else {
+        setFavorites(false);
+      }
+    };
     checkToken();
+    checkStorage();
   }, [adOff]);
 
   useMotionValueEvent(scrollY, "change", (latest: number) => {
@@ -102,11 +117,7 @@ const Navbar = () => {
           <li>
             <Link href="/favorites">
               <FaHeart />
-              {localStorage.getItem("favorites") ? (
-                <span className={classes.favorites}></span>
-              ) : (
-                ""
-              )}
+              {favorites ? <span className={classes.favorites}></span> : ""}
             </Link>
           </li>
           {token && (
