@@ -30,7 +30,7 @@ export type Promotion = {
 };
 
 export type Listing = {
-  _id?: string;
+  _id: string;
   title: string;
   description: string;
   price: number;
@@ -46,7 +46,7 @@ export type Listing = {
   images: string[] | File[];
   features: Features;
   seller: Seller;
-  status: "available" | "sold" | "pending";
+  status: "active" | "sold";
   createdAt?: string; // ISO date string
   promotion: Promotion; // optional for listings without a specific promotion
 };

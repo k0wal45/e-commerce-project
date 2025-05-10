@@ -1,19 +1,11 @@
 "use client";
 import Image from "next/image";
 import classes from "./card.module.scss";
-import {
-  FaHeart,
-  FaHouse,
-  FaLocationDot,
-  FaPen,
-  FaPhone,
-} from "react-icons/fa6";
+import { FaHeart, FaHouse, FaLocationDot, FaPhone } from "react-icons/fa6";
 import { BiArea } from "react-icons/bi";
 import Link from "next/link";
 import { Listing } from "@/utils/Types";
 import { useEffect, useState } from "react";
-import { jwtDecode } from "jwt-decode";
-import Cookies from "js-cookie";
 
 const costString = (cost: number) => {
   return cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -21,7 +13,6 @@ const costString = (cost: number) => {
 
 const Card = ({ listing }: { listing: Listing }) => {
   const [favorite, setFavorite] = useState<boolean>(false);
-  const [token, setToken] = useState<boolean>(false);
 
   useEffect(() => {
     const favorites = localStorage.getItem("favorites");
@@ -30,8 +21,6 @@ const Card = ({ listing }: { listing: Listing }) => {
       const favoritesArray = JSON.parse(favorites);
       setFavorite(favoritesArray.includes(listing._id));
     }
-
-    checkToken();
   }, [listing._id]);
 
   const handleFavorite = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -54,24 +43,6 @@ const Card = ({ listing }: { listing: Listing }) => {
     } else {
       localStorage.setItem("favorites", JSON.stringify([listing._id]));
       setFavorite(true);
-    }
-  };
-
-  const checkToken = async () => {
-    const token = Cookies.get("token");
-    if (token) {
-      const decoded = jwtDecode(token);
-      console.log(decoded); // Shows userId, role, etc.
-    }
-
-    if (token) {
-      setToken(true);
-      return;
-    }
-
-    if (!token) {
-      setToken(false);
-      return;
     }
   };
 
@@ -157,16 +128,6 @@ const Card = ({ listing }: { listing: Listing }) => {
               }}
             />
           </button>
-
-          {token ? (
-            <button>
-              <Link href={`/dashboard/listings/edit?id=${listing._id}`}>
-                <FaPen />
-              </Link>
-            </button>
-          ) : (
-            ""
-          )}
         </div>
       </div>
     </Link>

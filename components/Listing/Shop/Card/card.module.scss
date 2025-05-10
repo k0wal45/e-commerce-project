@@ -12,7 +12,7 @@ $font: #141414;
   justify-content: space-between;
 
   @media (max-width: 768px) {
-    width: 380px;
+    max-width: 380px;
     flex-direction: column;
     height: fit-content;
     gap: 0;
@@ -38,31 +38,31 @@ $font: #141414;
       object-position: center;
     }
   }
+  @media (max-width: 768px) {
+    .imageBox::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      background-color: transparent;
+      border-radius: 50%;
+      box-shadow: -10px 10px 0 $background;
+    }
 
-  // .imageBox::after {
-  //   content: "";
-  //   position: absolute;
-  //   bottom: 0;
-  //   left: 50%;
-  //   width: 20px;
-  //   height: 20px;
-  //   background-color: transparent;
-  //   border-radius: 50%;
-  //   box-shadow: -10px 10px 0 $background;
-  // }
-
-  // .imageBox::before {
-  //   content: "";
-  //   position: absolute;
-  //   bottom: calc($height - 10px);
-  //   left: 0;
-  //   width: 20px;
-  //   height: 20px;
-  //   background-color: transparent;
-  //   border-radius: 50%;
-  //   box-shadow: -10px 10px 0 $background;
-  // }
-
+    .imageBox::before {
+      content: "";
+      position: absolute;
+      bottom: calc($height - 10px);
+      left: 0;
+      width: 20px;
+      height: 20px;
+      background-color: transparent;
+      border-radius: 50%;
+      box-shadow: -10px 10px 0 $background;
+    }
+  }
   .content {
     position: relative;
     width: 60%;
@@ -159,6 +159,31 @@ $font: #141414;
           justify-content: center;
           padding: 0;
           color: $font;
+        }
+      }
+      @media (max-width: 768px) {
+        .price::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 20px;
+          height: 20px;
+          background-color: transparent;
+          border-radius: 50%;
+          box-shadow: -10px -10px 0 $background;
+        }
+
+        .price::before {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          right: -20px;
+          width: 20px;
+          height: 20px;
+          background-color: transparent;
+          border-radius: 50%;
+          box-shadow: -10px 10px 0 $cardColor;
         }
       }
     }

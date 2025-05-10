@@ -25,7 +25,7 @@ const DisplayListings = () => {
     ) => {
       if (limit && page) {
         const data = await fetchWithCache(
-          "listings-limit-" + limit + "page-" + page,
+          "listings-limit-" + limit + "-page-" + page,
           "/api/getData/getListings?limit=" + limit + "&page=" + page
         );
 

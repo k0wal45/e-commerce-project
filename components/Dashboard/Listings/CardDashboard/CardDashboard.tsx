@@ -1,28 +1,38 @@
+"use client";
 import Image from "next/image";
 import classes from "./card.module.scss";
-import {
-  FaHeart,
-  FaHouse,
-  FaLocationDot,
-  FaPen,
-  FaPhone,
-} from "react-icons/fa6";
+import { FaHouse, FaLocationDot, FaPen, FaTrash } from "react-icons/fa6";
 import { BiArea } from "react-icons/bi";
-import Link from "next/link";
 import { Listing } from "@/utils/Types";
-import { usePathname } from "next/navigation";
+import { FaCheck } from "react-icons/fa";
+import { MdSell } from "react-icons/md";
 
 const costString = (cost: number) => {
   return cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
 const CardDashbaord = ({ listing }: { listing: Listing }) => {
-  const path = usePathname();
+  const deleteListing = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this listing?")) {
+      return;
+    }
+    const response = await fetch("/api/admin/deleteListing", {
+      method: "DELETE",
+      body: JSON.stringify({ id: id }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      console.error("Failed to delete listing");
+      return;
+    }
+    const data = await response.json();
+    console.log(data);
+  };
+
   return (
-    <Link
-      href={`/shop/item/${listing.category}?id=${listing._id}`}
-      className={classes.card}
-    >
+    <div className={classes.card}>
       <div className={classes.imageBox}>
         <Image
           width={700}
@@ -70,42 +80,43 @@ const CardDashbaord = ({ listing }: { listing: Listing }) => {
           </span>
           {listing.category.charAt(0).toUpperCase() + listing.category.slice(1)}
         </p>
-
-        <div className={classes.buttons}>
-          <button
-            onClick={() =>
-              alert(
-                typeof listing.seller.phone === "string"
-                  ? listing.seller.phone.startsWith("+")
-                    ? listing.seller.phone
-                    : "+" +
-                      listing.seller.phone.replace(
-                        /(\d{3})(\d{3})(\d{4})/,
-                        "($1) $2-$3"
-                      )
-                  : listing.seller.phone
-                  ? listing.seller.phone
-                      .toString()
-                      .replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3")
-                  : ""
-              )
-            }
-          >
-            <FaPhone />
-          </button>
-          <button onClick={(e) => e.preventDefault()}>
-            <FaHeart />
-          </button>
-          {path === "/dashboard/listings" ? (
-            <button onClick={(e) => e.preventDefault()}>
-              <FaPen />
-            </button>
-          ) : (
-            ""
-          )}
-        </div>
+        <p style={{ fontSize: "1.5rem" }}>
+          Status:{" "}
+          {listing.status.charAt(0).toUpperCase() + listing.status.slice(1)}
+        </p>
       </div>
-    </Link>
+
+      <div className={classes.buttons}>
+        {listing.status === "active" ? (
+          <button onClick={(e) => e.preventDefault()}>
+            {/* sold */}
+            <FaCheck />
+          </button>
+        ) : (
+          ""
+        )}
+        {listing.status === "active" ? (
+          <button onClick={(e) => e.preventDefault()}>
+            {/* set sale */}
+            <MdSell />
+          </button>
+        ) : (
+          ""
+        )}
+        {listing.status === "active" ? (
+          <button onClick={(e) => e.preventDefault()}>
+            {/* edit listing */}
+            <FaPen />
+          </button>
+        ) : (
+          ""
+        )}
+        <button onClick={() => deleteListing(listing._id)}>
+          {/* delete */}
+          <FaTrash />
+        </button>
+      </div>
+    </div>
   );
 };
 
