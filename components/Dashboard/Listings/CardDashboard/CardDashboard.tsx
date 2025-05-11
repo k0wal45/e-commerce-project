@@ -31,6 +31,34 @@ const CardDashbaord = ({ listing }: { listing: Listing }) => {
     console.log(data);
   };
 
+  const setToSoldListing = async (listing: Listing) => {
+    if (
+      !confirm(
+        `Are you sure you want change state of this listing to ${
+          listing.status === "active" ? "sold" : "active"
+        }?`
+      )
+    ) {
+      return;
+    }
+
+    const status = listing.status === "active" ? "sold" : "active";
+
+    const response = await fetch("/api/admin/setListingToSold", {
+      method: "PATCH",
+      body: JSON.stringify({ id: listing._id, status: status }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      console.error("Failed to delete listing");
+      return;
+    }
+    const data = await response.json();
+    console.log(data);
+  };
+
   return (
     <div className={classes.card}>
       <div className={classes.imageBox}>
@@ -87,14 +115,11 @@ const CardDashbaord = ({ listing }: { listing: Listing }) => {
       </div>
 
       <div className={classes.buttons}>
-        {listing.status === "active" ? (
-          <button onClick={(e) => e.preventDefault()}>
-            {/* sold */}
-            <FaCheck />
-          </button>
-        ) : (
-          ""
-        )}
+        <button onClick={() => setToSoldListing(listing)}>
+          {/* toggle avaliability */}
+          <FaCheck />
+        </button>
+
         {listing.status === "active" ? (
           <button onClick={(e) => e.preventDefault()}>
             {/* set sale */}
