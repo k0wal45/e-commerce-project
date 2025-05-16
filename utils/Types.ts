@@ -39,7 +39,6 @@ export type Listing = {
     | "studios"
     | "houses"
     | "plots"
-    | "commercial_units"
     | "warehouses"
     | "garages";
   location: Location;

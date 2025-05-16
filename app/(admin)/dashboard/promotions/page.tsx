@@ -22,9 +22,15 @@ const Page = () => {
 
     fetchData();
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
       <h1>promotions</h1>
+      <button onClick={() => console.log(listings)}>H</button>
     </div>
   );
 };

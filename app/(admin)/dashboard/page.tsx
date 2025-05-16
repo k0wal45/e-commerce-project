@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import classes from "./page.module.scss";
 import { DashBoardUser, Listing, User } from "@/utils/Types";
 import UsersChart from "@/components/Dashboard/Chart/UsersChart";
-import TestForm from "@/components/Dashboard/Form/TestForm";
 
 const CACHE_EXPIRATION_TIME = 1000 * 60 * 5; // 5 minutes
 
@@ -105,8 +104,6 @@ const Page = () => {
         <h2>Monthly Visitors</h2>
         <UsersChart />
       </div>
-
-      <TestForm />
     </section>
   );
 };

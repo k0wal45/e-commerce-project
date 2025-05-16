@@ -1,5 +1,4 @@
 import classes from "./layout.module.scss";
-import LatestListing from "@/components/Listing/LatestListing";
 
 const layout = ({
   children,

@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import uri from "@/lib/mongoClient";
 import { MongoClient, ObjectId } from "mongodb";
 

@@ -7,6 +7,7 @@ const TestForm = () => {
   const [loading, setLoading] = useState(false);
   const [images, setImages] = useState<File[]>([]);
   const [formData, setFormData] = useState<Listing>({
+    _id: "",
     title: "",
     description: "",
     price: 0,
@@ -38,7 +39,7 @@ const TestForm = () => {
       discountType: "",
       discountValue: 0,
     },
-    status: "available",
+    status: "active",
     createdAt: new Date().toISOString(),
   });
 
@@ -107,6 +108,7 @@ const TestForm = () => {
     dataToSend.append("features", JSON.stringify(formData.features));
     dataToSend.append("seller", JSON.stringify(formData.seller));
     dataToSend.append("promotion", JSON.stringify(formData.promotion));
+    dataToSend.append("status", formData.status);
     dataToSend.append("createdAt", JSON.stringify(formData.createdAt));
 
     try {

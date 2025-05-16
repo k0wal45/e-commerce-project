@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import uri from "@/lib/mongoClient";
 import { MongoClient } from "mongodb";
 import { checkValidToken } from "@/lib/checkValidToken";

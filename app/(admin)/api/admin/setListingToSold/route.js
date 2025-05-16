@@ -5,72 +5,53 @@ import { checkValidToken } from "@/lib/checkValidToken";
 export async function PATCH(req) {
   const isValid = checkValidToken(req);
   if (!isValid) {
-    return NextResponse.json({
-      success: false,
-      body: "Invalid token",
-    });
+    return new Response(
+      JSON.stringify({ success: false, body: "Invalid token" }),
+      { status: 401, headers: { "Content-Type": "application/json" } }
+    );
   }
-  // If the token is valid, proceed with the request
   try {
-    console.log("edit lsiting listing");
-    const body = await req.json(); // Parse the request body as JSON
-    const id = body._id; // Extract the 'id' from the request body
-    const status = body.status; // Extract the 'status' from the request body
+    const body = await req.json();
+    const id = body.id;
+    const status = body.status;
+
+    console.log("ID:", id);
+    console.log("Status:", status);
+
     if (!id) {
       return new Response(
         JSON.stringify({ success: false, error: "No id provided" }),
-        {
-          status: 400,
-          headers: { "Content-Type": "application/json" },
-        }
+        { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
     const client = new MongoClient(uri, {});
-    await client.connect(); // Connect to the MongoDB client
-    const database = client.db("products"); // Select the 'products' database
-    const listings = database.collection("listings"); // Select the 'listings' collection
-    // Query to delete a listing by '_id'
+    await client.connect();
+    const database = client.db("products");
+    const listings = database.collection("listings");
     const query = { _id: new ObjectId(id) };
-
-    // Execute the query to delete the listing
     const update = { $set: { status: status } };
     const result = await listings.updateOne(query, update);
 
-    // Check if a document was deleted
-    const data = result.deletedCount > 0 ? { deletedId: id } : null;
-    await client.close(); // Close the database connection
+    await client.close();
 
-    if (!data) {
+    if (result.matchedCount === 0) {
       return new Response(
         JSON.stringify({ success: false, error: "Listing not found" }),
-        {
-          status: 404,
-          headers: { "Content-Type": "application/json" },
-        }
+        { status: 404, headers: { "Content-Type": "application/json" } }
       );
     }
-    console.log(data);
-    // Return the response with the fetched data
+
     return new Response(
       JSON.stringify({
         success: true,
-        data: data,
+        data: { updatedId: id, modifiedCount: result.modifiedCount },
       }),
-      {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
-      }
+      { status: 200, headers: { "Content-Type": "application/json" } }
     );
   } catch (error) {
-    console.error("Error fetching listing:", error);
-
-    // Return the response with the error message
     return new Response(
       JSON.stringify({ success: false, error: error.message }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
-      }
+      { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }
 }

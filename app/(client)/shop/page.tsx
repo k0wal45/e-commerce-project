@@ -1,6 +1,7 @@
 import UniversalHero from "@/components/Hero/Universal/UniversalHero";
 import DisplayListings from "@/components/Listing/Shop/DisplayListings";
 import Filter from "@/components/Listing/Shop/Filter/Filter";
+import { Suspense } from "react";
 
 const Page = () => {
   return (
@@ -11,7 +12,9 @@ const Page = () => {
         position="center"
       />
       <Filter />
-      <DisplayListings />
+      <Suspense fallback={<div>Loading...</div>}>
+        <DisplayListings />
+      </Suspense>
     </main>
   );
 };

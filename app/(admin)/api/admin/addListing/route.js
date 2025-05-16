@@ -5,12 +5,6 @@ import uri from "@/lib/mongoClient";
 import { MongoClient } from "mongodb";
 import { checkValidToken } from "@/lib/checkValidToken";
 
-export const config = {
-  api: {
-    bodyParser: false, // Disable Next.js's default body parser
-  },
-};
-
 export const POST = async (req) => {
   const isValid = checkValidToken(req);
   if (!isValid) {
@@ -32,7 +26,7 @@ export const POST = async (req) => {
     const features = JSON.parse(formData.get("features"));
     const seller = JSON.parse(formData.get("seller"));
     const promotion = JSON.parse(formData.get("promotion"));
-
+    const status = formData.get("status");
     // Extract uploaded files
     const images = formData.getAll("images"); // Handles multiple files
 
@@ -71,6 +65,8 @@ export const POST = async (req) => {
       seller,
       promotion,
       images: uploadedImages,
+      status,
+      createdAt: new Date(),
     });
 
     await client.close();

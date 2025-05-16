@@ -1,47 +1,37 @@
+export const dynamic = "force-dynamic";
+
 import uri from "@/lib/mongoClient";
 import { MongoClient } from "mongodb";
 
 export async function GET(req) {
   try {
     const searchParams = req.nextUrl.searchParams;
-    const limit =
-      searchParams.get("limit") === null || undefined || 0
-        ? undefined
-        : searchParams.get("limit");
-    const page =
-      searchParams.get("page") === null || undefined || 0
-        ? 1
-        : searchParams.get("page");
+    const limitParam = searchParams.get("limit");
+    const limit = limitParam ? parseInt(limitParam) : undefined;
 
-    // Get the database and collection on which to run the operation
+    const pageParam = searchParams.get("page");
+    const page = pageParam ? parseInt(pageParam) : 1;
+
     const client = new MongoClient(uri, {});
     await client.connect();
     const database = client.db("products");
     const listings = database.collection("listings");
 
     const skip = (page - 1) * limit;
-    // Query to get the latest listings with status "active"
     const query = { status: "active" };
     const options = {
-      sort: { _id: -1 }, // Sort in descending order by '_id'
+      sort: { _id: -1 },
       ...(limit && { limit: parseInt(limit) }),
-      ...(skip && { skip: parseInt(skip) }), // Skip documents based on the page number
+      ...(skip && { skip: parseInt(skip) }),
     };
 
-    // Execute query
     const data = await listings.find(query, options).toArray();
-
     await client.close();
-    return new Response(
-      JSON.stringify({
-        success: true,
-        data: data,
-      }),
-      {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+
+    return new Response(JSON.stringify({ success: true, data }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
   } catch (error) {
     console.error("Error fetching movie:", error.message);
 
