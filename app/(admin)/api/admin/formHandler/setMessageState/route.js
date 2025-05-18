@@ -14,6 +14,7 @@ export async function PATCH(req) {
     const body = await req.json();
     const id = body.id;
     const status = body.status;
+
     if (!status) {
       return new Response(
         JSON.stringify({ success: false, error: "No status provided" }),
@@ -30,8 +31,8 @@ export async function PATCH(req) {
     console.log("Status: ", status);
     const client = new MongoClient(uri, {});
     await client.connect();
-    const database = client.db("products");
-    const listings = database.collection("listings");
+    const database = client.db("websiteMessages");
+    const listings = database.collection("clientSideMessages");
     const query = { _id: new ObjectId(id) };
     const update = { $set: { status: status } };
     const result = await listings.updateOne(query, update);

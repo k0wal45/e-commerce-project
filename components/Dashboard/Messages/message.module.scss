@@ -1,0 +1,67 @@
+@import "@/utils/variables";
+
+.card {
+  padding: 1rem;
+  border-radius: 12px;
+  background: $cardColor;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+  &.unread {
+    border-left: 4px solid #e63946;
+    background: #fffdfd;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.name {
+  font-size: 1.1rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+.email {
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.statusIcon {
+  margin-left: auto;
+}
+
+.message {
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  color: black;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: $borderRadius;
+}
+
+.controls {
+  display: flex;
+  gap: 0.5rem;
+
+  .controlBtn {
+    background: #f4f4f4;
+    border: none;
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
+    transition: background 0.2s;
+
+    &:hover {
+      background: #e9e9e9;
+    }
+  }
+}
