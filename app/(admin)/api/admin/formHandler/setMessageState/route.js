@@ -27,8 +27,6 @@ export async function PATCH(req) {
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
-    console.log("ID: ", id);
-    console.log("Status: ", status);
     const client = new MongoClient(uri, {});
     await client.connect();
     const database = client.db("websiteMessages");

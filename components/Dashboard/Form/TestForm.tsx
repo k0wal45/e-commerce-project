@@ -2,8 +2,9 @@
 import { Listing } from "@/utils/Types";
 import { useState } from "react";
 import classes from "./form.module.scss";
+import { useEffect } from "react";
 
-const TestForm = () => {
+const TestForm = ({ data }: { data?: Listing }) => {
   const [loading, setLoading] = useState(false);
   const [images, setImages] = useState<File[]>([]);
   const [formData, setFormData] = useState<Listing>({
@@ -43,6 +44,15 @@ const TestForm = () => {
     createdAt: new Date().toISOString(),
   });
 
+  useEffect(() => {
+    if (data) {
+      setFormData(data);
+      setFormData((prev) => ({
+        ...prev,
+        images: [],
+      }));
+    }
+  }, [data]);
   // Handles input changes
   const handleChange = (
     e: React.ChangeEvent<
@@ -110,19 +120,32 @@ const TestForm = () => {
     dataToSend.append("promotion", JSON.stringify(formData.promotion));
     dataToSend.append("status", formData.status);
     dataToSend.append("createdAt", JSON.stringify(formData.createdAt));
+    console.log(formData.price.toString());
 
     try {
       // Prześlij pliki i dane do API
-      const response = await fetch("/api/admin/addListing", {
-        method: "POST",
-        body: dataToSend,
-      });
+      if (data) {
+        dataToSend.append("_id", data._id);
+        const response = await fetch("/api/admin/editListing", {
+          method: "PATCH",
+          body: dataToSend,
+        });
 
-      if (!response.ok) {
-        throw new Error("Failed to submit form");
+        if (!response.ok) {
+          throw new Error("Failed to submit form");
+        }
+        alert("Listing edited successfully!");
+      } else {
+        const response = await fetch("/api/admin/addListing", {
+          method: "POST",
+          body: dataToSend,
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to submit form");
+        }
+        alert("Listing added successfully!");
       }
-
-      alert("Listing added successfully!");
     } catch (error) {
       console.error(error);
       alert("Error submitting the listing.");
@@ -142,7 +165,7 @@ const TestForm = () => {
         width: "fit-content",
       }}
     >
-      <h2>Add New Listing</h2>
+      <h2>{!data ? "Add New Listing" : "Edit Listing"}</h2>
 
       <label>
         Title:{" "}

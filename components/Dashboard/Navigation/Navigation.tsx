@@ -3,7 +3,7 @@ import Image from "next/image";
 import classes from "./navigation.module.scss";
 import { FaAngleLeft, FaHouse, FaList } from "react-icons/fa6";
 import Link from "next/link";
-import { RiMegaphoneFill } from "react-icons/ri";
+// import { RiMegaphoneFill } from "react-icons/ri";
 import { MdMessage } from "react-icons/md";
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -63,12 +63,12 @@ const Navigation = () => {
             <p>Messages</p>
           </Link>
         </li>
-        <li>
+        {/* <li>
           <Link href="/dashboard/promotions">
             <RiMegaphoneFill />
             <p>Promotions</p>
           </Link>
-        </li>
+        </li> */}
       </motion.ul>
 
       <motion.div

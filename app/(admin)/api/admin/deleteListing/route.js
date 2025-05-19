@@ -1,6 +1,8 @@
 import uri from "@/lib/mongoClient";
 import { MongoClient, ObjectId } from "mongodb";
 import { checkValidToken } from "@/lib/checkValidToken";
+import { DeleteObjectCommand } from "@aws-sdk/client-s3";
+import s3Client from "@/lib/s3";
 
 export async function DELETE(req) {
   const isValid = checkValidToken(req);
@@ -15,6 +17,7 @@ export async function DELETE(req) {
     console.log("delete listing");
     const body = await req.json(); // Parse the request body as JSON
     const id = body.id; // Extract the 'id' from the request body
+    const images = body.images; // Extract the 'images' from the request body
     if (!id) {
       return new Response(
         JSON.stringify({ success: false, error: "No id provided" }),
@@ -24,6 +27,33 @@ export async function DELETE(req) {
         }
       );
     }
+    if (!images) {
+      return new Response(
+        JSON.stringify({ success: false, error: "No images provided" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+
+    async function deleteS3Image(imageUrl) {
+      // Extract the key from the URL
+      const url = new URL(imageUrl);
+      // Remove the leading slash from pathname
+      const Key = decodeURIComponent(url.pathname.slice(1));
+      const Bucket = "house-marketplace-app";
+      try {
+        await s3Client.send(new DeleteObjectCommand({ Bucket, Key }));
+      } catch (err) {
+        console.error(`Failed to delete image ${Key}:`, err);
+      }
+    }
+
+    // Delete all images in parallel
+    await Promise.all(images.map(deleteS3Image));
+    // delete the listing from the database
+
     const client = new MongoClient(uri, {});
     await client.connect(); // Connect to the MongoDB client
     const database = client.db("products"); // Select the 'products' database

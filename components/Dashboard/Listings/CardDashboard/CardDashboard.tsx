@@ -11,14 +11,20 @@ const costString = (cost: number) => {
   return cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
-const CardDashbaord = ({ listing }: { listing: Listing }) => {
+const CardDashbaord = ({
+  listing,
+  setListingToEdit,
+}: {
+  listing: Listing;
+  setListingToEdit: (editedListing: Listing) => void;
+}) => {
   const deleteListing = async (id: string) => {
     if (!confirm("Are you sure you want to delete this listing?")) {
       return;
     }
     const response = await fetch("/api/admin/deleteListing", {
       method: "DELETE",
-      body: JSON.stringify({ id: id }),
+      body: JSON.stringify({ id: id, images: listing.images }),
       headers: {
         "Content-Type": "application/json",
       },
@@ -57,6 +63,10 @@ const CardDashbaord = ({ listing }: { listing: Listing }) => {
     }
     const data = await response.json();
     console.log(data);
+  };
+
+  const editListing = async (listing: Listing) => {
+    setListingToEdit(listing);
   };
 
   return (
@@ -129,7 +139,7 @@ const CardDashbaord = ({ listing }: { listing: Listing }) => {
           ""
         )}
         {listing.status === "active" ? (
-          <button onClick={(e) => e.preventDefault()}>
+          <button onClick={() => editListing(listing)}>
             {/* edit listing */}
             <FaPen />
           </button>

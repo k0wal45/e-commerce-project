@@ -89,3 +89,25 @@
     }
   }
 }
+
+.pagination {
+  width: 100%;
+  background: $cardColor;
+  padding: 1rem;
+  border-radius: $borderRadius;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    filter: brightness(0.9);
+  }
+
+  &:active {
+    filter: brightness(0.8);
+  }
+}
