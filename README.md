@@ -30,7 +30,7 @@ The project utilizes the following technologies:
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-/
+```
 ├── not-found
 ├── about
 ├── api
@@ -64,7 +64,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 ├── shop
 │   ├── item/[...slug]
 │   └── sale
-/
+```
 
 ## Getting Started
 
