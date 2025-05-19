@@ -9,34 +9,37 @@
 The E-Commerce Project is a comprehensive web application designed to provide users with a seamless online shopping experience. Leveraging modern web technologies, the platform enables users to browse products, add items to their shopping cart, and complete purchases securely.
 
 ## Screenshots of my app
-
 ### Client side: 
 
-![Home Page](/Screenshots/screenshot1.png)
+<h4>Home Page</h4>
+<img src="/Screenshots/screenshot1.png" width="600"/>
+<img src="/Screenshots/screenshot2.png" width="600"/>
 
-![Home Page](/Screenshots/screenshot2.png)
+<h4>Shop Page</h4>
+<img src="/Screenshots/screenshot3.png" width="600"/>
+<img src="/Screenshots/screenshot4.png" width="600"/>
 
-![Shop Page](/Screenshots/screenshot3.png)
+<h4>Listing Page</h4>
+<img src="/Screenshots/screenshot5.png" width="600"/>
+<img src="/Screenshots/screenshot6.png" width="600"/>
 
-![Shop Page](/Screenshots/screenshot4.png)
+<h4>Favorites Page</h4>
+<img src="/Screenshots/screenshot7.png" width="600"/>
 
-![Listing Page](/Screenshots/screenshot5.png)
+### Dashboard & Auth
 
-![Listing Page](/Screenshots/screenshot6.png)
+<h4>Login Page</h4>
+<img src="/Screenshots/screenshotDashboard1.png" width="600"/>
 
-![Favorites Page](/Screenshots/screenshot7.png)
+<h4>Dashboard Main Page</h4>
+<img src="/Screenshots/screenshotDashboard2.png" width="600"/>
 
-### Dashboard & auth
+<h4>Dashboard Listing Page</h4>
+<img src="/Screenshots/screenshotDashboard3.png" width="600"/>
+<img src="/Screenshots/screenshotDashboard5.png" width="600"/>
 
-![Login Page](/Screenshots/screenshotDashboard1.png)
-
-![Dashboard Main Page](/Screenshots/screenshotDashboard2.png)
-
-![Dashbaord Listing Page](/Screenshots/screenshotDashboard3.png)
-
-![Dashbaord Listing Page](/Screenshots/screenshotDashboard5.png)
-
-![Dashbaord Messages Page](/Screenshots/screenshotDashboard4.png)
+<h4>Dashboard Messages Page</h4>
+<img src="/Screenshots/screenshotDashboard4.png" width="600"/>
 
 ## Technologies Used and Their Purposes
 
