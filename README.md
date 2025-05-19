@@ -24,7 +24,7 @@ The E-Commerce Project is a comprehensive web application designed to provide us
 
 ![Listing Page](/Screenshots/screenshot6.png)
 
-![Favorites Page](/Screenshots/screenshotD7.png)
+![Favorites Page](/Screenshots/screenshot7.png)
 
 ### Dashboard & auth
 
