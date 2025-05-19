@@ -24,14 +24,47 @@ The project utilizes the following technologies:
 
 # Log info for application
 
-In this application we have for now 2 roles, amdin and editer. Admin has acces to every single funcionality inside of the dashboard. On the other hand editer is not decided yet but probbably it will have only access to edit or add and edit listings.
-
 ## Admin:
 - **e-mail**: admin@admin.com
 - **password**: adminpassword
 
-
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+/
+├── not-found
+├── about
+├── api
+│   ├── admin
+│   │   ├── addListing
+│   │   ├── deleteListing
+│   │   ├── editListing
+│   │   ├── formHandler
+│   │   │   ├── clientFormSubmition
+│   │   │   └── setMessageState
+│   │   └── getData
+│   │       ├── getAllListings
+│   │       ├── getMessages
+│   │       ├── getUsersStats
+│   ├── auth
+│   │   ├── generateToken
+│   │   ├── isValid
+│   │   ├── userData
+│   ├── getData
+│   │   ├── getListingById
+│   │   └── getListings
+│   └── store-visit
+├── contact
+├── dashboard
+│   ├── listings
+│   └── messages
+├── data-protection
+├── favorites
+├── legal-notice
+├── login
+├── shop
+│   ├── item/[...slug]
+│   └── sale
+
 
 ## Getting Started
 
