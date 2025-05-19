@@ -1,5 +1,9 @@
 # E-Commerce Project Documentation
 
+## About this project in a video
+
+```soon```
+
 ## Introduction
 
 The E-Commerce Project is a comprehensive web application designed to provide users with a seamless online shopping experience. Leveraging modern web technologies, the platform enables users to browse products, add items to their shopping cart, and complete purchases securely.
