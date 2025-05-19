@@ -8,6 +8,36 @@
 
 The E-Commerce Project is a comprehensive web application designed to provide users with a seamless online shopping experience. Leveraging modern web technologies, the platform enables users to browse products, add items to their shopping cart, and complete purchases securely.
 
+## Screenshots of my app
+
+### Client side: 
+
+![Home Page](/Screenshots/screenshot1.png)
+
+![Home Page](/Screenshots/screenshot2.png)
+
+![Shop Page](/Screenshots/screenshot3.png)
+
+![Shop Page](/Screenshots/screenshot4.png)
+
+![Listing Page](/Screenshots/screenshot5.png)
+
+![Listing Page](/Screenshots/screenshot6.png)
+
+![Favorites Page](/Screenshots/screenshotD7.png)
+
+### Dashboard & auth
+
+![Login Page](/Screenshots/screenshotDashboard1.png)
+
+![Dashboard Main Page](/Screenshots/screenshotDashboard2.png)
+
+![Dashbaord Listing Page](/Screenshots/screenshotDashboard3.png)
+
+![Dashbaord Listing Page](/Screenshots/screenshotDashboard5.png)
+
+![Dashbaord Messages Page](/Screenshots/screenshotDashboard4.png)
+
 ## Technologies Used and Their Purposes
 
 The project utilizes the following technologies:
@@ -69,7 +99,24 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 │   ├── item/[...slug]
 │   └── sale
 ```
+## env schema
 
+```
+# Eleven Labs
+ELEVEN_LABS_API_KEY=
+# Mongo DB
+MONGO_DB_USERNAME=
+MONGO_DB_PASSWORD=
+# AWS S3
+AWS_S3_ACCESS_KEY_ID=
+AWS_S3_SECRET_ACCESS_KEY=
+AWS_REGION=
+AWS_BUCKET_NAME=
+# Auth
+JWT_SECRET=
+# Hash Salt
+HASH_SALT=
+```
 ## Getting Started
 
 First, run the development server:
