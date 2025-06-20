@@ -26,6 +26,11 @@ $fontColor: #242424;
     width: 100%;
   }
 
+  textarea {
+    resize: vertical;
+    min-height: 200px;
+  }
+
   input::placeholder,
   textarea::placeholder {
     color: $fontColor;
