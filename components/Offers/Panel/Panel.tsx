@@ -64,7 +64,7 @@ const Panel = ({
         transition={{ duration: 0.5 }}
         className={classes.content}
       >
-        <Link href={"/shop/sale?" + link}>
+        <Link href={"/shop?category=" + link}>
           <motion.button
             variants={{
               initial: {

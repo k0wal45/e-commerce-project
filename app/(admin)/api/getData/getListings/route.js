@@ -12,13 +12,20 @@ export async function GET(req) {
     const pageParam = searchParams.get("page");
     const page = pageParam ? parseInt(pageParam) : 1;
 
+    const categoryParam = searchParams.get("category");
+    const category = categoryParam;
+
+    const statusParam = searchParams.get("status");
+    const status = statusParam ? statusParam : undefined;
+
     const client = new MongoClient(uri, {});
     await client.connect();
     const database = client.db("products");
     const listings = database.collection("listings");
 
     const skip = (page - 1) * limit;
-    const query = { status: "active" };
+    const query = { ...(category && { category }), ...(status && { status }) };
+
     const options = {
       sort: { _id: -1 },
       ...(limit && { limit: parseInt(limit) }),

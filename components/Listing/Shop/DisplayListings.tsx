@@ -18,6 +18,8 @@ const DisplayListings = () => {
       ? 10
       : searchParams.get("limit");
 
+  const category = searchParams.get("category");
+
   useEffect(() => {
     const fetchData = async (
       limit: string | null | number,
@@ -25,8 +27,16 @@ const DisplayListings = () => {
     ) => {
       if (limit && page) {
         const data = await fetchWithCache(
-          "listings-limit-" + limit + "-page-" + page,
-          "/api/getData/getListings?limit=" + limit + "&page=" + page
+          "listings-limit-" +
+            limit +
+            "-page-" +
+            page +
+            (category ? `-category-${category}` : ""),
+          "/api/getData/getListings?limit=" +
+            limit +
+            "&page=" +
+            page +
+            (category ? `&category=${category}` : "")
         );
 
         setListing(data);
@@ -35,7 +45,7 @@ const DisplayListings = () => {
     };
 
     fetchData(limit, currentPage);
-  }, [limit, currentPage]);
+  }, [limit, currentPage, category]);
 
   if (loading) {
     return (

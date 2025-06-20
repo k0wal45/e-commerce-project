@@ -31,7 +31,7 @@ const Pagination = ({
       </button>
       <button
         onClick={() => handlePageChange(currentPage + 1)}
-        disabled={length < 10}
+        disabled={length <= 10}
       >
         Next
         <FaArrowRight />

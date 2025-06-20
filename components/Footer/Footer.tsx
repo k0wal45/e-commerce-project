@@ -16,12 +16,12 @@ const Footer = () => {
       </ul>
 
       <ul>
-        <li>Ongoing sales</li>
+        <li>Our listings</li>
         <li>
-          <Link href="/shop/sale">Sale 1</Link>
+          <Link href="/shop?category=warehouses">Warehouses</Link>
         </li>
         <li>
-          <Link href="/shop/sale">Sale 2</Link>
+          <Link href="/shop?category=houses">Houses</Link>
         </li>
       </ul>
 
